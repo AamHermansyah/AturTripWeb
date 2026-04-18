@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const names = ['Star','NavigationArrow','Flag','PersonSimpleWalk','Flame','MapPinSimple','Compass','Mountain']; names.forEach\\(n => console.log\\(n, !!p[n]\\)\\)\")",
+      "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const keys = Object.keys\\(p\\).filter\\(k => /star|pin|walk|fire|flag|mount|compass|nav/i.test\\(k\\)\\); console.log\\(keys.join\\('\\\\n'\\)\\)\")",
+      "Bash(node -e \"const p = require\\('@phosphor-icons/react/dist/cjs/index.js'\\); console.log\\(Object.keys\\(p\\).slice\\(0,10\\)\\)\")"
+    ]
+  }
+}
