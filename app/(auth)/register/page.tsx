@@ -2,21 +2,23 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import {
-  UserIcon,
-  EnvelopeSimpleIcon,
-  PhoneIcon,
-  LockSimpleIcon,
-} from "@phosphor-icons/react"
+import { UserIcon, EnvelopeSimpleIcon, PhoneIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group"
+import { PasswordInput } from "@/components/core/password-input"
 import Logo from "@/components/shared/logo"
 import OauthButton from "@/components/shared/oauth-button"
+import { useRouter } from "next/navigation"
 
 export default function RegisterPage() {
   const [agreed, setAgreed] = useState(false)
+  const router = useRouter()
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-start bg-background px-6 py-10">
@@ -32,57 +34,37 @@ export default function RegisterPage() {
       {/* Form */}
       <div className="mt-8 flex w-full flex-col gap-3">
         {/* Full Name */}
-        <div className="relative">
-          <UserIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Nama Lengkap"
-            className="h-12 pl-10 text-sm"
-          />
-        </div>
+        <InputGroup>
+          <InputGroupAddon>
+            <UserIcon />
+          </InputGroupAddon>
+          <InputGroupInput type="text" placeholder="Nama Lengkap" />
+        </InputGroup>
 
         {/* Email */}
-        <div className="relative">
-          <EnvelopeSimpleIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="email"
-            placeholder="Alamat Email"
-            className="h-12 pl-10 text-sm"
-          />
-        </div>
+        <InputGroup>
+          <InputGroupAddon>
+            <EnvelopeSimpleIcon />
+          </InputGroupAddon>
+          <InputGroupInput type="email" placeholder="Alamat Email" />
+        </InputGroup>
 
         {/* Phone */}
-        <div className="relative">
-          <PhoneIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="tel"
-            placeholder="Nomor Telepon"
-            className="h-12 pl-10 text-sm"
-          />
-        </div>
+        <InputGroup>
+          <InputGroupAddon>
+            <PhoneIcon />
+          </InputGroupAddon>
+          <InputGroupInput type="tel" placeholder="Nomor Telepon" />
+        </InputGroup>
 
         {/* Password */}
-        <div className="relative">
-          <LockSimpleIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="password"
-            placeholder="Kata Sandi"
-            className="h-12 pl-10 text-sm"
-          />
-        </div>
+        <PasswordInput placeholder="Kata Sandi" showStrength />
 
         {/* Confirm Password */}
-        <div className="relative">
-          <LockSimpleIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="password"
-            placeholder="Konfirmasi Kata Sandi"
-            className="h-12 pl-10 text-sm"
-          />
-        </div>
+        <PasswordInput placeholder="Konfirmasi Kata Sandi" />
 
         {/* Terms */}
-        <div className="flex items-start gap-2.5 mt-4 w-full"> {/* Tambahkan max-width di sini untuk testing */}
+        <div className="flex items-start gap-2.5 mt-4 w-full">
           <Checkbox
             id="terms"
             checked={agreed}
@@ -106,11 +88,7 @@ export default function RegisterPage() {
         </div>
 
         {/* CTA */}
-        <Button
-          size="lg"
-          className="mt-2 h-12 w-full text-base font-semibold"
-          disabled={!agreed}
-        >
+        <Button size="lg" disabled={!agreed} onClick={() => router.push('/login')}>
           Buat Akun
         </Button>
       </div>

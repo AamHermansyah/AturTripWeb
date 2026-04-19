@@ -3,7 +3,14 @@
     "allow": [
       "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const names = ['Star','NavigationArrow','Flag','PersonSimpleWalk','Flame','MapPinSimple','Compass','Mountain']; names.forEach\\(n => console.log\\(n, !!p[n]\\)\\)\")",
       "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const keys = Object.keys\\(p\\).filter\\(k => /star|pin|walk|fire|flag|mount|compass|nav/i.test\\(k\\)\\); console.log\\(keys.join\\('\\\\n'\\)\\)\")",
-      "Bash(node -e \"const p = require\\('@phosphor-icons/react/dist/cjs/index.js'\\); console.log\\(Object.keys\\(p\\).slice\\(0,10\\)\\)\")"
+      "Bash(node -e \"const p = require\\('@phosphor-icons/react/dist/cjs/index.js'\\); console.log\\(Object.keys\\(p\\).slice\\(0,10\\)\\)\")",
+      "Skill(shadcn)",
+      "Skill(shadcn:*)",
+      "Bash(curl -s \"https://raw.githubusercontent.com/shadcn-ui/ui/refs/heads/main/apps/v4/registry/bases/radix/examples/input-group-example.tsx\")",
+      "Bash(npx shadcn@latest add input-otp --yes)",
+      "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const icons = ['PersonSimpleWalk','Compass','Mountains','Waves','Buildings','Campfire','GraduationCap','MaskHappy','ArrowLeft','X']; icons.forEach\\(i => console.log\\(i, !!p[i]\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(npx shadcn@latest add drawer --yes)"
     ]
   }
 }

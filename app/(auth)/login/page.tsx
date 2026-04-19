@@ -1,20 +1,21 @@
 "use client"
 
 import Link from "next/link"
-import {
-  EnvelopeSimpleIcon,
-  LockSimpleIcon,
-} from "@phosphor-icons/react"
+import { EnvelopeSimpleIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
+import { PasswordInput } from "@/components/core/password-input"
 import Logo from "@/components/shared/logo"
 import OauthButton from "@/components/shared/oauth-button"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
+  const router = useRouter()
+
   return (
     <div className="flex min-h-dvh flex-col items-center justify-start bg-background px-6 py-10">
       <Logo />
@@ -37,12 +38,7 @@ export default function LoginPage() {
         </InputGroup>
 
         {/* Password */}
-        <InputGroup>
-          <InputGroupAddon>
-            <LockSimpleIcon />
-          </InputGroupAddon>
-          <InputGroupInput type="password" placeholder="Kata Sandi" />
-        </InputGroup>
+        <PasswordInput />
 
         {/* Forgot password */}
         <div className="flex justify-end">
@@ -55,7 +51,7 @@ export default function LoginPage() {
         </div>
 
         {/* CTA */}
-        <Button size="lg" className="w-full font-semibold">
+        <Button size="lg" onClick={() => router.push('/personalize')}>
           Masuk
         </Button>
       </div>

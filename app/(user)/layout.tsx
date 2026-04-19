@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { BottomNavbar } from "./_components/bottom-navbar"
 
 export default function UserLayout({
   children,
@@ -6,8 +6,11 @@ export default function UserLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ScrollArea className="h-dvh">
-      {children}
-    </ScrollArea>
+    <div className="h-dvh w-full overflow-y-auto">
+      <div className="pb-22">
+        {children}
+      </div>
+      <BottomNavbar />
+    </div>
   )
 }

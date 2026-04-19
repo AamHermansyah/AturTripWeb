@@ -64,7 +64,7 @@ export function SplashScreen() {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-50 px-6 max-w-sm mx-auto transition-opacity duration-500",
+        "fixed inset-0 z-999 px-6 max-w-sm mx-auto transition-opacity duration-500",
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       )}
     >

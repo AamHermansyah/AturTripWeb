@@ -33,7 +33,7 @@ export default function RootLayout({
         dmSans.variable,
       )}
     >
-      <body className="bg-muted">
+      <body className="bg-secondary">
         <ThemeProvider>
           <SplashScreen />
           <div className="max-w-sm mx-auto bg-background h-dvh overflow-y-hidden">
