@@ -49,7 +49,7 @@ export function FeaturedGuides() {
   return (
     <div>
       <div className="mb-3 flex items-center justify-between px-5">
-        <h2 className="text-base font-extrabold text-foreground">Temui Para Profesional</h2>
+        <h2 className="font-heading text-lg font-extrabold text-foreground">Temui Para Profesional</h2>
         <Link href="/explore/guides" className="text-sm font-semibold text-primary">
           Lihat Semua
         </Link>

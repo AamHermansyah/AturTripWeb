@@ -22,7 +22,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
         <div className="relative mb-3 size-12">
           <div className="size-12 rounded-full bg-success/30" />
           {verified && (
-            <div className="absolute bottom-0 right-0 flex size-5 items-center justify-center rounded-full bg-info shadow-sm ring-2 ring-background">
+            <div className="absolute bottom-0 right-0 flex size-5 items-center justify-center rounded-full bg-info shadow-sm ring-1 ring-background">
               <SealCheckIcon weight="fill" className="size-3 text-white" />
             </div>
           )}
@@ -30,7 +30,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
 
         <div>
           {/* Info */}
-          <p className="truncate text-[15px] font-bold text-foreground">{name}</p>
+          <p className="font-heading truncate text-[15px] font-semibold text-foreground">{name}</p>
           <p className="truncate text-[13px] text-muted-foreground">{specialty}</p>
           <div className="mt-0.5 flex items-center gap-0.5 text-muted-foreground">
             <MapPinIcon weight="fill" className="size-3 shrink-0 text-primary" />
