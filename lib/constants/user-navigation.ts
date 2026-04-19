@@ -2,35 +2,43 @@ import {
   CompassIcon,
   MapTrifoldIcon,
   ChatCircleDotsIcon,
+  BookmarkSimpleIcon,
   UserCircleIcon,
 } from "@phosphor-icons/react"
 
 export const NAV_ITEMS = [
   {
-    href: "/explore",
-    label: "Explore",
-    icon: CompassIcon,
-  },
-  {
     href: "/trips",
     label: "Trips",
     icon: MapTrifoldIcon,
+    center: false,
+  },
+  {
+    href: "/saved",
+    label: "Wishlist",
+    icon: BookmarkSimpleIcon,
+    center: false,
+  },
+  {
+    href: "/explore",
+    label: "Explore",
+    icon: CompassIcon,
+    center: false,
   },
   {
     href: "/inbox",
     label: "Inbox",
     icon: ChatCircleDotsIcon,
+    center: false,
   },
   {
-    href: "/profile",
-    label: "Profil",
+    href: "/account",
+    label: "Akun",
     icon: UserCircleIcon,
+    center: false,
   },
 ] as const
 
-// Paths where the navbar should be visible (exact match only)
-export const VISIBLE_PATHS = new Set(["/explore", "/trips", "/inbox", "/profile"])
+export const VISIBLE_PATHS = new Set(["/explore", "/trips", "/saved", "/inbox", "/account"])
 
-// Dynamic segment pattern — hide when deeper than root tab path
-// e.g. /explore/123, /trips/abc/details
-export const DYNAMIC_PATTERN = /^\/(explore|trips|inbox|profile)\/.+/
+export const DYNAMIC_PATTERN = /^\/(explore|trips|saved|inbox|account)\/.+/

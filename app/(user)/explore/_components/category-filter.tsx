@@ -17,7 +17,7 @@ export function CategoryFilter() {
             <Button
               key={id}
               onClick={() => setActive(id)}
-              size="xs"
+              size="sm"
               variant={isActive ? 'default' : 'outline'}
             >
               <Icon size={16} weight={isActive ? "fill" : "regular"} />

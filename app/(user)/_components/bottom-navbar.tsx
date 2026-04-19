@@ -14,8 +14,8 @@ export function BottomNavbar() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-0 left-1/2 z-50 w-max -translate-x-1/2 px-4 pb-5">
-      <nav className="flex items-center justify-around rounded-2xl border border-border bg-background/90 px-3 py-1 shadow-lg shadow-black/10 backdrop-blur-md">
+    <div className="fixed bottom-0 left-1/2 z-50 w-full max-w-xs -translate-x-1/2 px-4 pb-5">
+      <nav className="flex items-center justify-center rounded-4xl border border-border bg-background/90 px-2 py-2 shadow-lg shadow-black/10 backdrop-blur-md">
         {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href
 
@@ -24,16 +24,14 @@ export function BottomNavbar() {
               key={href}
               href={href}
               className={cn(
-                "group flex flex-1 flex-col items-center gap-1 rounded-xl px-2 py-2 transition-all duration-200",
+                "group flex flex-1 flex-col items-center gap-1 rounded-xl p-1 transition-all duration-200",
                 isActive ? "text-primary" : "text-muted-foreground"
               )}
             >
               <div
                 className={cn(
-                  "flex items-center justify-center rounded-xl p-2 transition-all duration-200",
-                  isActive
-                    ? "bg-primary/10"
-                    : "group-hover:bg-secondary"
+                  "flex items-center justify-center rounded-xl p-1.5 transition-all duration-200",
+                  isActive ? "bg-primary/10" : "group-hover:bg-secondary"
                 )}
               >
                 <Icon
@@ -44,7 +42,7 @@ export function BottomNavbar() {
               </div>
               <span
                 className={cn(
-                  "text-[11px] font-semibold leading-none transition-all duration-200",
+                  "text-[11px] font-semibold leading-none",
                   isActive ? "opacity-100" : "opacity-60"
                 )}
               >

@@ -10,7 +10,9 @@
       "Bash(npx shadcn@latest add input-otp --yes)",
       "Bash(node -e \"const p = require\\('@phosphor-icons/react'\\); const icons = ['PersonSimpleWalk','Compass','Mountains','Waves','Buildings','Campfire','GraduationCap','MaskHappy','ArrowLeft','X']; icons.forEach\\(i => console.log\\(i, !!p[i]\\)\\)\")",
       "Bash(npx tsc *)",
-      "Bash(npx shadcn@latest add drawer --yes)"
+      "Bash(npx shadcn@latest add drawer --yes)",
+      "Bash(npx shadcn@latest docs tabs)",
+      "Bash(npx shadcn@latest add tabs --yes)"
     ]
   }
 }
