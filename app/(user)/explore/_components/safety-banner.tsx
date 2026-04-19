@@ -2,7 +2,7 @@ import { ShieldCheckIcon, MapPinAreaIcon } from "@phosphor-icons/react/dist/ssr"
 
 export function SafetyBanner() {
   return (
-    <div className="mx-5 mb-5 overflow-hidden rounded-4xl bg-linear-to-br from-primary to-success px-5 py-8">
+    <div className="px-5 mb-5 overflow-hidden rounded-4xl bg-linear-to-br from-primary to-success px-5 py-8">
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-1.5">
@@ -14,7 +14,7 @@ export function SafetyBanner() {
           <p className="font-heading text-xl font-extrabold text-primary-foreground leading-tight">
             Transparansi Rute
           </p>
-          <p className="mt-1 text-xs text-primary-foreground leading-relaxed">
+          <p className="mt-1 text-sm text-primary-foreground leading-relaxed">
             Lihat jadwal lengkap, titik pemberhentian, dan kontak darurat sebelum memesan.
           </p>
         </div>

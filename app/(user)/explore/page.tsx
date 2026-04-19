@@ -1,4 +1,3 @@
-import { ExploreHeader } from "./_components/explore-header"
 import { ExploreSearch } from "./_components/explore-search"
 import { CategoryFilter } from "./_components/category-filter"
 import { FeaturedJourneys } from "./_components/featured-journeys"
@@ -11,8 +10,6 @@ import { GuideCta } from "./_components/guide-cta"
 export default function ExplorePage() {
   return (
     <div>
-      <ExploreHeader />
-
       {/* Hero */}
       <div className="px-5 py-5">
         <h1 className="font-heading text-3xl font-extrabold leading-tight text-foreground">
@@ -25,10 +22,14 @@ export default function ExplorePage() {
         <CategoryFilter />
         <FeaturedJourneys />
         <FeaturedGuides />
-        <SafetyBanner />
+        <div className="px-5">
+          <SafetyBanner />
+        </div>
         <GuideGroups />
-        <HowItWorks />
-        <GuideCta />
+        <div className="px-5">
+          <HowItWorks />
+          <GuideCta />
+        </div>
       </div>
     </div>
   )

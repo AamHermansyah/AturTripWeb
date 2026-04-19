@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 export function GuideCta() {
   return (
-    <div className="relative mx-5 mb-8 overflow-hidden rounded-4xl bg-primary px-6 py-8">
+    <div className="relative overflow-hidden rounded-4xl bg-primary px-6 py-8">
       {/* Decorative dots */}
       <div className="pointer-events-none absolute inset-0 opacity-20"
         style={{

@@ -1,3 +1,4 @@
+import { HomeHeader } from "@/components/shared/home-header"
 import { BottomNavbar } from "./_components/bottom-navbar"
 
 export default function UserLayout({
@@ -7,8 +8,10 @@ export default function UserLayout({
 }>) {
   return (
     <div className="h-dvh w-full overflow-y-auto">
-      <div className="pb-22">
+      <div className="h-full">
+        <HomeHeader />
         {children}
+        <div className="pb-30" />
       </div>
       <BottomNavbar />
     </div>
