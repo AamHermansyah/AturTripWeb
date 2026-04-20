@@ -1,6 +1,6 @@
 import { StarIcon } from "@phosphor-icons/react"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Badge } from "@/components/ui/badge"
+import { SealCheckIcon } from "@phosphor-icons/react/dist/ssr"
 
 const guides = [
   { initials: "BS", name: "Budi Santoso", loc: "Bromo, Jawa Timur", rating: "4.9" },
@@ -10,13 +10,13 @@ const guides = [
 
 export function VerifiedIllustration() {
   return (
-    <div className="overflow-hidden rounded-3xl bg-muted">
+    <div className="overflow-hidden rounded-4xl bg-muted">
       <AspectRatio ratio={1}>
         <div className="flex h-full flex-col items-center justify-center gap-2.5 px-5">
           {guides.map((g, i) => (
             <div
               key={i}
-              className="flex w-full items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-sm"
+              className="flex w-full items-center gap-3 rounded-3xl bg-card px-4 py-3 shadow-sm"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">
                 {g.initials}
@@ -30,9 +30,9 @@ export function VerifiedIllustration() {
                   <StarIcon weight="fill" className="h-3 w-3 text-amber-400" />
                   <span className="text-xs font-bold">{g.rating}</span>
                 </div>
-                <Badge className="h-4 border-0 bg-primary/10 px-1.5 py-0 text-[10px] text-primary hover:bg-primary/10">
-                  Terverifikasi ✓
-                </Badge>
+                <div className="flex size-5 items-center justify-center rounded-full bg-info shadow-sm ring-1 ring-background">
+                  <SealCheckIcon weight="fill" className="size-3 text-white" />
+                </div>
               </div>
             </div>
           ))}

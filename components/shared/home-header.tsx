@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button"
 import Logo from "@/components/shared/logo"
 import { BellIcon, CaretLeftIcon } from "@phosphor-icons/react/dist/ssr"
 import { usePathname, useRouter } from "next/navigation"
+import Link from "next/link"
 
-const MAIN_PATHS = ["/", "/explore", "/trips", "/saved", "/inbox", "/account"]
+const MAIN_PATHS = ["/", "/explore", "/my-trips", "/saved", "/inbox", "/account"]
 
 export function HomeHeader() {
   const pathname = usePathname()
@@ -19,8 +20,10 @@ export function HomeHeader() {
         <>
           <Logo className="size-10 mb-0" />
           {pathname === "/explore" && (
-            <Button variant="ghost" size="icon" className="rounded-full text-foreground" aria-label="Notifikasi">
-              <BellIcon weight="regular" className="size-5" />
+            <Button variant="ghost" size="icon" className="rounded-full text-foreground" aria-label="Notifikasi" asChild>
+              <Link href="/notifications">
+                <BellIcon weight="regular" className="size-5" />
+              </Link>
             </Button>
           )}
         </>

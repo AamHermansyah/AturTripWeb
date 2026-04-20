@@ -8,8 +8,8 @@ import {
 
 export const NAV_ITEMS = [
   {
-    href: "/trips",
-    label: "Trips",
+    href: "/my-trips",
+    label: "My Trips",
     icon: MapTrifoldIcon,
     center: false,
   },
@@ -21,13 +21,13 @@ export const NAV_ITEMS = [
   },
   {
     href: "/explore",
-    label: "Explore",
+    label: "Eksplor",
     icon: CompassIcon,
     center: false,
   },
   {
     href: "/inbox",
-    label: "Inbox",
+    label: "Pesan",
     icon: ChatCircleDotsIcon,
     center: false,
   },
@@ -39,6 +39,6 @@ export const NAV_ITEMS = [
   },
 ] as const
 
-export const VISIBLE_PATHS = new Set(["/explore", "/trips", "/saved", "/inbox", "/account"])
+export const VISIBLE_PATHS = new Set(["/explore", "/my-trips", "/saved", "/inbox", "/account"])
 
 export const DYNAMIC_PATTERN = /^\/(explore|trips|saved|inbox|account)\/.+/

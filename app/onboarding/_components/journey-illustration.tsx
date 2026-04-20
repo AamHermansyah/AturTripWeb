@@ -10,6 +10,8 @@ import {
   TimelineSeparator,
   TimelineTitle,
 } from "@/components/ui/timeline"
+import TripTimelineCard from "@/components/shared/trip-timeline-card"
+import { ArrowArcLeftIcon, FlagPennantIcon } from "@phosphor-icons/react/dist/ssr"
 
 const timeline = [
   {
@@ -36,11 +38,11 @@ export function JourneyIllustration() {
   return (
     <div className="flex flex-col gap-6">
       {/* Map */}
-      <div className="relative overflow-hidden rounded-3xl bg-muted">
+      <div className="relative overflow-hidden rounded-4xl bg-muted">
         <AspectRatio ratio={16 / 10} />
 
         {/* Route card overlay */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-xl bg-card px-3 py-2 shadow-md">
+        <div className="absolute bottom-4 left-3 right-3 flex items-center justify-between rounded-3xl bg-card px-3 py-2 shadow-md">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded bg-primary/20">
               <NavigationArrowIcon weight="fill" className="h-3.5 w-3.5 text-primary" />
@@ -56,25 +58,14 @@ export function JourneyIllustration() {
         <h2 className="font-heading font-bold text-primary">Timeline Perjalanan</h2>
         <Timeline defaultValue={3} className="mt-4">
           {timeline.map((item, i) => (
-            <TimelineItem
+            <TripTimelineCard
               key={i}
-              step={i + 1}
-              className="group-data-[orientation=vertical]/timeline:not-last:pb-4"
-            >
-              <div className="bg-card/70 p-4 rounded-4xl shadow-sm">
-                <TimelineHeader>
-                  <TimelineSeparator className="group-data-[orientation=vertical]/timeline:w-px group-data-[orientation=vertical]/timeline:top-0" />
-                  <TimelineDate className="mb-0 text-primary font-bold tracking-wider">
-                    {item.date}
-                  </TimelineDate>
-                  <TimelineTitle className="font-bold font-heading">{item.title}</TimelineTitle>
-                  <TimelineIndicator className="border-4" />
-                </TimelineHeader>
-                <TimelineContent className="text-[13px] text-muted-foreground">
-                  {item.sub}
-                </TimelineContent>
-              </div>
-            </TimelineItem>
+              item={{
+                ...item,
+                step: i + 1,
+                icon: FlagPennantIcon
+              }}
+            />
           ))}
         </Timeline>
       </div>

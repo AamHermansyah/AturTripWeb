@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 interface CardHistoryProps {
   imageSrc: string
@@ -11,6 +11,18 @@ interface CardHistoryProps {
 }
 
 export default function CardHistory({ imageSrc, date, time, title, status, price }: CardHistoryProps) {
+  const getStatusVariant = (status: string) => {
+    switch (status) {
+      case 'LUNAS':
+      case 'LUNAS DP':
+        return 'success'
+      case 'EXPIRED':
+        return 'destructive'
+      default:
+        return 'info'
+    }
+  }
+
   return (
     <div className="flex flex-col gap-3 p-3 rounded-4xl border border-border/50 bg-muted/20 active:scale-[0.98] transition-transform cursor-pointer">
       <div className="flex gap-4">
@@ -31,16 +43,9 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
           </h3>
 
           <div className="flex items-center justify-between mt-0.5">
-            <div className={cn(
-              "px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase",
-              status === 'LUNAS' || status === 'LUNAS DP'
-                ? "bg-primary/20 text-primary"
-                : status === 'EXPIRED'
-                  ? "bg-destructive/10 text-destructive"
-                  : "bg-info text-info-foreground"
-            )}>
+            <Badge variant={getStatusVariant(status)} className="text-[10px]">
               {status}
-            </div>
+            </Badge>
 
             <span className="text-[13px] font-extrabold text-foreground">{price}</span>
           </div>
@@ -53,6 +58,12 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
             Ajukan Refund
           </Button>
         </div>
+      )}
+
+      {status === 'PENDING' && (
+        <Button size="xs" className="w-full">
+          Bayar
+        </Button>
       )}
     </div>
   )

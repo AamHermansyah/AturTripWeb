@@ -8,12 +8,10 @@ export default function UserLayout({
 }>) {
   return (
     <div className="h-dvh w-full overflow-y-auto">
-      <div className="min-h-full">
+      <BottomNavbar>
         <HomeHeader />
         {children}
-        <div className="pb-30" />
-      </div>
-      <BottomNavbar />
+      </BottomNavbar>
     </div>
   )
 }

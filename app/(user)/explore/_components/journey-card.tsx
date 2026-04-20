@@ -34,7 +34,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
       <div className="flex flex-col h-full">
         {/* Image placeholder */}
         <div className="relative">
-          <Link href="/trips/1">
+          <Link href="/my-trips/1">
             <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl" />
           </Link>
 
@@ -56,7 +56,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <h4 className="text-xs font-semibold text-primary uppercase">
               {category}
             </h4>
-            <Link href="/trips/1">
+            <Link href="/my-trips/1">
               <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5 hover:text-primary transition">
                 {title}
               </p>
@@ -92,7 +92,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
           </div>
           <div className="mt-2 w-full flex items-center justify-between gap-2">
             <Badge
-              variant={type === "Private" ? "default" : "info"}
+              variant={type === "Private" ? "default" : "info-fill"}
               className="rounded-full text-xs"
             >
               {type}

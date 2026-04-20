@@ -80,7 +80,7 @@ export function GuideGroups() {
         <h2 className="font-heading text-lg font-extrabold text-foreground">Grup Pemandu Terbaik</h2>
       </div>
       <ScrollArea>
-        <div className="flex gap-4 px-5 w-max">
+        <div className="flex gap-4 px-5 w-max pb-4">
           {GUIDE_GROUPS.map((group) => (
             <div
               key={group.id}

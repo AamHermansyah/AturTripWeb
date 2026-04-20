@@ -6,7 +6,7 @@ import OnGoing from './_components/ongoing'
 
 function TripsPage() {
   return (
-    <div className="px-5 space-y-8 pt-2 pb-10">
+    <div className="px-5 space-y-6">
       <ReviewLastTrip />
       <OnGoing />
       <Upcoming />
