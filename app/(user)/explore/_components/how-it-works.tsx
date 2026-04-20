@@ -21,7 +21,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <div className="px-5 mb-4 rounded-4xl border border-border bg-background p-5 shadow-md shadow-muted">
+    <div className="px-5 rounded-4xl border border-border bg-background p-5 shadow-md shadow-muted">
       <div className="mb-5 text-center">
         <h2 className="font-heading text-lg font-extrabold text-foreground">
           Bagaimana AturTrip Bekerja

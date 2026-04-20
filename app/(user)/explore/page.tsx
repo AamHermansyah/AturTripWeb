@@ -17,7 +17,7 @@ export default function ExplorePage() {
         </h1>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         <ExploreSearch />
         <CategoryFilter />
         <FeaturedJourneys />
@@ -26,7 +26,7 @@ export default function ExplorePage() {
           <SafetyBanner />
         </div>
         <GuideGroups />
-        <div className="px-5">
+        <div className="px-5 space-y-6">
           <HowItWorks />
           <GuideCta />
         </div>

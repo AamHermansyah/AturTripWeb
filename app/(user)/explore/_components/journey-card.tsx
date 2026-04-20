@@ -2,6 +2,7 @@ import { BabyIcon, CalendarBlankIcon, HeartIcon, LineVerticalIcon, MapPinIcon, S
 import { Badge } from "@/components/ui/badge"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export interface Journey {
   id: string
@@ -32,7 +33,11 @@ export function JourneyCard({ journey }: { journey: Journey }) {
     <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-background shadow-md shadow-muted cursor-pointer hover:bg-secondary transition">
       <div className="flex flex-col h-full">
         {/* Image placeholder */}
-        <AspectRatio ratio={16 / 9} className="relative w-full bg-success/30 rounded-3xl">
+        <div className="relative">
+          <Link href="/trips/1">
+            <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl" />
+          </Link>
+
           <Button variant="outline" size="icon" className="absolute top-2 right-2 text-rose-500 bg-white size-7 border-none hover:bg-rose-500 hover:text-white">
             <HeartIcon weight={isWishlist ? "fill" : "bold"} />
           </Button>
@@ -43,7 +48,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <span>({reviews})</span>
             {isVerified && <SealCheckIcon weight="fill" className="text-blue-500 text-[14px]" />}
           </Badge>
-        </AspectRatio>
+        </div>
 
         {/* Info */}
         <div className="flex-1 flex flex-col justify-between py-2">
@@ -51,7 +56,11 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <h4 className="text-xs font-semibold text-primary uppercase">
               {category}
             </h4>
-            <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5">{title}</p>
+            <Link href="/trips/1">
+              <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5 hover:text-primary transition">
+                {title}
+              </p>
+            </Link>
             <div className="flex flex-wrap gap-x-2 text-muted-foreground">
               <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
                 <MapPinIcon weight="fill" />

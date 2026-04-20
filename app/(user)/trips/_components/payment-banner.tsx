@@ -15,7 +15,7 @@ const PAYMENT_FEATURES = [
   },
   {
     title: "Batal H-3 Refund 100%",
-    desc: "Dana dikembalikan utuh tanpa adanya potongan biaya.",
+    desc: "Tidak termasuk biaya layanan refund.",
     Icon: ArrowUDownLeftIcon,
     weight: "bold" as const,
   },

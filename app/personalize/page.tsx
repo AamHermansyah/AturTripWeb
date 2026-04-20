@@ -74,7 +74,7 @@ export default function PersonalizePage() {
       {/* Footer */}
       <div className="shrink-0 flex flex-col gap-2 px-5 py-4">
         <Button onClick={handleNext} disabled={!canContinue} size="lg" className="w-full">
-          {step === 3 ? "Lengkapi Profil" : "Lanjut"}
+          {step === 3 ? "Selesai" : "Lanjut"}
         </Button>
         {step > 1 && (
           <Button onClick={() => setStep((s) => s - 1)} variant="outline" className="w-full">

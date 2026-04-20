@@ -21,7 +21,7 @@ const timeline = [
   {
     icon: FootprintsIcon,
     title: "Mulai Pendakian",
-    sub: "Briefing & cek perlengkapan",
+    sub: "Briefing & cek perlengkapan barang bawaan. Semuanya harus lengkap dan sesuai standar pendakian.",
     date: "04:00-13:00"
   },
   {
@@ -34,7 +34,7 @@ const timeline = [
 
 export function JourneyIllustration() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-6">
       {/* Map */}
       <div className="relative overflow-hidden rounded-3xl bg-muted">
         <AspectRatio ratio={16 / 10} />
@@ -52,25 +52,32 @@ export function JourneyIllustration() {
       </div>
 
       {/* Timeline */}
-      <Timeline defaultValue={3} className="mt-4">
-        {timeline.map((item, i) => (
-          <TimelineItem
-            key={i}
-            step={i + 1}
-            className="group-data-[orientation=vertical]/timeline:ms-10 group-data-[orientation=vertical]/timeline:not-last:pb-4 group-data-[orientation=vertical]/timeline:pl-2"
-          >
-            <TimelineHeader>
-              <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-5 group-data-[orientation=vertical]/timeline:translate-y-6.5 group-data-[orientation=vertical]/timeline:w-px" />
-              <TimelineIndicator className="group-data-[orientation=vertical]/timeline:-left-5 flex size-8 items-center justify-center border-[0.5px] border-input! group-data-completed/timeline-item:bg-emerald-100 group-data-completed/timeline-item:text-primary">
-                {<item.icon />}
-              </TimelineIndicator>
-              <TimelineTitle>{item.title}</TimelineTitle>
-            </TimelineHeader>
-            <TimelineContent>{item.sub}</TimelineContent>
-            <TimelineDate className="mb-0">{item.date}</TimelineDate>
-          </TimelineItem>
-        ))}
-      </Timeline>
+      <div className="bg-primary/20 p-4 rounded-4xl">
+        <h2 className="font-heading font-bold text-primary">Timeline Perjalanan</h2>
+        <Timeline defaultValue={3} className="mt-4">
+          {timeline.map((item, i) => (
+            <TimelineItem
+              key={i}
+              step={i + 1}
+              className="group-data-[orientation=vertical]/timeline:not-last:pb-4"
+            >
+              <div className="bg-card/70 p-4 rounded-4xl shadow-sm">
+                <TimelineHeader>
+                  <TimelineSeparator className="group-data-[orientation=vertical]/timeline:w-px group-data-[orientation=vertical]/timeline:top-0" />
+                  <TimelineDate className="mb-0 text-primary font-bold tracking-wider">
+                    {item.date}
+                  </TimelineDate>
+                  <TimelineTitle className="font-bold font-heading">{item.title}</TimelineTitle>
+                  <TimelineIndicator className="border-4" />
+                </TimelineHeader>
+                <TimelineContent className="text-[13px] text-muted-foreground">
+                  {item.sub}
+                </TimelineContent>
+              </div>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </div>
     </div>
   )
 }
