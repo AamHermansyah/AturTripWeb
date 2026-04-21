@@ -13,10 +13,10 @@ export function YourGuide() {
             className="size-12 rounded-full object-cover border border-border/50"
           />
           <div>
-            <h3 className="font-bold text-foreground text-sm leading-tight mb-0.5">Tenzing N. Walker</h3>
+            <h3 className="font-heading truncate text-[15px] font-semibold text-foreground mb-0.5">Tenzing N. Walker</h3>
             <div className="flex items-center gap-1">
               <StarIcon weight="fill" className="size-3.5 text-warning" />
-              <span className="text-xs font-semibold text-muted-foreground">4.9 (124 ekspedisi)</span>
+              <span className="text-xs font-semibold text-muted-foreground">4.9 (124)</span>
             </div>
           </div>
         </div>

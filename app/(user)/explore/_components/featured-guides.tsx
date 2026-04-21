@@ -12,6 +12,7 @@ const GUIDES: Guide[] = [
     reviewCount: 128,
     tags: ["Pendakian", "Survival"],
     verified: true,
+    imageUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "2",
@@ -22,6 +23,7 @@ const GUIDES: Guide[] = [
     reviewCount: 94,
     tags: ["Budaya", "Fotografi"],
     verified: true,
+    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "3",
@@ -32,6 +34,7 @@ const GUIDES: Guide[] = [
     reviewCount: 76,
     tags: ["Rafting", "Kayak"],
     verified: true,
+    imageUrl: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "4",
@@ -42,6 +45,7 @@ const GUIDES: Guide[] = [
     reviewCount: 53,
     tags: ["Berkemah", "Alam"],
     verified: false,
+    imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150",
   },
 ]
 

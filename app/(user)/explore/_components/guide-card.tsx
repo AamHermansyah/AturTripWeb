@@ -10,17 +10,20 @@ export interface Guide {
   reviewCount: number
   tags: string[]
   verified: boolean
+  imageUrl: string
 }
 
 export function GuideCard({ guide }: { guide: Guide }) {
-  const { name, specialty, location, rating, reviewCount, tags, verified } = guide
+  const { name, specialty, location, rating, reviewCount, tags, verified, imageUrl } = guide
 
   return (
     <div className="w-68 shrink-0 rounded-4xl border border-border bg-background p-4 shadow-md shadow-muted transition hover:bg-secondary cursor-pointer">
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="relative mb-3 size-12">
-          <div className="size-12 rounded-full bg-success/30" />
+          <div className="size-12 rounded-full bg-success/30 overflow-hidden">
+            {imageUrl && <img src={imageUrl} alt={name} className="w-full h-full object-cover text-xs" />}
+          </div>
           {verified && (
             <div className="absolute bottom-0 right-0 flex size-5 items-center justify-center rounded-full bg-info shadow-sm ring-1 ring-background">
               <SealCheckIcon weight="fill" className="size-3 text-white" />

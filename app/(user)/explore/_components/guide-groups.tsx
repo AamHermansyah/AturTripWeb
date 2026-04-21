@@ -16,6 +16,7 @@ interface GuideGroup {
   rating: number
   reviews: number
   isVerified: boolean
+  imageUrl: string
 }
 
 const GUIDE_GROUPS: GuideGroup[] = [
@@ -31,6 +32,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     rating: 4.9,
     reviews: 128,
     isVerified: true,
+    imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "2",
@@ -44,6 +46,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     rating: 4.7,
     reviews: 89,
     isVerified: true,
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "3",
@@ -57,6 +60,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     rating: 4.6,
     reviews: 56,
     isVerified: false,
+    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
   },
   {
     id: "4",
@@ -70,6 +74,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     rating: 4.6,
     reviews: 56,
     isVerified: false,
+    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
   },
 ]
 
@@ -90,7 +95,9 @@ export function GuideGroups() {
                 <div>
                   {/* Avatar placeholder with seal */}
                   <div className="relative shrink-0 flex flex-col items-center">
-                    <div className="w-14 h-14 rounded-full bg-success/20" />
+                    <div className="w-14 h-14 rounded-full bg-success/20 overflow-hidden">
+                      {group.imageUrl && <img src={group.imageUrl} alt={group.name} className="w-full h-full object-cover text-xs" />}
+                    </div>
                     {group.isVerified && (
                       <div className="absolute bottom-0 right-0 flex size-5 items-center justify-center rounded-full bg-info shadow-sm ring-1 ring-background">
                         <SealCheckIcon weight="fill" className="size-3 text-white" />
@@ -107,23 +114,27 @@ export function GuideGroups() {
                       <div
                         key={i}
                         className={cn(
-                          'w-6 h-6 rounded-full bg-muted border border-background',
+                          'relative w-6 h-6 rounded-full bg-muted border border-background overflow-hidden',
                           group.guideCount > 1 && (i % 2 === 0) && 'translate-x-1',
                           group.guideCount < 4 && i == 2 && 'translate-x-[55%]'
                         )}
-                      />
+                      >
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Guide" className="w-full h-full object-cover text-xs" />
+                      </div>
                     ))}
 
                     {group.guideCount > 4 ? (
-                      <div className="w-6 h-6 rounded-full bg-muted border border-background flex items-center justify-center">
-                        <span className="text-[9px] font-extrabold text-muted-foreground">
+                      <div className="relative w-6 h-6 rounded-full bg-primary border border-background flex items-center justify-center">
+                        <span className="text-[9px] font-extrabold text-primary-foreground">
                           +{group.guideCount - 4}
                         </span>
                       </div>
                     ) : (
                       // Jika data pas 4, tampilkan satu lingkaran lagi (opsional, tergantung logika data Anda)
                       group.guideCount === 4 && (
-                        <div className="w-6 h-6 rounded-full bg-muted border border-background" />
+                        <div className="relative w-6 h-6 rounded-full bg-muted border border-background overflow-hidden">
+                          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Guide" className="w-full h-full object-cover text-xs" />
+                        </div>
                       )
                     )}
                   </div>

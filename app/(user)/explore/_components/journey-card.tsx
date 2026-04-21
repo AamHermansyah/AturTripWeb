@@ -24,18 +24,21 @@ export interface Journey {
   isWishlist: boolean
   isFamilyFriendly: boolean
   isVerified: boolean
+  imageUrl: string
 }
 
 export function JourneyCard({ journey }: { journey: Journey }) {
-  const { title, category, location, rating, reviews, price, duration, type, level, packageType, minPersons, maxPersons, isWishlist, isFamilyFriendly, isVerified } = journey
+  const { title, category, location, rating, reviews, price, duration, type, level, packageType, minPersons, maxPersons, isWishlist, isFamilyFriendly, isVerified, imageUrl } = journey
 
   return (
     <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-background shadow-md shadow-muted cursor-pointer hover:bg-secondary transition">
       <div className="flex flex-col h-full">
         {/* Image placeholder */}
         <div className="relative">
-          <Link href="/my-trips/1">
-            <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl" />
+          <Link href="/trips/1">
+            <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl overflow-hidden">
+              {imageUrl && <img src={imageUrl} alt={title} className="w-full h-full object-cover text-xs" />}
+            </AspectRatio>
           </Link>
 
           <Button variant="outline" size="icon" className="absolute top-2 right-2 text-rose-500 bg-white size-7 border-none hover:bg-rose-500 hover:text-white">

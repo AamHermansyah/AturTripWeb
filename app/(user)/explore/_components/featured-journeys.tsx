@@ -18,6 +18,7 @@ const JOURNEYS: Journey[] = [
     isWishlist: false,
     isFamilyFriendly: false,
     isVerified: true,
+    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
   },
   {
     id: "2",
@@ -36,6 +37,7 @@ const JOURNEYS: Journey[] = [
     isWishlist: true,
     isFamilyFriendly: true,
     isVerified: true,
+    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
   },
   {
     id: "3",
@@ -52,6 +54,7 @@ const JOURNEYS: Journey[] = [
     isWishlist: false,
     isFamilyFriendly: false,
     isVerified: false,
+    imageUrl: "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80&w=400",
   },
   {
     id: "4",
@@ -70,6 +73,7 @@ const JOURNEYS: Journey[] = [
     isWishlist: false,
     isFamilyFriendly: true,
     isVerified: true,
+    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
   },
 ]
 
