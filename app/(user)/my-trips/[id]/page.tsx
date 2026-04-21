@@ -11,6 +11,7 @@ import { YourGuide } from "@/components/shared/trips/your-guide"
 import { TripParticipants } from "@/components/shared/trips/trip-participants"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CalendarBlankIcon, UsersIcon, LockKeyIcon, TrendUpIcon } from "@phosphor-icons/react/dist/ssr"
+import { TripGallery } from "@/components/shared/trips/trip-gallery"
 
 const MY_TRIP_STATS = [
   { icon: CalendarBlankIcon, label: "Durasi", value: "12 Hari" },
@@ -26,6 +27,7 @@ function TripDetailPage() {
 
       <div className="px-5 pt-6 space-y-6 relative">
         <TripStats stats={MY_TRIP_STATS} />
+        <YourGuide />
 
         <Tabs defaultValue="ringkasan" className="w-full mt-6">
           <TabsList className="mb-2 w-full">
@@ -39,6 +41,7 @@ function TripDetailPage() {
             <ExpeditionSummary />
             <TripParticipants />
             <IncludedFacilities />
+            <TripGallery href="/my-trips/1/gallery" />
           </TabsContent>
 
           {/* TAB 2: Linimasa */}
@@ -54,7 +57,6 @@ function TripDetailPage() {
             <RequiredDocuments />
           </TabsContent>
         </Tabs>
-        <YourGuide />
       </div>
     </div>
   )

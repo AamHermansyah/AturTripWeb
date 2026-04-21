@@ -15,12 +15,17 @@ export function HomeHeader() {
   const isMainScreen = MAIN_PATHS.includes(pathname)
 
   return (
-    <div className="sticky top-0 bg-background flex items-center justify-between px-5 py-4 z-50">
+    <div className="sticky top-0 bg-background flex items-center justify-between px-5 py-2 z-50">
       {isMainScreen ? (
         <>
           <Logo className="size-10 mb-0" />
           {pathname === "/explore" && (
-            <Button variant="ghost" size="icon" className="rounded-full text-foreground" aria-label="Notifikasi" asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Notifikasi"
+              asChild
+            >
               <Link href="/notifications">
                 <BellIcon weight="regular" className="size-5" />
               </Link>
@@ -34,7 +39,7 @@ export function HomeHeader() {
             size="icon"
             aria-label="Kembali"
             onClick={() => router.back()}
-            className="hover:bg-transparent w-max px-0 pr-1"
+            className="hover:bg-transparent dark:hover:bg-transparent w-max px-0 pr-1"
           >
             <CaretLeftIcon weight="bold" className="size-4" />
           </Button>

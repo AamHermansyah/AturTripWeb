@@ -20,6 +20,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 import FloatingBooking from "../_components/floating-booking"
 import { ReviewsSection } from "@/components/shared/trips/reviews-section"
+import { TripGallery } from "@/components/shared/trips/trip-gallery"
 
 const PUBLIC_TRIP_STATS = [
   { icon: CalendarBlankIcon, label: "Durasi", value: "12 Hari" },
@@ -35,7 +36,7 @@ function PublicTripDetailPage() {
     <div className="relative h-dvh w-full overflow-y-auto pb-16">
       <HeroSection backButton />
 
-      <div className="px-5 pt-6 space-y-6 relative">
+      <div className="px-5 pt-5 space-y-6 relative">
         <TripParticipantsCount count={6} />
         <TripStats stats={PUBLIC_TRIP_STATS} />
         <YourGuide />
@@ -65,7 +66,8 @@ function PublicTripDetailPage() {
         </Tabs>
       </div>
 
-      <div className="p-5">
+      <div className="p-5 space-y-6">
+        <TripGallery href="/trips/1/gallery" />
         <ReviewsSection tripId="1" />
       </div>
 

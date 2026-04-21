@@ -21,7 +21,7 @@ const PAYMENT_FEATURES = [
   },
   {
     title: "Maksimal Batal H-1",
-    desc: "Refund 50% potongan sebagai kompensasi pemandu.",
+    desc: "Refund 50% potongan sebagai kompensasi pemandu. Bisa banding kok!",
     Icon: ClockIcon,
     weight: "fill" as const,
   },

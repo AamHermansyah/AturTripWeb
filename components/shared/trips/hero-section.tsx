@@ -13,7 +13,7 @@ export function HeroSection({ backButton }: HeroSectionProps) {
   const router = useRouter()
 
   return (
-    <div className="relative h-[260px] w-full">
+    <div className="relative h-65 w-full">
       <img
         src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
         alt="Jalur Puncak Berkabut"
@@ -23,8 +23,8 @@ export function HeroSection({ backButton }: HeroSectionProps) {
 
       {/* Action Buttons Top Right */}
       <div className={cn(
-        'absolute top-0 inset-x-0 px-5 py-2 flex items-center gap-3 z-10',
-        backButton ? 'justify-between pt-4' : 'justify-end'
+        'absolute top-0 inset-x-0 px-5 py-2 pt-4 flex items-center gap-3 z-10',
+        backButton ? 'justify-between' : 'justify-end'
       )}>
         {backButton && (
           <Button

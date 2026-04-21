@@ -23,7 +23,7 @@ export function BottomNavbar({ children }: IProps) {
       </div>
       {isVisible && (
         <div className="fixed bottom-0 left-1/2 z-50 w-full max-w-xs -translate-x-1/2 px-4 pb-5">
-          <nav className="flex items-center justify-center rounded-4xl border border-border bg-background/90 px-2 py-2 shadow-lg shadow-black/10 backdrop-blur-md">
+          <nav className="flex items-center justify-center rounded-4xl border border-border bg-card/90 px-2 py-2 shadow-lg shadow-black/10 backdrop-blur-md">
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href
 

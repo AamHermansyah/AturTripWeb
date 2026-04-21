@@ -61,7 +61,7 @@ export function ReviewsSection({ tripId }: { tripId: string }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="font-heading text-xl font-extrabold text-foreground">Ulasan & Penilaian</h3>
+        <h3 className="font-heading text-lg font-extrabold text-foreground">Ulasan & Penilaian</h3>
       </div>
 
       <ReviewSummary />

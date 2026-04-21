@@ -17,7 +17,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
   const { name, specialty, location, rating, reviewCount, tags, verified, imageUrl } = guide
 
   return (
-    <div className="w-68 shrink-0 rounded-4xl border border-border bg-background p-4 shadow-md shadow-muted transition hover:bg-secondary cursor-pointer">
+    <div className="w-68 shrink-0 rounded-4xl border border-border bg-card p-4 shadow-md transition hover:bg-secondary cursor-pointer">
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="relative mb-3 size-12">

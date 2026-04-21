@@ -31,7 +31,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
   const { title, category, location, rating, reviews, price, duration, type, level, packageType, minPersons, maxPersons, isWishlist, isFamilyFriendly, isVerified, imageUrl } = journey
 
   return (
-    <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-background shadow-md shadow-muted cursor-pointer hover:bg-secondary transition">
+    <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-card shadow-md cursor-pointer hover:bg-secondary transition">
       <div className="flex flex-col h-full">
         {/* Image placeholder */}
         <div className="relative">
@@ -59,7 +59,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <h4 className="text-xs font-semibold text-primary uppercase">
               {category}
             </h4>
-            <Link href="/my-trips/1">
+            <Link href="/trips/1">
               <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5 hover:text-primary transition">
                 {title}
               </p>

@@ -89,7 +89,7 @@ export function GuideGroups() {
           {GUIDE_GROUPS.map((group) => (
             <div
               key={group.id}
-              className="w-72 p-4 rounded-3xl border border-border bg-background shadow-sm hover:shadow-md hover:bg-secondary transition cursor-pointer"
+              className="w-72 p-4 rounded-3xl border border-border bg-card shadow-md hover:bg-secondary transition cursor-pointer"
             >
               <div className="flex items-start gap-4">
                 <div>
