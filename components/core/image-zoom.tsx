@@ -16,7 +16,7 @@ function ImageZoom({ image, onClose }: IProps) {
 
   return (
     <div
-      className="fixed inset-0 max-w-sm mx-auto overflow-y-auto z-50 bg-background/90 flex flex-col gap-3 animate-in fade-in-0 duration-200"
+      className="fixed inset-0 max-w-sm mx-auto overflow-y-auto z-60 bg-background/90 flex flex-col gap-3 animate-in fade-in-0 duration-200"
       onClick={onClose}
     >
       {/* Close button */}

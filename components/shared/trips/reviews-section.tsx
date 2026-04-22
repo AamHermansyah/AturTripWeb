@@ -1,8 +1,12 @@
+'use client'
+
 import { ReviewSummary } from "./review-summary"
 import { ReviewCard, ReviewProps } from "./review-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
+import ImageZoom from "@/components/core/image-zoom"
+import { useState } from "react"
 
 export const MOCK_REVIEWS: ReviewProps[] = [
   {
@@ -57,7 +61,14 @@ export const MOCK_REVIEWS: ReviewProps[] = [
   }
 ]
 
+type GalleryImage = {
+  src: string;
+  alt: string;
+}
+
 export function ReviewsSection({ tripId }: { tripId: string }) {
+  const [selected, setSelected] = useState<GalleryImage | null>(null)
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -69,7 +80,7 @@ export function ReviewsSection({ tripId }: { tripId: string }) {
       <div className="space-y-4 pt-4">
         {MOCK_REVIEWS.slice(0, 3).map((r, i, arr) => (
           <div key={r.id} className="space-y-4">
-            <ReviewCard review={r} />
+            <ReviewCard review={r} onClickImage={setSelected} />
             {i !== arr.length - 1 && <Separator />}
           </div>
         ))}
@@ -82,6 +93,11 @@ export function ReviewsSection({ tripId }: { tripId: string }) {
           </Button>
         </Link>
       </div>
+
+      <ImageZoom
+        image={selected}
+        onClose={() => setSelected(null)}
+      />
     </div>
   )
 }

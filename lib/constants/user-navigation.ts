@@ -26,7 +26,7 @@ export const NAV_ITEMS = [
     center: false,
   },
   {
-    href: "/inbox",
+    href: "/conversations",
     label: "Pesan",
     icon: ChatCircleDotsIcon,
     center: false,
@@ -39,6 +39,6 @@ export const NAV_ITEMS = [
   },
 ] as const
 
-export const VISIBLE_PATHS = new Set(["/explore", "/my-trips", "/saved", "/inbox", "/account"])
+export const VISIBLE_PATHS = new Set(["/explore", "/my-trips", "/saved", "/conversations", "/account"])
 
 export const DYNAMIC_PATTERN = /^\/(explore|trips|saved|inbox|account)\/.+/

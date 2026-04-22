@@ -31,12 +31,10 @@ const MOCK_IMAGES = [
 
 interface TripGalleryProps {
   images?: { src: string; alt: string }[]
-  totalCount?: number
   href: string;
 }
 
-export function TripGallery({ images = MOCK_IMAGES, totalCount, href }: TripGalleryProps) {
-  const total = totalCount ?? images.length
+export function TripGallery({ images = MOCK_IMAGES, href }: TripGalleryProps) {
   const [main, second, third, ...rest] = images
   const hiddenCount = rest.length + 1
 
@@ -79,10 +77,12 @@ export function TripGallery({ images = MOCK_IMAGES, totalCount, href }: TripGall
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             {hiddenCount > 0 && (
-              <div className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-0.5 backdrop-blur-[1px]">
-                <span className="text-white font-bold text-xl leading-none">+{hiddenCount}</span>
-                <span className="text-white/80 text-[10px] font-medium">foto lainnya</span>
-              </div>
+              <Link href={href}>
+                <button className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-0.5 backdrop-blur-[1px] cursor-pointer">
+                  <span className="text-white font-bold text-xl leading-none">+{hiddenCount}</span>
+                  <span className="text-white/80 text-[10px] font-medium">foto lainnya</span>
+                </button>
+              </Link>
             )}
           </div>
         </div>

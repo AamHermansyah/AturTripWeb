@@ -91,7 +91,7 @@ export default function TripGalleryPage() {
         columnClassName="flex flex-col gap-2"
       >
         {MOCK_IMAGES.map((img, i) => (
-          <button
+          <div
             key={i}
             onClick={() => setSelected(img)}
             className="group relative w-full rounded-2xl overflow-hidden focus:outline-none"
@@ -102,7 +102,7 @@ export default function TripGalleryPage() {
               className="w-full h-auto object-cover duration-300 group-hover:scale-105 group-hover:brightness-50 transition"
             />
             <MagnifyingGlassPlusIcon className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] size-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg" />
-          </button>
+          </div>
         ))}
       </Masonry>
 

@@ -17,7 +17,7 @@ export function BottomNavbar({ children }: IProps) {
 
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full flex flex-col">
         {children}
         <div className={cn(isVisible ? "pb-30" : "pb-5")} />
       </div>

@@ -6,7 +6,7 @@ import { BellIcon, CaretLeftIcon } from "@phosphor-icons/react/dist/ssr"
 import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
-const MAIN_PATHS = ["/", "/explore", "/my-trips", "/saved", "/inbox", "/account"]
+const MAIN_PATHS = ["/", "/explore", "/my-trips", "/saved", "/conversations", "/account"]
 
 export function HomeHeader() {
   const pathname = usePathname()

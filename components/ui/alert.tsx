@@ -4,13 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "group/alert relative grid w-full gap-0.5 rounded-lg border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
+  "group/alert relative grid w-full gap-0.5 rounded-3xl border px-4 py-3 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: "bg-card text-card-foreground",
         destructive:
           "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current",
+        info:
+          "bg-card text-info *:data-[slot=alert-description]:text-info/90 *:[svg]:text-current",
+        "info-fill":
+          "bg-info text-info-foreground *:data-[slot=alert-description]:text-info-foreground/90 *:[svg]:text-current",
+        success:
+          "bg-card text-success *:data-[slot=alert-description]:text-success/90 *:[svg]:text-current",
+        "success-fill":
+          "bg-success text-success-foreground *:data-[slot=alert-description]:text-success-foreground/90 *:[svg]:text-current",
+        warning:
+          "bg-card text-warning *:data-[slot=alert-description]:text-warning/90 *:[svg]:text-current",
+        "warning-fill":
+          "bg-warning text-warning-foreground *:data-[slot=alert-description]:text-warning-foreground/90 *:[svg]:text-current",
       },
     },
     defaultVariants: {

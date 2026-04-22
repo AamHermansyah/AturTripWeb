@@ -1,4 +1,7 @@
+'use client';
+
 import { StarIcon, SealCheckIcon } from "@phosphor-icons/react/dist/ssr"
+import { useState } from "react";
 
 export interface ReviewProps {
   id: string
@@ -23,7 +26,12 @@ export interface ReviewProps {
   }
 }
 
-export function ReviewCard({ review }: { review: ReviewProps }) {
+interface IProps {
+  review: ReviewProps;
+  onClickImage: (image: { src: string, alt: string }) => void;
+}
+
+export function ReviewCard({ review, onClickImage }: IProps) {
   return (
     <div>
       <div className="flex items-start justify-between mb-3">
@@ -58,8 +66,16 @@ export function ReviewCard({ review }: { review: ReviewProps }) {
       {review.images && review.images.length > 0 && (
         <div className="flex gap-2 w-full overflow-x-auto pb-2 mb-2 no-scrollbar">
           {review.images.map((img, i) => (
-            <div key={i} className="size-[84px] shrink-0 rounded-2xl overflow-hidden border border-border/50 shadow-sm relative">
-              <img src={img} alt="Review attachment" className="absolute inset-0 w-full h-full object-cover" />
+            <div
+              key={i}
+              className="group size-21 shrink-0 rounded-2xl overflow-hidden border border-border/50 shadow-sm relative focus:outline-none"
+              onClick={() => onClickImage({ src: img, alt: 'Preview' })}
+            >
+              <img
+                src={img}
+                alt="Review attachment"
+                className="absolute w-full h-full object-cover duration-300 group-hover:scale-105 group-hover:brightness-50 transition"
+              />
             </div>
           ))}
         </div>
