@@ -1,4 +1,4 @@
-import { BabyIcon, CalendarBlankIcon, HeartIcon, LineVerticalIcon, MapPinIcon, SealCheckIcon, StarIcon, StepsIcon, UserIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
+import { BabyIcon, CalendarBlankIcon, HeartIcon, LineVerticalIcon, MapPinAreaIcon, MapPinIcon, MapPinSimpleIcon, SealCheckIcon, StarIcon, StepsIcon, UserIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
@@ -25,10 +25,29 @@ export interface Journey {
   isFamilyFriendly: boolean
   isVerified: boolean
   imageUrl: string
+  radius?: number
 }
 
 export function JourneyCard({ journey }: { journey: Journey }) {
-  const { title, category, location, rating, reviews, price, duration, type, level, packageType, minPersons, maxPersons, isWishlist, isFamilyFriendly, isVerified, imageUrl } = journey
+  const {
+    title,
+    category,
+    location,
+    rating,
+    reviews,
+    price,
+    duration,
+    type,
+    level,
+    packageType,
+    minPersons,
+    maxPersons,
+    isWishlist,
+    isFamilyFriendly,
+    isVerified,
+    imageUrl,
+    radius
+  } = journey
 
   return (
     <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-card shadow-md cursor-pointer hover:bg-secondary transition">
@@ -45,12 +64,19 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <HeartIcon weight={isWishlist ? "fill" : "bold"} />
           </Button>
 
-          <Badge className="absolute bottom-2 left-2 text-white bg-black/80 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm flex items-center gap-1">
-            <StarIcon weight="fill" className="text-xs text-warning" />
+          <Badge className="absolute bottom-2 left-2 text-white bg-black/80 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm gap-1">
+            <StarIcon weight="fill" className="text-warning" />
             <span className="font-semibold">{rating}</span>
             <span>({reviews})</span>
             {isVerified && <SealCheckIcon weight="fill" className="text-blue-500 text-[14px]" />}
           </Badge>
+
+          {radius && (
+            <Badge className="absolute top-2 left-2 text-primary-foreground bg-primary px-2 py-0.5 text-[10px] font-semibold gap-1">
+              <MapPinAreaIcon weight="fill" />
+              <span className="font-semibold">{radius}km</span>
+            </Badge>
+          )}
         </div>
 
         {/* Info */}

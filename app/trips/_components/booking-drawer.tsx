@@ -61,14 +61,14 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
 
   // Warning short notice
   let showShortNoticeWarning = true
-  if (AVAILABILITY_TYPE === 'by_days' && selectedRange?.from) {
-    showShortNoticeWarning = differenceInCalendarDays(selectedRange.from, today) <= 1
-  } else if (AVAILABILITY_TYPE === 'by_hours' && selectedDate && selectedTimeSlot) {
-    const [h, m] = selectedTimeSlot.split(':').map(Number)
-    const slotTime = new Date(selectedDate)
-    slotTime.setHours(h, m, 0, 0)
-    showShortNoticeWarning = slotTime.getTime() - now.getTime() <= 2 * 60 * 60 * 1000
-  }
+  // if (AVAILABILITY_TYPE === 'by_days' && selectedRange?.from) {
+  //   showShortNoticeWarning = differenceInCalendarDays(selectedRange.from, today) <= 1
+  // } else if (AVAILABILITY_TYPE === 'by_hours' && selectedDate && selectedTimeSlot) {
+  //   const [h, m] = selectedTimeSlot.split(':').map(Number)
+  //   const slotTime = new Date(selectedDate)
+  //   slotTime.setHours(h, m, 0, 0)
+  //   showShortNoticeWarning = slotTime.getTime() - now.getTime() <= 2 * 60 * 60 * 1000
+  // }
 
   const subtotal = PRICE_PER_PERSON * quantity
   const serviceFee = Math.round(subtotal * SERVICE_FEE_RATE)

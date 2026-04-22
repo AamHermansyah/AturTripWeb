@@ -1,8 +1,7 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import { Calendar } from '@/components/ui/calendar'
-import { CalendarBlankIcon, ClockIcon } from '@phosphor-icons/react'
+import { CalendarBlankIcon } from '@phosphor-icons/react'
 import { addMonths, differenceInCalendarDays, format, isAfter, isBefore, isSameDay, startOfDay } from 'date-fns'
 import { id } from 'date-fns/locale'
 import type { DateRange } from 'react-day-picker'
@@ -228,32 +227,6 @@ export function DateAvailability({
             ))}
           </div>
         </div>
-      )}
-
-      {/* by_hours: hint sebelum pilih tanggal */}
-      {type === 'by_hours' && !selectedDate && (
-        <p className="text-xs text-muted-foreground text-center">
-          Tanggal yang tersedia ditandai dengan warna hijau
-        </p>
-      )}
-
-      {/* by_days: range summary */}
-      {type === 'by_days' && selectedRange?.from && (
-        <div className="flex items-center gap-2 px-3 py-2 bg-success/10 rounded-xl">
-          <CalendarBlankIcon weight="fill" className="size-4 text-success shrink-0" />
-          <span className="text-sm font-medium text-success">
-            {selectedRange.to
-              ? `${differenceInCalendarDays(selectedRange.to, selectedRange.from) + 1} hari, ${format(selectedRange.from, 'd MMM', { locale: id })} - ${format(selectedRange.to, 'd MMM yyyy', { locale: id })}`
-              : format(selectedRange.from, 'd MMMM yyyy', { locale: id })}
-          </span>
-        </div>
-      )}
-
-      {/* by_days: hint sebelum pilih tanggal */}
-      {type === 'by_days' && !selectedRange?.from && (
-        <p className="text-xs text-muted-foreground text-center">
-          Tanggal yang tersedia ditandai dengan warna hijau
-        </p>
       )}
     </div>
   )

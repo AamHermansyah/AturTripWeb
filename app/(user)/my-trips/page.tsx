@@ -3,6 +3,7 @@ import { ReviewLastTrip } from './_components/review-last-trip'
 import EmptyBooking from './_components/empty-booking'
 import Upcoming from './_components/upcoming'
 import OnGoing from './_components/ongoing'
+import Completed from './_components/completed'
 
 function TripsPage() {
   return (
@@ -10,6 +11,7 @@ function TripsPage() {
       <ReviewLastTrip />
       <OnGoing />
       <Upcoming />
+      <Completed />
       <EmptyBooking />
       <PaymentBanner />
     </div>

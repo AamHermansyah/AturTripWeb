@@ -4,7 +4,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SplashScreen } from "@/components/splash-screen"
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const dmSans = Urbanist({ subsets: ['latin'], variable: '--font-heading' })
 

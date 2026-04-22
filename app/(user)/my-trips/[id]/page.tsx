@@ -10,8 +10,9 @@ import { RequiredDocuments } from "@/components/shared/trips/required-documents"
 import { YourGuide } from "@/components/shared/trips/your-guide"
 import { TripParticipants } from "@/components/shared/trips/trip-participants"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CalendarBlankIcon, UsersIcon, LockKeyIcon, TrendUpIcon } from "@phosphor-icons/react/dist/ssr"
+import { CalendarBlankIcon, UsersIcon, LockKeyIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react/dist/ssr"
 import { TripGallery } from "@/components/shared/trips/trip-gallery"
+import { Button } from "@/components/ui/button"
 
 const MY_TRIP_STATS = [
   { icon: CalendarBlankIcon, label: "Durasi", value: "12 Hari" },
@@ -57,6 +58,15 @@ function TripDetailPage() {
             <RequiredDocuments />
           </TabsContent>
         </Tabs>
+        <div className="space-y-2">
+          <Button variant="outline" size="sm" className="w-full">
+            Rincian Pembayaran
+          </Button>
+          <Button size="sm" className="w-full">
+            <StarIcon weight="fill" className="size-4 text-yellow-400" />
+            Beri Ulasan
+          </Button>
+        </div>
       </div>
     </div>
   )

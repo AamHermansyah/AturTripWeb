@@ -1,5 +1,3 @@
-import { MapPinIcon } from "@phosphor-icons/react/dist/ssr"
-import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import CardUpcoming from "./card-upcoming"
 
@@ -14,7 +12,6 @@ function Upcoming() {
           <CardUpcoming />
           <CardUpcoming />
         </div>
-
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>

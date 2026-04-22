@@ -11,7 +11,6 @@ function OnGoing() {
           <CardOnGoing />
           <CardOnGoing />
         </div>
-
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
