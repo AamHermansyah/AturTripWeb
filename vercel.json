@@ -2,5 +2,5 @@
   "buildCommand": "turbo run build --filter=@atur-trip/web...",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
-  "installCommand": "pnpm install"
+  "installCommand": "corepack enable && pnpm install"
 }
