@@ -1,6 +1,6 @@
 {
-  "buildCommand": "turbo run build --filter=@atur-trip/web...",
-  "outputDirectory": "apps/web/.next",
+  "buildCommand": "cd ../.. && turbo run build --filter=@atur-trip/web...",
+  "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "pnpm dlx pnpm@10 install"
 }
