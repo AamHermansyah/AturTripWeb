@@ -1,7 +1,11 @@
 dist/
 node_modules/
+**/node_modules/
 .next/
+**/.next/
 .turbo/
+**/.turbo/
 coverage/
 pnpm-lock.yaml
 .pnpm-store/
+apps/web/next-env.d.ts
