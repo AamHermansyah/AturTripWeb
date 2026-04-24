@@ -5,9 +5,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { SplashScreen } from "@/components/splash-screen"
 import { cn } from "@/lib/utils";
 
-const dmSans = Urbanist({ subsets: ['latin'], variable: '--font-heading' })
+const urbanist = Urbanist({ subsets: ['latin'], variable: '--font-heading' })
 
-const sourceSans3 = Nunito_Sans({
+const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
@@ -27,9 +27,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(
         "antialiased",
-        sourceSans3.variable,
+        nunitoSans.variable,
         "font-sans",
-        dmSans.variable,
+        urbanist.variable,
       )}
     >
       <body className="bg-secondary">

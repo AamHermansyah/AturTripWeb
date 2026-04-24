@@ -33,7 +33,7 @@ export default function AccountMenu() {
   }
 
   const PreferenceItems = [
-    { label: "Riwayat Perjalanan", icon: ClockCounterClockwiseIcon, href: "/history" },
+    { label: "Riwayat Perjalanan", icon: ClockCounterClockwiseIcon, href: "/booking" },
     { label: "Pindah ke Akun Guide", icon: ArrowsLeftRightIcon, href: "/guide-mode" },
   ]
 
