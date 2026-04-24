@@ -3,14 +3,21 @@
 import { Button } from '@/components/ui/button'
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { Separator } from '@/components/ui/separator'
-import { CalendarBlankIcon, ClockIcon, MinusIcon, PlusIcon, WarningCircleIcon } from '@phosphor-icons/react'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  CalendarBlankIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  MinusIcon,
+  PlusIcon,
+  WarningCircleIcon,
+} from '@phosphor-icons/react'
 import { differenceInCalendarDays, format, startOfDay } from 'date-fns'
 import { id } from 'date-fns/locale'
 import { useState } from 'react'
@@ -18,7 +25,8 @@ import type { DateRange } from 'react-day-picker'
 import { DateAvailability, DUMMY_BY_HOURS } from './date-availability'
 import type { AvailabilityType, TripDate } from './date-availability'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { formatDuration } from '@/lib/utils'
+import { formatDuration, cn } from '@/lib/utils'
+import { useRouter, useParams } from 'next/navigation'
 
 // Ganti ke 'by_hours' dan DUMMY_BY_HOURS untuk test mode jam
 const AVAILABILITY_TYPE: AvailabilityType = 'by_hours'
@@ -28,6 +36,7 @@ const PRICE_PER_PERSON = 1_750_000
 const SERVICE_FEE_RATE = 0.05
 const MAX_CAPACITY = 10
 const TRIP_DURATION_MINUTES = 60 // 4 jam 30 menit — durasi untuk mode by_hours
+const DP_RATE = 0.5
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('id-ID', {
@@ -43,10 +52,14 @@ type BookingDrawerProps = {
 }
 
 export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
+  const router = useRouter()
+  const params = useParams<{ id: string }>()
+
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(undefined)
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | undefined>(undefined)
   const [quantity, setQuantity] = useState(1)
+  const [paymentType, setPaymentType] = useState<'full' | 'dp'>('full')
 
   const now = new Date()
   const today = startOfDay(now)
@@ -73,6 +86,7 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
   const subtotal = PRICE_PER_PERSON * quantity
   const serviceFee = Math.round(subtotal * SERVICE_FEE_RATE)
   const total = subtotal + serviceFee
+  const dpAmount = Math.round(total * DP_RATE)
 
   const isConfirmEnabled =
     AVAILABILITY_TYPE === 'by_hours'
@@ -90,6 +104,7 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
       setSelectedRange(undefined)
       setSelectedTimeSlot(undefined)
       setQuantity(1)
+      setPaymentType('full')
     }
     onOpenChange(nextOpen)
   }
@@ -220,7 +235,7 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
             </div>
           )}
 
-          {/* Payment breakdown */}
+          {/* Rincian Pembayaran */}
           <div className="space-y-2">
             <h3 className="font-heading text-sm font-semibold">Rincian Pembayaran</h3>
             <div className="rounded-2xl border border-border/60 p-4 space-y-3">
@@ -248,10 +263,69 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
               </div>
             </div>
           </div>
+
+          {/* Opsi Pembayaran */}
+          <div className="space-y-2">
+            <h3 className="font-heading text-sm font-semibold">Opsi Pembayaran</h3>
+            <RadioGroup
+              value={paymentType}
+              onValueChange={(value: 'full' | 'dp') => setPaymentType(value)}
+              className="grid grid-cols-2 gap-3"
+            >
+              <label
+                htmlFor="payment-full"
+                className={cn(
+                  'relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 px-2 py-2 text-center transition-all active:scale-95',
+                  paymentType === 'full'
+                    ? 'border-success bg-success/10'
+                    : 'border-border/60 bg-background'
+                )}
+              >
+                <RadioGroupItem value="full" id="payment-full" className="absolute sr-only" />
+                {paymentType === 'full' && (
+                  <CheckCircleIcon weight="fill" className="absolute right-2.5 top-2.5 size-4 text-success" />
+                )}
+                <span className="text-sm font-bold">Bayar Penuh</span>
+                <span className="mt-0.5 text-xs text-muted-foreground">{formatCurrency(total)}</span>
+              </label>
+
+              <label
+                htmlFor="payment-dp"
+                className={cn(
+                  'relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 px-2 py-2 text-center transition-all active:scale-95',
+                  paymentType === 'dp'
+                    ? 'border-success bg-success/10'
+                    : 'border-border/60 bg-background'
+                )}
+              >
+                <RadioGroupItem value="dp" id="payment-dp" className="absolute sr-only" />
+                {paymentType === 'dp' && (
+                  <CheckCircleIcon weight="fill" className="absolute right-2.5 top-2.5 size-4 text-success" />
+                )}
+                <span className="text-sm font-bold">DP Dulu</span>
+                <span className="mt-0.5 text-xs text-muted-foreground">
+                  Bayar {formatCurrency(dpAmount)} sekarang
+                </span>
+              </label>
+            </RadioGroup>
+
+            {paymentType === 'dp' && (
+              <div className="flex items-start gap-2 rounded-xl bg-amber-50 border border-amber-200 px-3 py-2.5">
+                <WarningCircleIcon weight="fill" className="size-4 text-amber-500 mt-0.5 shrink-0" />
+                <p className="text-xs text-amber-800 leading-relaxed">
+                  Sisa pembayaran sebesar{' '}
+                  <span className="font-semibold">{formatCurrency(total - dpAmount)}</span> akan
+                  dibayarkan langsung kepada guide saat kegiatan berlangsung atau selesai.
+                </p>
+              </div>
+            )}
+          </div>
+
           <DrawerFooter className="p-0 pb-3">
             <Button
               disabled={!isConfirmEnabled}
               size="sm"
+              onClick={() => router.push('/booking/1/input')}
             >
               Konfirmasi Pemesanan
             </Button>
