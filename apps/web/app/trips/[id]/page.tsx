@@ -53,7 +53,7 @@ function PublicTripDetailPage() {
             <IncludedFacilities />
           </TabsContent>
 
-          <TabsContent value="linimasa" className="animate-in fade-in-50 duration-500 mt-0">
+          <TabsContent value="linimasa" className="space-y-6 animate-in fade-in-50 duration-500 mt-0">
             <RouteOverview />
             <ExpeditionTimeline />
           </TabsContent>
