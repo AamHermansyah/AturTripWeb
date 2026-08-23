@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import Link from "next/link"
 
 interface GuideGroup {
   id: string
@@ -53,7 +54,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     name: "Kota Tua Explorers",
     description: "Pemandu bersejarah untuk wisata budaya kota-kota tua Indonesia.",
     category: "Tur Budaya",
-    customTags: ["Sejarah", "Museum", "City Tour"],
+    customTags: ["Sejarah", "Museum", "Wisata Kota"],
     guideCount: 3,
     location: "Jakarta Barat",
     totalJourneys: 18,
@@ -67,7 +68,7 @@ const GUIDE_GROUPS: GuideGroup[] = [
     name: "Kota Tua Explorers",
     description: "Pemandu bersejarah untuk wisata budaya kota-kota tua Indonesia.",
     category: "Tur Budaya",
-    customTags: ["Sejarah", "Museum", "City Tour"],
+    customTags: ["Sejarah", "Museum", "Wisata Kota"],
     guideCount: 1,
     location: "Jakarta Barat",
     totalJourneys: 18,
@@ -87,8 +88,9 @@ export function GuideGroups() {
       <ScrollArea>
         <div className="flex gap-4 px-5 w-max pb-4">
           {GUIDE_GROUPS.map((group) => (
-            <div
+            <Link
               key={group.id}
+              href={`/groups/${group.id}`}
               className="w-72 p-4 rounded-3xl border border-border bg-card shadow-md hover:bg-secondary transition cursor-pointer"
             >
               <div className="flex items-start gap-4">
@@ -180,7 +182,7 @@ export function GuideGroups() {
                   </span>
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

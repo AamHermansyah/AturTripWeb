@@ -8,7 +8,7 @@ export default function HistoryPage() {
       <div className="space-y-4">
         <CardHistory
           imageSrc="https://images.unsplash.com/photo-1439853949127-fa647821eba0?q=80&w=1200&auto=format&fit=crop"
-          date="AUG 12 - AUG 15"
+          date="12 AGU - 15 AGU"
           title="Pendakian Gunung Rinjani dan Danau Segara Anak"
           status="LUNAS"
           price="Rp 1.500.000"
@@ -16,27 +16,27 @@ export default function HistoryPage() {
 
         <CardHistory
           imageSrc="https://images.unsplash.com/photo-1439853949127-fa647821eba0?q=80&w=1200&auto=format&fit=crop"
-          date="SEPT 20 - SEPT 22"
-          title="Starlight Pines Camp"
-          status="PENDING"
+          date="20 SEP - 22 SEP"
+          title="Kemah Pinus Cahaya Bintang"
+          status="MENUNGGU"
           price="Rp 250.000"
         />
 
         <CardHistory
           imageSrc="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=500"
-          date="OKT 05"
+          date="05 OKT"
           time="04:00 - 11:00"
-          title="Bromo Sunrise Adventure"
-          status="LUNAS DP"
+          title="Sunrise Bromo Adventure"
+          status="LUNAS_DP"
           price="Rp 450.000"
         />
 
         <CardHistory
           imageSrc="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=500"
-          date="NOV 10"
+          date="10 NOV"
           time="14:00 - 18:00"
-          title="Bali Hidden Beaches"
-          status="EXPIRED"
+          title="Pantai Tersembunyi Bali"
+          status="KEDALUWARSA"
           price="Rp 3.000.000"
         />
       </div>

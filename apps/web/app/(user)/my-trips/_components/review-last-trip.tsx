@@ -5,7 +5,7 @@ export function ReviewLastTrip() {
   return (
     <div className="space-y-3">
       <h2 className="font-heading text-lg font-bold text-foreground">
-        Review Your Last Trip
+        Nilai Trip Terakhirmu
       </h2>
       <div
         className="relative overflow-hidden rounded-[24px] bg-[#0f172a] px-5 py-5 shadow-lg"
@@ -18,13 +18,13 @@ export function ReviewLastTrip() {
             <div className="size-16 shrink-0 overflow-hidden rounded-2xl relative">
               <img
                 src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=200&auto=format&fit=crop"
-                alt="City building"
+                alt="Gedung kota tua"
                 className="h-full w-full object-cover"
               />
             </div>
             <div>
               <h3 className="line-clamp-2 font-heading text-lg font-bold text-white leading-tight mb-1">
-                Urban Heritage Exploration
+                Jelajah Warisan Kota Tua
               </h3>
               <p className="text-slate-400 text-sm">
                 Bagaimana pengalamanmu?
@@ -46,7 +46,7 @@ export function ReviewLastTrip() {
               variant="secondary"
               className="rounded-full bg-[#374151] text-white hover:bg-[#4B5563] hover:text-white border-0 font-medium px-5"
             >
-              Later
+              Nanti
             </Button>
           </div>
         </div>

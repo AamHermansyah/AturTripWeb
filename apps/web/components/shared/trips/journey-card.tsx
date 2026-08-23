@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 export interface Journey {
   id: string
@@ -26,10 +27,25 @@ export interface Journey {
   isVerified: boolean
   imageUrl: string
   radius?: number
+  /** Trip komunitas bisa dipandu beberapa anggota sekaligus. */
+  guides?: { id: string; name: string; imageUrl: string }[]
 }
 
-export function JourneyCard({ journey }: { journey: Journey }) {
+const JOURNEY_TYPE_LABEL: Record<Journey["type"], string> = {
+  Private: "Privat",
+  Shared: "Bersama",
+}
+
+interface JourneyCardProps {
+  journey: Journey
+  /** Default-nya /trips/[id]; trip komunitas mengarah ke rute grupnya. */
+  href?: string
+  className?: string
+}
+
+export function JourneyCard({ journey, href, className }: JourneyCardProps) {
   const {
+    id,
     title,
     category,
     location,
@@ -46,15 +62,23 @@ export function JourneyCard({ journey }: { journey: Journey }) {
     isFamilyFriendly,
     isVerified,
     imageUrl,
-    radius
+    radius,
+    guides,
   } = journey
 
+  const detailHref = href ?? `/trips/${id}`
+
   return (
-    <div className="w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-card shadow-md cursor-pointer hover:bg-secondary transition">
+    <div
+      className={cn(
+        "w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-card shadow-md cursor-pointer hover:bg-secondary transition",
+        className
+      )}
+    >
       <div className="flex flex-col h-full">
         {/* Image placeholder */}
         <div className="relative">
-          <Link href="/trips/1">
+          <Link href={detailHref}>
             <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl overflow-hidden">
               {imageUrl && <img src={imageUrl} alt={title} className="w-full h-full object-cover text-xs" />}
             </AspectRatio>
@@ -85,7 +109,7 @@ export function JourneyCard({ journey }: { journey: Journey }) {
             <h4 className="text-xs font-semibold text-primary uppercase">
               {category}
             </h4>
-            <Link href="/trips/1">
+            <Link href={detailHref}>
               <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5 hover:text-primary transition">
                 {title}
               </p>
@@ -118,13 +142,33 @@ export function JourneyCard({ journey }: { journey: Journey }) {
                 </div>
               )}
             </div>
+            {guides && guides.length > 0 && (
+              <div className="mt-2 flex items-center gap-1.5">
+                <div className="flex items-center">
+                  {guides.slice(0, 3).map((guide, i) => (
+                    <img
+                      key={guide.id}
+                      src={guide.imageUrl}
+                      alt={guide.name}
+                      className={cn(
+                        "size-5 rounded-full border border-background object-cover",
+                        i > 0 && "-ml-2"
+                      )}
+                    />
+                  ))}
+                </div>
+                <span className="text-[11px] font-semibold text-muted-foreground">
+                  {guides.length} pemandu
+                </span>
+              </div>
+            )}
           </div>
           <div className="mt-2 w-full flex items-center justify-between gap-2">
             <Badge
               variant={type === "Private" ? "default" : "info-fill"}
               className="rounded-full text-xs"
             >
-              {type}
+              {JOURNEY_TYPE_LABEL[type]}
             </Badge>
             <div className="mt-2 text-right">
               <p className="text-sm font-extrabold text-primary leading-1">

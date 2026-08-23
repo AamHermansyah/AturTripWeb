@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils'
 // Mock data — ganti dengan data dari API
 const MOCK_BOOKING = {
   trip: {
-    title: 'Urban Heritage Exploration',
+    title: 'Jelajah Warisan Kota Tua',
     date: 'Besok, 09:00 WIB',
     guide: 'Alex Riverstone',
     imageSrc:

@@ -7,7 +7,7 @@ function CardOnGoing() {
       <div className="relative overflow-hidden rounded-4xl w-72 flex flex-col justify-end">
         <img
           src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
-          alt="High Sierras Expedition"
+          alt="Pendakian Gunung Rinjani"
           className="absolute w-full h-full object-cover"
         />
 
@@ -35,7 +35,7 @@ function CardOnGoing() {
 
           <div className="flex items-center gap-1 text-white/90">
             <MapPinIcon weight="bold" className="size-4" />
-            <span className="text-sm font-medium tracking-tight">Yosemite National Park, CA</span>
+            <span className="text-sm font-medium tracking-tight">Lombok, Nusa Tenggara Barat</span>
           </div>
 
           <div className="flex items-center mt-3">

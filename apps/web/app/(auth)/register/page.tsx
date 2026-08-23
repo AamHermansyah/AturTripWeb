@@ -88,7 +88,7 @@ export default function RegisterPage() {
         </div>
 
         {/* CTA */}
-        <Button size="lg" disabled={!agreed} onClick={() => router.push('/login')}>
+        <Button size="lg" disabled={!agreed} onClick={() => router.push('/verify?flow=register')}>
           Buat Akun
         </Button>
       </div>

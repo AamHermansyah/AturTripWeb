@@ -3,14 +3,14 @@ import NotificationItem from "./_components/notification-item"
 import { cn } from "@/lib/utils"
 
 export default function NotificationsPage() {
-  const tabs = ["All", "Bookings", "Payments"]
+  const tabs = ["Semua", "Pemesanan", "Pembayaran"]
 
   return (
     <div className="px-5 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-heading text-2xl font-extrabold tracking-tight">Notifications</h1>
+        <h1 className="font-heading text-2xl font-extrabold tracking-tight">Notifikasi</h1>
         <button className="text-[13px] font-bold text-primary active:opacity-70 transition-opacity cursor-pointer">
-          Mark all as read
+          Tandai semua dibaca
         </button>
       </div>
 
@@ -34,36 +34,36 @@ export default function NotificationsPage() {
       </ScrollArea>
 
       <div className="space-y-6">
-        {/* TODAY */}
+        {/* HARI INI */}
         <div className="space-y-3">
-          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Today</h2>
+          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Hari Ini</h2>
           <div className="space-y-3">
             <NotificationItem
               variant="booking"
-              title="Booking Confirmed!"
-              description={<>Your trek to <span className="font-bold text-foreground">Mount Summit</span> is ready. Please review the itinerary.</>}
-              time="1h ago"
+              title="Pemesanan Dikonfirmasi!"
+              description={<>Pendakianmu ke <span className="font-bold text-foreground">Gunung Rinjani</span> sudah siap. Silakan tinjau rencana perjalanannya.</>}
+              time="1 jam lalu"
               unread
             />
             <NotificationItem
               variant="payment"
-              title="Payment Received"
-              description={<>You received <span className="text-primary font-bold">$450.00</span> for the Weekend Getaway package.</>}
-              time="3h ago"
+              title="Pembayaran Diterima"
+              description={<>Kamu menerima <span className="text-primary font-bold">Rp450.000</span> untuk paket Akhir Pekan Santai.</>}
+              time="3 jam lalu"
               unread
             />
           </div>
         </div>
 
-        {/* YESTERDAY */}
+        {/* KEMARIN */}
         <div className="space-y-3">
-          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Yesterday</h2>
+          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Kemarin</h2>
           <div className="space-y-3">
             <NotificationItem
               variant="verification"
-              title="Identity Verified"
-              description="Your guide profile has been verified! You can now start accepting bookings."
-              time="Yesterday"
+              title="Identitas Terverifikasi"
+              description="Profil pemandumu sudah terverifikasi! Kamu bisa mulai menerima pesanan."
+              time="Kemarin"
             />
           </div>
         </div>

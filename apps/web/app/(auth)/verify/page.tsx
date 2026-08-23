@@ -1,20 +1,42 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { Suspense, useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
+import { Spinner } from "@/components/ui/spinner"
 import Logo from "@/components/shared/logo"
 import { REGEXP_ONLY_DIGITS } from "input-otp"
 
 const RESEND_SECONDS = 59
 
-export default function VerifyPage() {
+/** Halaman ini dipakai dua alur: pendaftaran akun baru dan reset kata sandi. */
+const FLOW_COPY = {
+  register: {
+    title: "Verifikasi Emailmu",
+    description:
+      "Kami telah mengirimkan kode 4-digit ke alamat emailmu. Masukkan kode tersebut untuk mengaktifkan akun.",
+    next: "/login",
+  },
+  reset: {
+    title: "Verifikasi Akunmu",
+    description: "Kami telah mengirimkan kode 4-digit ke email dan nomor teleponmu.",
+    next: "/new-password",
+  },
+} as const
+
+type Flow = keyof typeof FLOW_COPY
+
+function VerifyContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const flow: Flow = searchParams.get("flow") === "register" ? "register" : "reset"
+  const copy = FLOW_COPY[flow]
+
   const [otp, setOtp] = useState("")
   const [countdown, setCountdown] = useState(RESEND_SECONDS)
 
@@ -37,11 +59,9 @@ export default function VerifyPage() {
 
       <div className="mt-6 flex w-full flex-col gap-2">
         <h1 className="font-heading text-2xl font-extrabold text-foreground">
-          Verifikasi Akunmu
+          {copy.title}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Kami telah mengirimkan kode 4-digit ke email dan nomor teleponmu.
-        </p>
+        <p className="text-sm text-muted-foreground">{copy.description}</p>
       </div>
 
       {/* OTP Input */}
@@ -87,11 +107,26 @@ export default function VerifyPage() {
           size="lg"
           className="w-full font-semibold"
           disabled={otp.length < 4}
-          onClick={() => router.push("/new-password")}
+          onClick={() => router.push(copy.next)}
         >
           Konfirmasi
         </Button>
       </div>
     </div>
+  )
+}
+
+export default function VerifyPage() {
+  // useSearchParams butuh batas Suspense agar halaman tetap bisa di-prerender.
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-dvh w-full animate-pulse flex-col items-center justify-center">
+          <Spinner className="size-8 text-primary" />
+        </div>
+      }
+    >
+      <VerifyContent />
+    </Suspense>
   )
 }

@@ -87,7 +87,7 @@ export function ReviewCard({ review, onClickImage }: IProps) {
             {review.response.author.avatar && (
               <img src={review.response.author.avatar} alt={review.response.author.name} className="size-6 rounded-full object-cover border border-border/50" />
             )}
-            <span className="text-xs font-bold text-foreground">Response from {review.response.author.name}</span>
+            <span className="text-xs font-bold text-foreground">Balasan dari {review.response.author.name}</span>
           </div>
           <p className="text-[12px] font-medium text-muted-foreground leading-[1.6]">
             {review.response.content}

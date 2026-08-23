@@ -11,7 +11,7 @@ const MOCK_BOOKING = {
   id: "bk-001",
   status: "PENDING" as const,
   trip: {
-    title: "Urban Heritage Exploration",
+    title: "Jelajah Warisan Kota Tua",
     date: "24 Okt, 09:00 WIB",
     imageSrc:
       "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=800&auto=format&fit=crop",
@@ -26,7 +26,7 @@ const MOCK_BOOKING = {
   },
   participants: "2 Orang",
   meetingPoint: {
-    location: "Fountain Plaza Pusat",
+    location: "Plaza Air Mancur Pusat",
     description: "Harap tiba 10 menit lebih awal.",
   },
 }

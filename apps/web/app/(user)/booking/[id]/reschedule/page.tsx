@@ -24,7 +24,7 @@ const AVAILABILITY_TYPE: AvailabilityType = 'by_hours'
 const TRIP_DATES: TripDate[] = DUMMY_BY_HOURS
 
 const CURRENT_SCHEDULE = {
-  date: '10 Mei 2026',
+  date: '29 Agustus 2026',
   time: '09:00 WIB',
 }
 

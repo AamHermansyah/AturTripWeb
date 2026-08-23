@@ -14,27 +14,27 @@ const statusConfig: Record<BookingStatus, {
   className: string
 }> = {
   CONFIRMED: {
-    label: "Confirmed",
+    label: "Terkonfirmasi",
     icon: CheckCircleIcon,
     className: "bg-success/10 text-success border-success/20",
   },
   PENDING: {
-    label: "Pending",
+    label: "Menunggu",
     icon: ClockIcon,
     className: "bg-warning/10 text-warning border-warning/20",
   },
   CANCELLED: {
-    label: "Cancelled",
+    label: "Dibatalkan",
     icon: XCircleIcon,
     className: "bg-destructive/10 text-destructive border-destructive/20",
   },
   EXPIRED: {
-    label: "Expired",
+    label: "Kedaluwarsa",
     icon: WarningIcon,
     className: "bg-muted text-muted-foreground border-border",
   },
   COMPLETED: {
-    label: "Completed",
+    label: "Selesai",
     icon: CheckCircleIcon,
     className: "bg-info/10 text-info border-info/20",
   },

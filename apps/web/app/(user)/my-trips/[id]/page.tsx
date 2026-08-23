@@ -7,7 +7,8 @@ import { IncludedFacilities } from "@/components/shared/trips/included-facilitie
 import { RequiredGear } from "@/components/shared/trips/required-gear"
 import { PhysicalPreparation } from "@/components/shared/trips/physical-preparation"
 import { RequiredDocuments } from "@/components/shared/trips/required-documents"
-import { YourGuide } from "@/components/shared/trips/your-guide"
+import { GuideTeam } from "@/components/shared/trips/guide-team"
+import { TRIP_TEAM } from "@/lib/constants/trip"
 import { TripParticipants } from "@/components/shared/trips/trip-participants"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CalendarBlankIcon, UsersIcon, LockKeyIcon, TrendUpIcon, StarIcon } from "@phosphor-icons/react/dist/ssr"
@@ -28,7 +29,7 @@ function TripDetailPage() {
 
       <div className="px-5 pt-6 space-y-6 relative">
         <TripStats stats={MY_TRIP_STATS} />
-        <YourGuide />
+        <GuideTeam members={TRIP_TEAM} />
 
         <Tabs defaultValue="ringkasan" className="w-full mt-6">
           <TabsList className="mb-2 w-full">

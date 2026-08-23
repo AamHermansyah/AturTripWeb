@@ -5,18 +5,35 @@ import { cn } from "@/lib/utils"
 import { MapPinIcon, ShareNetworkIcon, HeartIcon, ArrowLeftIcon } from "@phosphor-icons/react"
 import { useRouter } from "next/navigation"
 
+const DEFAULT_IMAGE =
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
+
 interface HeroSectionProps {
   backButton?: boolean
+  title?: string
+  location?: string
+  imageUrl?: string
+  /** Chip tambahan di atas lokasi, mis. penanda "Trip Komunitas". */
+  badge?: React.ReactNode
+  /** Baris kecil di bawah judul, mis. "oleh Nusantara Trekkers". */
+  subtitle?: string
 }
 
-export function HeroSection({ backButton }: HeroSectionProps) {
+export function HeroSection({
+  backButton,
+  title = "Pendakian Gunung Rinjani dan Danau Segara Anak",
+  location = "Nusa Tenggara Barat, Indonesia",
+  imageUrl = DEFAULT_IMAGE,
+  badge,
+  subtitle,
+}: HeroSectionProps) {
   const router = useRouter()
 
   return (
     <div className="relative h-65 w-full">
       <img
-        src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
-        alt="Jalur Puncak Berkabut"
+        src={imageUrl}
+        alt={title}
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
@@ -47,15 +64,23 @@ export function HeroSection({ backButton }: HeroSectionProps) {
       </div>
 
       <div className="absolute bottom-6 left-0 w-full px-5 flex flex-col gap-2 z-10">
-        <div className="inline-flex items-center gap-1.5 bg-zinc-800/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full w-fit text-white">
-          <MapPinIcon weight="fill" className="size-4 text-zinc-300" />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-200">
-            Nusa Tenggara Barat, Indonesia
-          </span>
+        <div className="flex flex-wrap items-center gap-2">
+          {badge}
+          <div className="inline-flex items-center gap-1.5 bg-zinc-800/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full w-fit text-white">
+            <MapPinIcon weight="fill" className="size-4 text-zinc-300" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-200">
+              {location}
+            </span>
+          </div>
         </div>
+
         <h1 className="font-heading text-white text-2xl font-bold leading-[1.2] tracking-tight">
-          Pendakian Gunung Rinjani dan Danau Segara Anak
+          {title}
         </h1>
+
+        {subtitle && (
+          <p className="text-xs font-medium text-zinc-300">{subtitle}</p>
+        )}
       </div>
     </div>
   )

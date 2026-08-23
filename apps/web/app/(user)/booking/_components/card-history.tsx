@@ -3,31 +3,31 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+
+export type BookingHistoryStatus = 'LUNAS' | 'LUNAS_DP' | 'MENUNGGU' | 'KEDALUWARSA'
+
+const STATUS_CONFIG: Record<
+  BookingHistoryStatus,
+  { label: string; variant: 'success' | 'info' | 'destructive' }
+> = {
+  LUNAS: { label: 'LUNAS', variant: 'success' },
+  LUNAS_DP: { label: 'LUNAS DP', variant: 'success' },
+  MENUNGGU: { label: 'MENUNGGU', variant: 'info' },
+  KEDALUWARSA: { label: 'KEDALUWARSA', variant: 'destructive' },
+}
 
 interface CardHistoryProps {
   imageSrc: string
   date: string
   time?: string
   title: string
-  status: string
+  status: BookingHistoryStatus
   price: string
 }
 
 export default function CardHistory({ imageSrc, date, time, title, status, price }: CardHistoryProps) {
-  const router = useRouter();
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'LUNAS':
-      case 'LUNAS DP':
-        return 'success'
-      case 'EXPIRED':
-        return 'destructive'
-      default:
-        return 'info'
-    }
-  }
+  const { label, variant } = STATUS_CONFIG[status]
+  const isPaid = status === 'LUNAS' || status === 'LUNAS_DP'
 
   return (
     <div className="flex flex-col gap-3 p-3 rounded-4xl border border-border/50 bg-muted/20 active:scale-[0.98] transition-transform cursor-pointer">
@@ -50,8 +50,8 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
             </h3>
 
             <div className="flex items-center justify-between mt-0.5">
-              <Badge variant={getStatusVariant(status)} className="text-[10px]">
-                {status}
+              <Badge variant={variant} className="text-[10px]">
+                {label}
               </Badge>
 
               <span className="text-[13px] font-extrabold text-foreground">{price}</span>
@@ -60,7 +60,7 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
         </div>
       </Link>
 
-      {(status === 'LUNAS' || status === 'LUNAS DP') && (
+      {isPaid && (
         <div className="px-1 pb-1">
           <Link href="/booking/1/refund">
             <Button variant="info" size="xs" className="w-full">
@@ -70,7 +70,7 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
         </div>
       )}
 
-      {status === 'PENDING' && (
+      {status === 'MENUNGGU' && (
         <Button size="xs" className="w-full">
           Bayar
         </Button>

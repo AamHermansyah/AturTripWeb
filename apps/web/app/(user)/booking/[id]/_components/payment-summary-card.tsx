@@ -18,7 +18,7 @@ interface PaymentSummaryCardProps {
 
 export function PaymentSummaryCard({
   items,
-  totalLabel = "Total Amount",
+  totalLabel = "Total Pembayaran",
   totalAmount,
   showPayButton = false,
 }: PaymentSummaryCardProps) {
@@ -30,7 +30,7 @@ export function PaymentSummaryCard({
           <ReceiptIcon weight="duotone" className="size-4 text-primary" />
         </div>
         <h2 className="font-heading text-base font-extrabold tracking-tight text-foreground">
-          Payment Summary
+          Rincian Pembayaran
         </h2>
       </div>
 

@@ -9,7 +9,7 @@ import {
 export const NAV_ITEMS = [
   {
     href: "/my-trips",
-    label: "My Trips",
+    label: "Trip Saya",
     icon: MapTrifoldIcon,
     center: false,
   },

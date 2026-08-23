@@ -17,7 +17,7 @@ function CardCompleted() {
         <div className="flex flex-col flex-1 gap-1 min-w-0">
           <Link href="/my-trips/1">
             <h3 className="font-heading font-extrabold leading-tight tracking-tight line-clamp-2 hover:text-primary">
-              Tour Guide ke Gedung Lawang Sewu
+              Jelajah Gedung Lawang Sewu
             </h3>
           </Link>
 

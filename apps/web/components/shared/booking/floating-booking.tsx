@@ -6,7 +6,13 @@ import { useState } from 'react'
 import { BookingDrawer } from './booking-drawer'
 import Link from 'next/link'
 
-function FloatingBooking() {
+interface FloatingBookingProps {
+  /** Harga ditampilkan di tombol; default mengikuti trip contoh. */
+  price?: number
+  packageType?: 'per person' | 'per group'
+}
+
+function FloatingBooking({ price = 1750000, packageType = 'per person' }: FloatingBookingProps) {
   const [openDrawer, setOpenDrawer] = useState(false)
 
   return (
@@ -33,13 +39,17 @@ function FloatingBooking() {
               onClick={() => setOpenDrawer(true)}
             >
               <div className="flex flex-col items-start gap-px">
-                <span className="text-[10px] font-bold text-white/80 lowercase">per orang</span>
+                <span className="text-[10px] font-bold text-white/80 lowercase">
+                  {packageType === 'per person' ? 'per orang' : 'per grup'}
+                </span>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-sm font-black leading-none">Rp 1.750.000</span>
+                  <span className="text-sm font-black leading-none">
+                    Rp {price.toLocaleString('id-ID')}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-extrabold">Book Now</span>
+                <span className="text-sm font-extrabold">Pesan Sekarang</span>
                 <ArrowRightIcon weight="bold" className="size-4" />
               </div>
             </button>

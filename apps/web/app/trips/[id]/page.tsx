@@ -7,7 +7,8 @@ import { IncludedFacilities } from "@/components/shared/trips/included-facilitie
 import { RequiredGear } from "@/components/shared/trips/required-gear"
 import { PhysicalPreparation } from "@/components/shared/trips/physical-preparation"
 import { RequiredDocuments } from "@/components/shared/trips/required-documents"
-import { YourGuide } from "@/components/shared/trips/your-guide"
+import { GuideTeam } from "@/components/shared/trips/guide-team"
+import { TRIP_TEAM } from "@/lib/constants/trip"
 import { TripParticipantsCount } from "@/components/shared/trips/trip-participants-count"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -18,7 +19,7 @@ import {
   ArrowDownLeftIcon,
   ArrowUpRightIcon
 } from "@phosphor-icons/react/dist/ssr"
-import FloatingBooking from "../_components/floating-booking"
+import FloatingBooking from "@/components/shared/booking/floating-booking"
 import { ReviewsSection } from "@/components/shared/trips/reviews-section"
 import { TripGallery } from "@/components/shared/trips/trip-gallery"
 
@@ -39,7 +40,7 @@ function PublicTripDetailPage() {
       <div className="px-5 pt-5 space-y-6 relative">
         <TripParticipantsCount count={6} />
         <TripStats stats={PUBLIC_TRIP_STATS} />
-        <YourGuide />
+        <GuideTeam members={TRIP_TEAM} />
 
         <Tabs defaultValue="ringkasan" className="w-full mt-4">
           <TabsList className="mb-2 w-full bg-muted/60 dark:bg-zinc-900 rounded-full p-1 h-12 grid grid-cols-3">
@@ -51,6 +52,7 @@ function PublicTripDetailPage() {
           <TabsContent value="ringkasan" className="space-y-6 animate-in fade-in-50 duration-500 mt-0">
             <ExpeditionSummary />
             <IncludedFacilities />
+            <TripGallery href="/trips/1/gallery" />
           </TabsContent>
 
           <TabsContent value="linimasa" className="space-y-6 animate-in fade-in-50 duration-500 mt-0">
@@ -66,8 +68,7 @@ function PublicTripDetailPage() {
         </Tabs>
       </div>
 
-      <div className="p-5 space-y-6">
-        <TripGallery href="/trips/1/gallery" />
+      <div className="p-5">
         <ReviewsSection tripId="1" />
       </div>
 

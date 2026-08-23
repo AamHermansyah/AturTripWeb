@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { JourneyCard, type Journey } from "./journey-card"
+import { JourneyCard, type Journey } from "@/components/shared/trips/journey-card"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 const JOURNEYS: Journey[] = [

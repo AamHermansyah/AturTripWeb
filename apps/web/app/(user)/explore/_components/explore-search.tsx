@@ -4,7 +4,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { FilterDrawer } from "./filter-drawer"
+import { FilterDrawer } from "@/components/shared/trips/filter-drawer"
 
 export function ExploreSearch() {
   return (

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { GuideCard, type Guide } from "./guide-card"
+import { GuideCard, type Guide } from "@/components/shared/guides/guide-card"
 
 const GUIDES: Guide[] = [
   {

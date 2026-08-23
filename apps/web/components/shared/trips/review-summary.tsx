@@ -11,7 +11,7 @@ export function ReviewSummary() {
           ))}
           <StarIcon weight="regular" className="size-6 text-success" />
         </div>
-        <p className="text-[13px] font-semibold text-muted-foreground">Based on 128 reviews</p>
+        <p className="text-[13px] font-semibold text-muted-foreground">Berdasarkan 128 ulasan</p>
       </div>
 
       <div className="w-full bg-success/5 border border-success/10 rounded-[1.5rem] p-5 space-y-3">

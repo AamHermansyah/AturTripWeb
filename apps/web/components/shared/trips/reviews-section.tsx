@@ -14,13 +14,13 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     author: {
       name: "Sarah Jenkins",
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
-      location: "Traveler from Canada",
+      location: "Wisatawan dari Kanada",
       verified: true
     },
-    date: "2 days ago",
+    date: "2 hari lalu",
     rating: 5,
-    title: "Unforgettable Experience!",
-    content: "Alex was an incredible guide. He knew all the hidden spots that weren't on the map. The hike was challenging but rewarding. Highly recommend the sunset tour!",
+    title: "Pengalaman Tak Terlupakan!",
+    content: "Alex pemandu yang luar biasa. Dia tahu semua spot tersembunyi yang tidak ada di peta. Pendakiannya menantang tapi sangat memuaskan. Sangat merekomendasikan tur matahari terbenamnya!",
     images: [
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=200&q=80",
       "https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=200&q=80",
@@ -30,7 +30,7 @@ export const MOCK_REVIEWS: ReviewProps[] = [
         name: "Alex Riverstone",
         avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
       },
-      content: "Thank you so much, Sarah! It was a pleasure showing you around. I'm glad you enjoyed the sunset view!"
+      content: "Terima kasih banyak, Sarah! Senang sekali bisa memandumu. Aku senang kamu menikmati pemandangan matahari terbenamnya!"
     }
   },
   {
@@ -38,26 +38,26 @@ export const MOCK_REVIEWS: ReviewProps[] = [
     author: {
       name: "Michael Johnson",
       initials: "MJ",
-      location: "Traveler from UK",
+      location: "Wisatawan dari Inggris",
       verified: false
     },
-    date: "1 week ago",
+    date: "1 minggu lalu",
     rating: 4,
-    title: "Great trip, but rain...",
-    content: "The guide was excellent and very knowledgeable. Unfortunately, the weather didn't cooperate, so we missed out on the peak view. Still a good day out.",
+    title: "Perjalanan seru, sayang hujan...",
+    content: "Pemandunya sangat baik dan menguasai medan. Sayangnya cuaca kurang bersahabat, jadi kami tidak sempat menikmati pemandangan puncak. Tetap jadi hari yang menyenangkan.",
   },
   {
     id: "3",
     author: {
-      name: "David Chen",
+      name: "Rangga Pratama",
       avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=150&q=80",
-      location: "Traveler from Singapore",
+      location: "Wisatawan dari Jakarta",
       verified: true
     },
-    date: "2 weeks ago",
+    date: "2 minggu lalu",
     rating: 5,
-    title: "Absolutely stunning!",
-    content: "Everything was perfectly organized. The pace was great and the food provided exceeded my expectations. Will definitely book another trip with them.",
+    title: "Benar-benar memukau!",
+    content: "Semuanya tertata rapi. Ritme perjalanannya pas dan makanan yang disediakan melebihi ekspektasi saya. Pasti akan pesan trip lain bersama mereka.",
   }
 ]
 

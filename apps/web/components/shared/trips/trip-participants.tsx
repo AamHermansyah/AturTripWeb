@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 const PARTICIPANTS = [
@@ -20,14 +21,18 @@ export function TripParticipants() {
       <ScrollArea>
         <div className="flex gap-2 pb-4">
           {PARTICIPANTS.map((p) => (
-            <div key={p.id} className="flex flex-col items-center gap-1.5 w-[68px] shrink-0">
+            <Link
+              key={p.id}
+              href={`/profile/${p.id}`}
+              className="flex flex-col items-center gap-1.5 w-[68px] shrink-0"
+            >
               <div className="size-14 rounded-full bg-muted overflow-hidden cursor-pointer hover:border-primary border-2 border-transparent transition duration-300">
                 <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover text-xs" />
               </div>
               <div className="text-center w-full">
                 <p className="text-xs font-bold text-foreground leading-tight truncate">{p.name}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <ScrollBar orientation="horizontal" />
