@@ -9,7 +9,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { ProfileStats, type ProfileStat } from "@/components/shared/profile/profile-stats"
+import { TripStats, type TripStatItem } from "@/components/shared/trips/trip-stats"
 import {
   GROUP,
   GROUP_CREDENTIALS,
@@ -26,7 +26,7 @@ import { GroupMembers } from "./_components/group-members"
 import { GroupJourneys } from "./_components/group-journeys"
 import { GroupReviews } from "./_components/group-reviews"
 
-const STATS: ProfileStat[] = [
+const STATS: TripStatItem[] = [
   { icon: CheckCircleIcon, label: "Trip Selesai", value: `${GROUP.completedTrips}` },
   {
     icon: UsersThreeIcon,
@@ -54,7 +54,7 @@ export default function GroupDetailPage() {
       />
 
       <div className="space-y-6 px-5 pt-5">
-        <ProfileStats stats={STATS} />
+        <TripStats stats={STATS} />
 
         <div className="flex items-center gap-2">
           <Button asChild className="flex-1">
