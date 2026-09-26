@@ -54,9 +54,9 @@ export function RouteOverview() {
           />
         </Map>
 
-        <div className="absolute bottom-3 left-3 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md rounded-2xl px-3 py-2 flex items-center gap-4 shadow-md shadow-black/5">
+        <div className="absolute bottom-3 left-3 bg-card/95 backdrop-blur-md rounded-2xl px-3 py-2 flex items-center gap-4 shadow-md shadow-black/5">
           <div>
-            <p className="text-[9px] font-bold text-primary uppercase tracking-widest">Jarak</p>
+            <p className="text-[11px] font-semibold text-primary">Jarak</p>
             <p className="text-xs font-extrabold text-foreground mt-0.5">12.4 km</p>
           </div>
         </div>

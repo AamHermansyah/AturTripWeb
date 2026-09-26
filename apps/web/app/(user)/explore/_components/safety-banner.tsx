@@ -7,8 +7,8 @@ export function SafetyBanner() {
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-1.5">
             <ShieldCheckIcon weight="fill" className="text-primary-foreground/80" />
-            <span className="text-[11px] font-bold uppercase tracking-widest text-primary-foreground/80">
-              Keamanan Utama
+            <span className="text-xs font-semibold text-primary-foreground/80">
+              Keamanan utama
             </span>
           </div>
           <p className="font-heading text-xl font-extrabold text-primary-foreground leading-tight">

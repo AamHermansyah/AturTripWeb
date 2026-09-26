@@ -23,7 +23,7 @@ export function GuideCta() {
         </div>
         <Button
           asChild
-          className="shrink-0 rounded-full bg-primary-foreground font-bold text-primary hover:bg-primary-foreground/90"
+          className="shrink-0 bg-primary-foreground font-bold text-primary hover:bg-primary-foreground/90"
         >
           <Link href="/register?role=guide">Daftar</Link>
         </Button>

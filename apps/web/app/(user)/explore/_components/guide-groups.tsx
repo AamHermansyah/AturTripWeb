@@ -177,7 +177,7 @@ export function GuideGroups() {
               {/* Custom Tags */}
               <div className="flex items-center gap-1.5 flex-wrap text-[10px]">
                 {group.customTags.map((tag) => (
-                  <span key={tag} className="text-muted-foreground font-semibold px-2 py-0.5 rounded-full border border-border bg-background shadow-xs">
+                  <span key={tag} className="text-muted-foreground font-semibold px-2 py-0.5 rounded-md border border-border bg-background shadow-xs">
                     #{tag}
                   </span>
                 ))}

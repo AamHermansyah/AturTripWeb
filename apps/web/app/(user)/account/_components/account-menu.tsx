@@ -51,7 +51,7 @@ export default function AccountMenu() {
   const renderGroup = (items: typeof SecurityItems) => (
     <div className="bg-muted/40 rounded-4xl p-3 flex flex-col gap-1">
       {items.map((item, i) => (
-        <Link key={i} href={item.href} className="flex items-center gap-4 p-2 rounded-full hover:bg-background/70 active:bg-background/80 transition-colors group">
+        <Link key={i} href={item.href} className="flex items-center gap-4 p-2 rounded-xl hover:bg-background/70 active:bg-background/80 transition-colors group">
           <div className="size-9 rounded-full bg-background flex items-center justify-center shrink-0 shadow-xs text-primary group-hover:border group-hover:scale-110 transition-transform">
             <item.icon weight="fill" className="size-4" />
           </div>
@@ -65,10 +65,10 @@ export default function AccountMenu() {
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <h4 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest pl-2">Preferensi</h4>
+        <h4 className="text-sm font-semibold text-muted-foreground pl-2">Preferensi</h4>
         <div className="bg-muted/40 rounded-4xl p-3 flex flex-col gap-1">
           {PreferenceItems.map((item, i) => (
-            <Link key={i} href={item.href} className="flex items-center gap-4 p-2 rounded-full hover:bg-background/70 active:bg-background/80 transition-colors group">
+            <Link key={i} href={item.href} className="flex items-center gap-4 p-2 rounded-xl hover:bg-background/70 active:bg-background/80 transition-colors group">
               <div className="size-9 rounded-full bg-background flex items-center justify-center shrink-0 shadow-xs text-primary group-hover:border group-hover:scale-110 transition-transform">
                 <item.icon weight="fill" className="size-4" />
               </div>
@@ -80,7 +80,7 @@ export default function AccountMenu() {
           {/* Dark Mode Toggle */}
           <div
             onClick={toggleTheme}
-            className="flex items-center gap-4 p-2 rounded-full hover:bg-background/70 active:bg-background/80 transition-colors group cursor-pointer"
+            className="flex items-center gap-4 p-2 rounded-xl hover:bg-background/70 active:bg-background/80 transition-colors group cursor-pointer"
           >
             <div className="size-9 rounded-full bg-background flex items-center justify-center shrink-0 shadow-xs text-primary group-hover:border group-hover:scale-110 transition-transform">
               <MoonIcon weight="fill" className="size-4" />
@@ -99,12 +99,12 @@ export default function AccountMenu() {
       </div>
 
       <div className="space-y-3">
-        <h4 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest pl-2">Keamanan</h4>
+        <h4 className="text-sm font-semibold text-muted-foreground pl-2">Keamanan</h4>
         {renderGroup(SecurityItems)}
       </div>
 
       <div className="space-y-3">
-        <h4 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest pl-2">Lainnya</h4>
+        <h4 className="text-sm font-semibold text-muted-foreground pl-2">Lainnya</h4>
         {renderGroup(OtherItems)}
       </div>
 

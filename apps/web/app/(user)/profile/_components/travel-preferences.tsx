@@ -43,7 +43,7 @@ export function TravelPreferences() {
                 type="button"
                 onClick={() => toggleInterest(id)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all active:scale-95",
+                  "inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all active:scale-95",
                   isActive
                     ? "border-primary bg-primary/10 text-primary"
                     : "border-border bg-background text-muted-foreground hover:border-primary/40"
@@ -67,7 +67,7 @@ export function TravelPreferences() {
               type="button"
               onClick={() => setTravelWith(id)}
               className={cn(
-                "rounded-full border px-4 py-1.5 text-sm font-medium transition-all active:scale-95",
+                "rounded-xl border px-4 py-1.5 text-sm font-medium transition-all active:scale-95",
                 travelWith === id
                   ? "border-primary bg-primary/10 text-primary"
                   : "border-border text-muted-foreground hover:border-primary/40"

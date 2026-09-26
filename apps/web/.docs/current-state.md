@@ -17,6 +17,16 @@ AturTrip berada pada fase **prototipe UI/UX dengan data contoh**. Ada 31 route `
 | Pesan dan simpan | Route `conversations` dan `saved` | Halaman kerangka |
 | Pemandu | Layout route group tersedia | Halaman dashboard dan alur operasional belum ada |
 
+## Fondasi desain
+
+Redesign fondasi + komponen diterima pemilik produk pada 26 September 2026; struktur halaman tidak berubah.
+
+- Font tunggal Plus Jakarta Sans (`app/layout.tsx`); `font-heading` memakai keluarga yang sama dengan tracking rapat.
+- Palet di `app/globals.css`: satu aksen jade (`--primary`) di atas netral hangat bernada pasir, mode gelap arang hangat, warna status diredam, bayangan diberi rona hangat. Logo belum final; bila warna brand berubah, ganti `--primary` beserta pasangannya di `.dark`.
+- Radius berjenjang: badge 6px, tombol/input 12px, kartu/dialog/sheet 20px (`rounded-4xl`); tombol ikon tetap bulat.
+- Tombol punya umpan balik tekan (`scale`), bottom navbar menandai halaman aktif (`aria-current`), dan loading route `(user)`, `trips`, `groups` memakai `components/ui/skeleton.tsx`.
+- Tahap 2 (diterima 26 September 2026): tab, chip, tag, dan badge di halaman mengikuti skala radius; label memakai huruf kalimat minimal 11px tanpa `uppercase`. Bentuk bulat hanya untuk avatar, progress, dan tombol ikon. CTA booking memakai `primary`, bukan `success`.
+
 ## Lokasi kode yang sering diperlukan
 
 - Route web: `apps/web/app/`

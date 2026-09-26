@@ -10,15 +10,15 @@ export function RequiredGear() {
 
       <ul className="space-y-2.5 pl-2">
         <li className="flex items-center gap-3">
-          <div className="size-1.5 rounded-full bg-zinc-500 shrink-0" />
+          <div className="size-1.5 rounded-full bg-muted-foreground shrink-0" />
           <span className="text-[13px] font-semibold text-primary/80">Krampon & Kapak Es</span>
         </li>
         <li className="flex items-center gap-3">
-          <div className="size-1.5 rounded-full bg-zinc-500 shrink-0" />
+          <div className="size-1.5 rounded-full bg-muted-foreground shrink-0" />
           <span className="text-[13px] font-semibold text-primary/80">Kantong Tidur -20°C</span>
         </li>
         <li className="flex items-center gap-3">
-          <div className="size-1.5 rounded-full bg-zinc-500 shrink-0" />
+          <div className="size-1.5 rounded-full bg-muted-foreground shrink-0" />
           <span className="text-[13px] font-semibold text-primary/80">Sepatu Gunung</span>
         </li>
       </ul>

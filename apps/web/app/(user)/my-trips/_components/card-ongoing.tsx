@@ -15,16 +15,16 @@ function CardOnGoing() {
 
         <div className="relative flex flex-col gap-3 p-5">
           <div className="flex items-center justify-between">
-            <div className="inline-flex items-center gap-1 bg-white/80 backdrop-blur-md px-2 py-0.5 rounded-full w-fit shadow-sm">
+            <div className="inline-flex items-center gap-1 bg-white/80 backdrop-blur-md px-2 py-0.5 rounded-lg w-fit shadow-sm">
               <div className="size-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-[10px] font-bold text-primary uppercase">
+              <span className="text-[11px] font-semibold text-primary">
                 Berlangsung
               </span>
             </div>
 
-            <div className="inline-flex items-center bg-black/40 backdrop-blur-md border border-white/20 px-2 py-0.5 rounded-full w-fit text-white">
-              <span className="text-[10px] font-bold uppercase tracking-wider">
-                2 Hari
+            <div className="inline-flex items-center bg-black/40 backdrop-blur-md border border-white/20 px-2 py-0.5 rounded-lg w-fit text-white">
+              <span className="text-[11px] font-semibold">
+                2 hari
               </span>
             </div>
           </div>
@@ -41,7 +41,7 @@ function CardOnGoing() {
           <div className="flex items-center mt-3">
             <div className="size-7 rounded-full bg-muted" />
             <div className="size-7 rounded-full bg-info -ml-3" />
-            <div className="h-7 px-2 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white -ml-3">
+            <div className="h-7 px-2 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground -ml-3">
               +2 Lainnya
             </div>
           </div>

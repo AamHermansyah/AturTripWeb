@@ -23,7 +23,7 @@ export function BottomNavbar({ children }: IProps) {
       </div>
       {isVisible && (
         <div className="fixed bottom-0 left-1/2 z-50 w-full max-w-84 -translate-x-1/2 px-4 pb-5">
-          <nav className="flex items-center justify-center rounded-4xl border border-border bg-card/90 px-2 py-2 shadow-lg shadow-black/10 backdrop-blur-md">
+          <nav aria-label="Navigasi utama" className="flex items-center justify-center rounded-4xl border border-border bg-card/90 px-2 py-2 shadow-lg backdrop-blur-md">
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href
 
@@ -31,8 +31,9 @@ export function BottomNavbar({ children }: IProps) {
                 <Link
                   key={href}
                   href={href}
+                  aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "group flex flex-1 flex-col items-center gap-1 rounded-xl p-1 transition-all duration-200",
+                    "group flex flex-1 flex-col items-center gap-1 rounded-xl p-1 transition-[color,scale] duration-200 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-95",
                     isActive ? "text-primary" : "text-muted-foreground"
                   )}
                 >
@@ -50,8 +51,8 @@ export function BottomNavbar({ children }: IProps) {
                   </div>
                   <span
                     className={cn(
-                      "text-[11px] font-semibold leading-none",
-                      isActive ? "opacity-100" : "opacity-60"
+                      "text-[11px] leading-none",
+                      isActive ? "font-bold" : "font-medium"
                     )}
                   >
                     {label}

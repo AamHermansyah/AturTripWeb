@@ -31,10 +31,10 @@ const DEVICES = [
 
 export function ActiveDevices() {
   return (
-    <SecuritySection title="Perangkat Aktif">
+    <SecuritySection title="Perangkat aktif">
       <div className="flex flex-col gap-1 rounded-4xl bg-muted/40 p-3">
         {DEVICES.map(({ id, name, meta, icon: Icon, current }) => (
-          <div key={id} className="flex items-center gap-4 rounded-full p-2">
+          <div key={id} className="flex items-center gap-4 rounded-xl p-2">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-background text-primary shadow-xs">
               <Icon weight="fill" className="size-4" />
             </div>

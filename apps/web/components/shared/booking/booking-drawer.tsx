@@ -142,6 +142,7 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   disabled={quantity <= 1}
+                  aria-label="Kurangi peserta"
                   className="size-8 rounded-full border border-border flex items-center justify-center disabled:opacity-30 active:scale-95 transition-transform"
                 >
                   <MinusIcon weight="bold" className="size-3.5" />
@@ -150,7 +151,8 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
                 <button
                   onClick={() => setQuantity(Math.min(MAX_CAPACITY, quantity + 1))}
                   disabled={quantity >= MAX_CAPACITY}
-                  className="size-8 rounded-full bg-success flex items-center justify-center text-white disabled:opacity-30 active:scale-95 transition-transform"
+                  aria-label="Tambah peserta"
+                  className="size-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground disabled:opacity-30 active:scale-95 transition-transform"
                 >
                   <PlusIcon weight="bold" className="size-3.5" />
                 </button>
@@ -241,7 +243,7 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
             <div className="rounded-2xl border border-border/60 p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Harga per orang</span>
-                <span className="text-sm font-medium">{formatCurrency(PRICE_PER_PERSON)}</span>
+                <span className="text-sm font-medium tabular-nums">{formatCurrency(PRICE_PER_PERSON)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Jumlah peserta</span>
@@ -249,17 +251,17 @@ export function BookingDrawer({ open, onOpenChange }: BookingDrawerProps) {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Subtotal</span>
-                <span className="text-sm font-medium">{formatCurrency(subtotal)}</span>
+                <span className="text-sm font-medium tabular-nums">{formatCurrency(subtotal)}</span>
               </div>
               <Separator />
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Biaya layanan (5%)</span>
-                <span className="text-sm font-medium">{formatCurrency(serviceFee)}</span>
+                <span className="text-sm font-medium tabular-nums">{formatCurrency(serviceFee)}</span>
               </div>
               <Separator />
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold">Total Pembayaran</span>
-                <span className="text-base font-black text-success">{formatCurrency(total)}</span>
+                <span className="text-base font-black tabular-nums text-success">{formatCurrency(total)}</span>
               </div>
             </div>
           </div>

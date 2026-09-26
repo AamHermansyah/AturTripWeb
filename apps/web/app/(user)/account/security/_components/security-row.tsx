@@ -28,7 +28,7 @@ export const SecurityRow = forwardRef<HTMLButtonElement, SecurityRowProps>(
         ref={ref}
         type="button"
         className={cn(
-          "group flex w-full items-center gap-4 rounded-full p-2 text-left transition-colors hover:bg-background/70 active:bg-background/80",
+          "group flex w-full items-center gap-4 rounded-xl p-2 text-left transition-colors hover:bg-background/70 active:bg-background/80",
           className
         )}
         {...props}
@@ -83,7 +83,7 @@ export function SecuritySection({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between pl-2">
-        <h2 className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+        <h2 className="text-sm font-semibold text-muted-foreground">
           {title}
         </h2>
         {action}

@@ -42,7 +42,7 @@ export default function CardHistory({ imageSrc, date, time, title, status, price
           </div>
 
           <div className="flex flex-col flex-1 justify-center">
-            <p className="text-[10px] font-bold text-primary/80 uppercase tracking-widest mb-1.5">
+            <p className="text-xs font-semibold text-primary mb-1.5">
               {date}{time && `, ${time}`}
             </p>
             <h3 className="font-heading text-[15px] font-extrabold leading-tight mb-2 tracking-tight">

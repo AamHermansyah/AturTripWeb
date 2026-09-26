@@ -2,6 +2,11 @@
 
 Status: **berjalan**. `[x] UI awal` berarti route/tampilan memang ada dalam kode pada 26 September 2026, **belum berarti desain final disetujui**. Butir review tetap `[ ]` sampai pemilik produk menerima fitur tanpa perbaikan. Lihat arti checkbox di [timeline monorepo](../../../.docs/timelines/timeline.md).
 
+## Fondasi desain
+
+- [x] Redesign fondasi + komponen `apps/web` (Plus Jakarta Sans, palet jade + netral hangat, radius berjenjang, state tekan/fokus, skeleton loading) diterima pemilik produk tanpa perbaikan pada 26 September 2026.
+- [x] Tahap 2: level halaman memakai bentuk komponen yang sama (tanpa tab/tombol pil yang dipaksa) dan label kecil yang terbaca; diterima pemilik produk pada 26 September 2026.
+
 ## Wisatawan
 
 - [x] UI awal onboarding dan personalisasi (`/onboarding`, `/personalize`).

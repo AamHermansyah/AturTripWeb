@@ -187,7 +187,7 @@ export function DateAvailability({
     available:
       'font-bold text-success bg-success/10 [&>button]:hover:text-primary-foreground dark:[&>button]:hover:text-primary-foreground [&>button]:hover:bg-success/80 dark:[&>button]:hover:bg-success/80 ring-1 ring-success/40 rounded-[var(--cell-radius)]',
     full:
-      'font-bold text-white! bg-destructive/50 opacity-100! [&>button]:opacity-100! cursor-not-allowed! ring-1 ring-destructive rounded-[var(--cell-radius)] line-through',
+      'font-bold text-destructive! bg-destructive/10 dark:bg-destructive/5 opacity-100! [&>button]:opacity-100! cursor-not-allowed! ring-1 ring-destructive/40 rounded-[var(--cell-radius)] line-through',
   }
 
   return (

@@ -52,7 +52,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
       {/* Tags */}
       <div className="mt-3 flex flex-wrap gap-1.5">
         {tags.map((tag) => (
-          <Badge key={tag} variant="default" className="bg-primary/30 rounded-full text-xs font-medium text-foreground/70">
+          <Badge key={tag} variant="default" className="bg-primary/15 text-xs font-medium text-foreground/80">
             {tag}
           </Badge>
         ))}

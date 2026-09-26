@@ -43,10 +43,10 @@ function PublicTripDetailPage() {
         <GuideTeam members={TRIP_TEAM} />
 
         <Tabs defaultValue="ringkasan" className="w-full mt-4">
-          <TabsList className="mb-2 w-full bg-muted/60 dark:bg-zinc-900 rounded-full p-1 h-12 grid grid-cols-3">
-            <TabsTrigger value="ringkasan" className="rounded-full font-bold h-full text-xs">Ringkasan</TabsTrigger>
-            <TabsTrigger value="linimasa" className="rounded-full font-bold h-full text-xs">Linimasa</TabsTrigger>
-            <TabsTrigger value="persiapan" className="rounded-full font-bold h-full text-xs">Persiapan</TabsTrigger>
+          <TabsList className="mb-2 w-full bg-muted/60 dark:bg-secondary rounded-2xl p-1 h-12 grid grid-cols-3">
+            <TabsTrigger value="ringkasan" className="rounded-xl h-full text-sm">Ringkasan</TabsTrigger>
+            <TabsTrigger value="linimasa" className="rounded-xl h-full text-sm">Linimasa</TabsTrigger>
+            <TabsTrigger value="persiapan" className="rounded-xl h-full text-sm">Persiapan</TabsTrigger>
           </TabsList>
 
           <TabsContent value="ringkasan" className="space-y-6 animate-in fade-in-50 duration-500 mt-0">

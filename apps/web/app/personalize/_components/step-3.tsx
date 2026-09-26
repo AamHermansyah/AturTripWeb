@@ -39,7 +39,7 @@ export function Step3({ travelWith, setTravelWith, experience, setExperience }: 
               <label
                 htmlFor={`tw-${id}`}
                 className={cn(
-                  "cursor-pointer rounded-full border-2 px-5 py-2 text-sm font-semibold transition-all",
+                  "cursor-pointer rounded-xl border-2 px-5 py-2 text-sm font-semibold transition-all",
                   travelWith === id
                     ? "border-primary bg-primary/10 text-primary"
                     : "border-border text-muted-foreground hover:border-primary/40"

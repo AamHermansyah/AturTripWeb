@@ -4,92 +4,97 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Palet AturTrip: satu aksen jade yang tenang di atas netral hangat bernada pasir.
+ * Semua abu-abu memakai rona yang sama (hue ~65–85) supaya tidak bercampur hangat/dingin.
+ * Logo belum final; ganti --primary (dan pasangannya di .dark) bila warna brand berubah.
+ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.148 0.004 228.8);
+  --background: oklch(0.985 0.004 85);
+  --foreground: oklch(0.21 0.012 60);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.148 0.004 228.8);
+  --card-foreground: oklch(0.21 0.012 60);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.148 0.004 228.8);
-  --primary: oklch(0.67 0.216 142.702);
-  --primary-foreground: oklch(0.979 0.021 166.113);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.88 0.0001 271.152);
-  --muted-foreground: oklch(51.205% 0.01994 210.366);
-  --accent: oklch(0.963 0.002 197.1);
-  --accent-foreground: oklch(0.218 0.008 223.9);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.98 0.02 257.4);
-  --success: oklch(0.621 0.190 142.266);
-  --success-foreground: oklch(0.98 0.02 257.4);
-  --warning: oklch(0.702 0.185 54.6);
-  --warning-foreground: oklch(0.98 0.02 257.4);
-  --info: oklch(0.546 0.177 257.4);
-  --info-foreground: oklch(0.98 0.02 257.4);
-  --border: oklch(0.925 0.005 214.3);
-  --input: oklch(0.925 0.005 214.3);
-  --ring: oklch(0.723 0.014 214.4);
-  --chart-1: oklch(0.808 0.114 19.571);
-  --chart-2: oklch(0.637 0.237 25.331);
-  --chart-3: oklch(0.577 0.245 27.325);
-  --chart-4: oklch(0.505 0.213 27.518);
-  --chart-5: oklch(0.444 0.177 26.899);
-  --radius: 0.45rem;
-  --sidebar: oklch(0.987 0.002 197.1);
-  --sidebar-foreground: oklch(0.148 0.004 228.8);
-  --sidebar-primary: oklch(0.596 0.145 163.225);
-  --sidebar-primary-foreground: oklch(0.979 0.021 166.113);
-  --sidebar-accent: oklch(0.963 0.002 197.1);
-  --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
-  --sidebar-border: oklch(0.925 0.005 214.3);
-  --sidebar-ring: oklch(0.723 0.014 214.4);
+  --popover-foreground: oklch(0.21 0.012 60);
+  --primary: oklch(0.52 0.1 165);
+  --primary-foreground: oklch(0.985 0.012 165);
+  --secondary: oklch(0.955 0.007 80);
+  --secondary-foreground: oklch(0.27 0.012 60);
+  --muted: oklch(0.91 0.009 80);
+  --muted-foreground: oklch(0.5 0.014 65);
+  --accent: oklch(0.955 0.022 165);
+  --accent-foreground: oklch(0.32 0.06 165);
+  --destructive: oklch(0.56 0.19 27);
+  --destructive-foreground: oklch(0.985 0.01 27);
+  --success: oklch(0.54 0.12 150);
+  --success-foreground: oklch(0.985 0.012 150);
+  --warning: oklch(0.58 0.13 55);
+  --warning-foreground: oklch(0.99 0.01 70);
+  --info: oklch(0.54 0.12 248);
+  --info-foreground: oklch(0.985 0.01 248);
+  --border: oklch(0.905 0.008 80);
+  --input: oklch(0.905 0.008 80);
+  --ring: oklch(0.6 0.09 165);
+  --chart-1: oklch(0.82 0.08 165);
+  --chart-2: oklch(0.7 0.1 165);
+  --chart-3: oklch(0.58 0.1 165);
+  --chart-4: oklch(0.47 0.085 165);
+  --chart-5: oklch(0.37 0.065 165);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.975 0.005 85);
+  --sidebar-foreground: oklch(0.21 0.012 60);
+  --sidebar-primary: oklch(0.52 0.1 165);
+  --sidebar-primary-foreground: oklch(0.985 0.012 165);
+  --sidebar-accent: oklch(0.955 0.022 165);
+  --sidebar-accent-foreground: oklch(0.32 0.06 165);
+  --sidebar-border: oklch(0.905 0.008 80);
+  --sidebar-ring: oklch(0.6 0.09 165);
 }
 
 .dark {
-  --background: oklch(0.275 0.011 216.9);
-  --foreground: oklch(0.987 0.002 197.1);
-  --card: oklch(0.218 0.008 223.9);
-  --card-foreground: oklch(0.987 0.002 197.1);
-  --popover: oklch(0.218 0.008 223.9);
-  --popover-foreground: oklch(0.987 0.002 197.1);
-  --primary: oklch(0.67 0.216 142.702);
-  --primary-foreground: oklch(0.979 0.021 166.113);
-  --secondary: oklch(0.307 0.03054 148.42);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.326 0.00528 286.007);
-  --muted-foreground: oklch(0.672 0.00604 211.669);
-  --accent: oklch(0.275 0.011 216.9);
-  --accent-foreground: oklch(0.987 0.002 197.1);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.197 0.00818 17.716);
-  --success: oklch(0.627 0.17 142.5);
-  --success-foreground: oklch(0.98 0.02 257.4);
-  --warning: oklch(0.765 0.175 54.6);
-  --warning-foreground: oklch(0.98 0.02 257.4);
-  --info: oklch(0.646 0.19 257.4);
-  --info-foreground: oklch(0.98 0.02 257.4);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.56 0.021 213.5);
-  --chart-1: oklch(0.808 0.114 19.571);
-  --chart-2: oklch(0.637 0.237 25.331);
-  --chart-3: oklch(0.577 0.245 27.325);
-  --chart-4: oklch(0.505 0.213 27.518);
-  --chart-5: oklch(0.444 0.177 26.899);
-  --sidebar: oklch(0.218 0.008 223.9);
-  --sidebar-foreground: oklch(0.987 0.002 197.1);
-  --sidebar-primary: oklch(0.696 0.17 162.48);
-  --sidebar-primary-foreground: oklch(0.262 0.051 172.552);
-  --sidebar-accent: oklch(0.275 0.011 216.9);
-  --sidebar-accent-foreground: oklch(0.987 0.002 197.1);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.56 0.021 213.5);
+  --background: oklch(0.185 0.008 65);
+  --foreground: oklch(0.965 0.006 80);
+  --card: oklch(0.22 0.009 65);
+  --card-foreground: oklch(0.965 0.006 80);
+  --popover: oklch(0.24 0.01 65);
+  --popover-foreground: oklch(0.965 0.006 80);
+  --primary: oklch(0.72 0.11 164);
+  --primary-foreground: oklch(0.2 0.035 165);
+  --secondary: oklch(0.265 0.01 65);
+  --secondary-foreground: oklch(0.965 0.006 80);
+  --muted: oklch(0.3 0.01 65);
+  --muted-foreground: oklch(0.72 0.012 75);
+  --accent: oklch(0.28 0.03 165);
+  --accent-foreground: oklch(0.93 0.03 165);
+  --destructive: oklch(0.72 0.15 25);
+  --destructive-foreground: oklch(0.2 0.04 25);
+  --success: oklch(0.7 0.13 150);
+  --success-foreground: oklch(0.2 0.04 150);
+  --warning: oklch(0.78 0.13 65);
+  --warning-foreground: oklch(0.24 0.05 60);
+  --info: oklch(0.7 0.11 248);
+  --info-foreground: oklch(0.2 0.04 248);
+  --border: oklch(0.965 0.006 80 / 10%);
+  --input: oklch(0.965 0.006 80 / 14%);
+  --ring: oklch(0.62 0.09 164);
+  --chart-1: oklch(0.85 0.07 165);
+  --chart-2: oklch(0.76 0.1 165);
+  --chart-3: oklch(0.66 0.1 165);
+  --chart-4: oklch(0.55 0.09 165);
+  --chart-5: oklch(0.44 0.07 165);
+  --sidebar: oklch(0.2 0.008 65);
+  --sidebar-foreground: oklch(0.965 0.006 80);
+  --sidebar-primary: oklch(0.72 0.11 164);
+  --sidebar-primary-foreground: oklch(0.2 0.035 165);
+  --sidebar-accent: oklch(0.28 0.03 165);
+  --sidebar-accent-foreground: oklch(0.93 0.03 165);
+  --sidebar-border: oklch(0.965 0.006 80 / 10%);
+  --sidebar-ring: oklch(0.62 0.09 164);
 }
 
 @theme inline {
   --font-sans: var(--font-sans);
-  --font-heading: var(--font-heading);
+  --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -128,16 +133,28 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 4);
+  /* Radius berjenjang: elemen dalam lebih rapat, wadah lebih lembut. */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.125rem;
+  --radius-4xl: 1.25rem;
 
   /* Custom Tailwind */
   --container-sm: 430px;
+}
+
+/* Bayangan diberi rona hangat yang sama dengan latar, bukan hitam polos. */
+@theme {
+  --shadow-2xs: 0 1px 0 oklch(0.3 0.03 60 / 0.05);
+  --shadow-xs: 0 1px 2px 0 oklch(0.3 0.03 60 / 0.06);
+  --shadow-sm: 0 1px 2px 0 oklch(0.3 0.03 60 / 0.06), 0 2px 6px -1px oklch(0.3 0.03 60 / 0.06);
+  --shadow-md: 0 2px 4px -1px oklch(0.3 0.03 60 / 0.06), 0 8px 16px -6px oklch(0.3 0.03 60 / 0.12);
+  --shadow-lg: 0 4px 8px -2px oklch(0.3 0.03 60 / 0.06), 0 14px 28px -8px oklch(0.3 0.03 60 / 0.16);
+  --shadow-xl: 0 8px 16px -4px oklch(0.3 0.03 60 / 0.08), 0 24px 44px -12px oklch(0.3 0.03 60 / 0.2);
+  --shadow-2xl: 0 32px 64px -16px oklch(0.3 0.03 60 / 0.3);
 }
 
 /* Dipakai carousel & daftar horizontal: sembunyikan scrollbar tanpa mematikan scroll. */
@@ -160,6 +177,38 @@
 
   html {
     @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Judul terasa padat dan tegas; utilitas tracking-* tetap bisa menimpanya. */
+  .font-heading {
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--primary) 22%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   .maplibregl-popup-content {

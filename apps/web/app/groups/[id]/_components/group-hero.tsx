@@ -94,7 +94,7 @@ export function GroupHero({
             </div>
 
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-              <Badge className="rounded-full bg-primary/15 text-[11px] font-semibold text-primary">
+              <Badge className="bg-primary/15 text-[11px] font-semibold text-primary">
                 {category}
               </Badge>
 

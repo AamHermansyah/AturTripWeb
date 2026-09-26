@@ -33,9 +33,9 @@ function TripDetailPage() {
 
         <Tabs defaultValue="ringkasan" className="w-full mt-6">
           <TabsList className="mb-2 w-full">
-            <TabsTrigger value="ringkasan" className="rounded-full font-bold h-full text-xs">Ringkasan</TabsTrigger>
-            <TabsTrigger value="linimasa" className="rounded-full font-bold h-full text-xs">Linimasa</TabsTrigger>
-            <TabsTrigger value="persiapan" className="rounded-full font-bold h-full text-xs">Persiapan</TabsTrigger>
+            <TabsTrigger value="ringkasan" className="rounded-xl h-full text-sm">Ringkasan</TabsTrigger>
+            <TabsTrigger value="linimasa" className="rounded-xl h-full text-sm">Linimasa</TabsTrigger>
+            <TabsTrigger value="persiapan" className="rounded-xl h-full text-sm">Persiapan</TabsTrigger>
           </TabsList>
 
           {/* TAB 1: Ringkasan */}

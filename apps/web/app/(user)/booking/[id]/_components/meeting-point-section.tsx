@@ -19,8 +19,8 @@ export function MeetingPointSection({ location, description }: MeetingPointSecti
 
         {/* Info */}
         <div className="flex flex-col gap-0.5">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Titik Pertemuan
+          <p className="text-xs font-medium text-muted-foreground">
+            Titik pertemuan
           </p>
           <p className="font-heading text-[15px] font-extrabold tracking-tight text-foreground">
             {location}

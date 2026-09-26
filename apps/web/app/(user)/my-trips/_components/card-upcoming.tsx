@@ -14,10 +14,10 @@ function CardUpcoming() {
         <div className="absolute inset-0 bg-linear-to-t from-zinc-950/90 via-zinc-950/60 to-zinc-950/20" />
 
         <div className="relative flex flex-col gap-3 p-5">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full w-fit">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-lg w-fit">
             <div className="size-2 rounded-full bg-info" />
-            <span className="text-[10px] font-bold text-white uppercase">
-              3 Hari Lagi
+            <span className="text-[11px] font-semibold text-white">
+              3 hari lagi
             </span>
           </div>
 
@@ -33,7 +33,7 @@ function CardUpcoming() {
           <div className="flex items-center mt-3">
             <div className="size-7 rounded-full bg-muted" />
             <div className="size-7 rounded-full bg-info -ml-3" />
-            <div className="h-7 px-2 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white -ml-3">
+            <div className="h-7 px-2 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground -ml-3">
               +2 Lainnya
             </div>
           </div>

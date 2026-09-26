@@ -10,8 +10,8 @@ interface CurrentBookingCardProps {
 export function CurrentBookingCard({ imageSrc, title, date }: CurrentBookingCardProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-        Pemesanan Saat Ini
+      <p className="text-xs font-medium text-muted-foreground">
+        Pemesanan saat ini
       </p>
 
       <div className="flex items-center gap-3 rounded-4xl border bg-card p-3 shadow-sm">

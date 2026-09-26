@@ -14,7 +14,7 @@ export function InterestTags({ interests }: { interests: Interest[] }) {
       {items.map(({ id, label, icon: Icon }) => (
         <span
           key={id}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-semibold shadow-xs"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-semibold shadow-xs"
         >
           <Icon weight="fill" className="size-3.5 text-primary" />
           {label}

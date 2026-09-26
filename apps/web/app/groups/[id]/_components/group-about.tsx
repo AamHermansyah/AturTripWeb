@@ -25,7 +25,7 @@ export function GroupAbout({ description, establishedYear, tags }: GroupAboutPro
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-xs"
+            className="rounded-md border border-border bg-background px-2.5 py-1 text-[11px] font-semibold text-muted-foreground shadow-xs"
           >
             #{tag}
           </span>

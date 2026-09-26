@@ -20,7 +20,7 @@ export default function NotificationsPage() {
             <button
               key={tab}
               className={cn(
-                "px-4 py-1.5 rounded-full text-[13px] font-bold border transition-colors whitespace-nowrap shadow-xs",
+                "px-4 py-1.5 rounded-xl text-[13px] font-semibold border transition-colors whitespace-nowrap shadow-xs",
                 i === 0
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-background text-foreground border-border/60"
@@ -36,7 +36,7 @@ export default function NotificationsPage() {
       <div className="space-y-6">
         {/* HARI INI */}
         <div className="space-y-3">
-          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Hari Ini</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground pl-1">Hari ini</h2>
           <div className="space-y-3">
             <NotificationItem
               variant="booking"
@@ -57,7 +57,7 @@ export default function NotificationsPage() {
 
         {/* KEMARIN */}
         <div className="space-y-3">
-          <h2 className="text-[10px] font-extrabold text-muted-foreground uppercase tracking-widest pl-1">Kemarin</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground pl-1">Kemarin</h2>
           <div className="space-y-3">
             <NotificationItem
               variant="verification"

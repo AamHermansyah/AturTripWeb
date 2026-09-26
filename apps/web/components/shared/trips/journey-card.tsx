@@ -106,7 +106,7 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
         {/* Info */}
         <div className="flex-1 flex flex-col justify-between py-2">
           <div>
-            <h4 className="text-xs font-semibold text-primary uppercase">
+            <h4 className="text-xs font-semibold text-primary">
               {category}
             </h4>
             <Link href={detailHref}>
@@ -166,7 +166,7 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
           <div className="mt-2 w-full flex items-center justify-between gap-2">
             <Badge
               variant={type === "Private" ? "default" : "info-fill"}
-              className="rounded-full text-xs"
+              className="text-xs"
             >
               {JOURNEY_TYPE_LABEL[type]}
             </Badge>

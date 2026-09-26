@@ -37,7 +37,7 @@ function Section({
   return (
     <div className="space-y-3">
       <div>
-        <h2 className="font-heading text-sm font-extrabold uppercase tracking-widest text-muted-foreground">
+        <h2 className="font-heading text-sm font-semibold text-muted-foreground">
           {title}
         </h2>
         {description && (
@@ -77,7 +77,7 @@ export default function ProfilePage() {
 
       <Separator />
 
-      <Section title="Data Diri">
+      <Section title="Data diri">
         <PersonalInfoForm />
       </Section>
 
@@ -89,7 +89,7 @@ export default function ProfilePage() {
 
       <Separator />
 
-      <Section title="Preferensi Perjalanan">
+      <Section title="Preferensi perjalanan">
         <TravelPreferences />
       </Section>
 

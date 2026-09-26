@@ -83,12 +83,12 @@ export default function BookingCancelPage() {
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Kelayakan Refund
+            <span className="text-xs font-medium text-muted-foreground">
+              Kelayakan refund
             </span>
             <span
               className={cn(
-                'rounded-full px-2.5 py-1 text-xs font-bold',
+                'rounded-md px-2 py-0.5 text-xs font-semibold',
                 refund.eligible
                   ? 'bg-success/15 text-success'
                   : 'bg-destructive/15 text-destructive'

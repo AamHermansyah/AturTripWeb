@@ -1,4 +1,5 @@
-import { Nunito_Sans, Lora } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Plus_Jakarta_Sans } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -6,15 +7,22 @@ import { SplashScreen } from "@/components/splash-screen"
 import { Toaster } from "@/components/ui/sonner"
 import { cn } from "@/lib/utils";
 
-const lora = Lora({ subsets: ['latin'], variable: '--font-heading' })
-
-const nunitoSans = Nunito_Sans({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-export const metadata = {
-  title: 'AturTrip | Pandu kearah yang tepat!'
+export const metadata: Metadata = {
+  title: "AturTrip | Pandu ke arah yang tepat!",
+  description:
+    "Temukan trip dan pemandu lokal terpercaya, pesan slot, lalu atur perjalananmu dalam satu aplikasi.",
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#15120f" },
+  ],
 }
 
 export default function RootLayout({
@@ -24,13 +32,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
       suppressHydrationWarning
       className={cn(
         "antialiased",
-        nunitoSans.variable,
+        plusJakartaSans.variable,
         "font-sans",
-        lora.variable,
       )}
     >
       <body className="bg-secondary">

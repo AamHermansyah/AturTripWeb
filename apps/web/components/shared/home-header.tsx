@@ -15,7 +15,7 @@ export function HomeHeader() {
   const isMainScreen = MAIN_PATHS.includes(pathname)
 
   return (
-    <div className="sticky top-0 bg-background flex items-center justify-between px-5 py-2 z-50">
+    <header className="sticky top-0 bg-background/90 backdrop-blur-md flex items-center justify-between px-5 py-2 z-50">
       {isMainScreen ? (
         <>
           <Logo className="size-10 mb-0" />
@@ -46,6 +46,6 @@ export function HomeHeader() {
           <Logo className="size-10 mb-0" />
         </>
       )}
-    </div>
+    </header>
   )
 }

@@ -40,7 +40,7 @@ export function DeleteAccountDialog() {
         <div className="flex flex-col gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4">
           <div className="flex items-center gap-2 text-destructive">
             <WarningCircleIcon weight="fill" className="size-4 shrink-0" />
-            <p className="text-xs font-bold uppercase tracking-widest">Yang akan terjadi</p>
+            <p className="text-sm font-semibold">Yang akan terjadi</p>
           </div>
 
           <ul className="flex flex-col gap-2">

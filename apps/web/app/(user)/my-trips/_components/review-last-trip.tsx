@@ -44,7 +44,7 @@ export function ReviewLastTrip() {
             </div>
             <Button
               variant="secondary"
-              className="rounded-full bg-[#374151] text-white hover:bg-[#4B5563] hover:text-white border-0 font-medium px-5"
+              className="bg-[#374151] text-white hover:bg-[#4B5563] hover:text-white border-0 font-medium px-5"
             >
               Nanti
             </Button>

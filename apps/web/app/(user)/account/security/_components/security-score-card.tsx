@@ -49,8 +49,8 @@ export function SecurityScoreCard({ checks }: { checks: SecurityCheck[] }) {
           <ShieldCheckIcon weight="fill" className="size-5.5 text-primary" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Status Keamanan
+          <p className="text-xs font-medium text-muted-foreground">
+            Status keamanan
           </p>
           <p className={cn("font-heading text-lg font-extrabold leading-tight", level.text)}>
             {level.label}

@@ -82,7 +82,7 @@ const REVIEWS: TravelerReview[] = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <h2 className="font-heading text-sm font-extrabold uppercase tracking-widest text-muted-foreground">
+      <h2 className="font-heading text-sm font-semibold text-muted-foreground">
         {title}
       </h2>
       {children}
@@ -107,7 +107,7 @@ export default function PublicProfilePage() {
 
       <Separator />
 
-      <Section title="Minat Perjalanan">
+      <Section title="Minat perjalanan">
         <InterestTags interests={TRAVELER.interests} />
       </Section>
 
@@ -119,7 +119,7 @@ export default function PublicProfilePage() {
 
       <Separator />
 
-      <Section title="Ulasan yang Ditulis">
+      <Section title="Ulasan yang ditulis">
         <TravelerReviews reviews={REVIEWS} />
       </Section>
     </div>

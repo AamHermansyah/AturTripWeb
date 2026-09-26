@@ -21,7 +21,7 @@ export function ProfileStats({ stats }: { stats: ProfileStat[] }) {
           <p className="font-heading text-base font-extrabold leading-none text-foreground">
             {value}
           </p>
-          <p className="text-[10px] font-bold uppercase tracking-widest leading-none text-muted-foreground">
+          <p className="text-xs font-medium leading-none text-muted-foreground">
             {label}
           </p>
         </div>

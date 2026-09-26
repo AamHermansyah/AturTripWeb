@@ -32,7 +32,7 @@ export function TripStats({ stats }: TripStatsProps) {
                   <stat.icon weight={stat.iconWeight || "fill"} className="size-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none mb-1.5">{stat.label}</p>
+                  <p className="text-xs font-medium text-muted-foreground leading-none mb-1.5">{stat.label}</p>
                   <p className="text-[14px] font-extrabold text-foreground leading-none">{stat.value}</p>
                 </div>
               </div>

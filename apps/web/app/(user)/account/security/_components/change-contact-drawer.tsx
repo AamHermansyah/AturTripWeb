@@ -119,7 +119,7 @@ export function ChangeContactDrawer({
           {step === "form" ? (
             <>
               <div className="rounded-2xl border border-border/60 bg-muted/30 px-4 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                <p className="text-xs font-medium text-muted-foreground">
                   {config.currentLabel}
                 </p>
                 <p className="mt-0.5 text-sm font-semibold text-foreground">{currentValue}</p>

@@ -66,9 +66,9 @@ export function HeroSection({
       <div className="absolute bottom-6 left-0 w-full px-5 flex flex-col gap-2 z-10">
         <div className="flex flex-wrap items-center gap-2">
           {badge}
-          <div className="inline-flex items-center gap-1.5 bg-zinc-800/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full w-fit text-white">
+          <div className="inline-flex items-center gap-1.5 bg-zinc-800/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg w-fit text-white">
             <MapPinIcon weight="fill" className="size-4 text-zinc-300" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-200">
+            <span className="text-xs font-semibold text-zinc-200">
               {location}
             </span>
           </div>

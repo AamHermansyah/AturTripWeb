@@ -24,7 +24,7 @@ export interface TripTeamMember {
 
 // Satu gaya untuk semua peran — pembeda cukup teksnya, bukan warnanya.
 const ROLE_BADGE =
-  "shrink-0 self-start rounded-full border border-border bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-muted-foreground"
+  "shrink-0 self-start rounded-md border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground"
 
 interface GuideTeamProps {
   members: TripTeamMember[]
@@ -62,7 +62,7 @@ export function GuideTeam({ members, description, group }: GuideTeamProps) {
             <UsersThreeIcon weight="fill" className="size-5 text-primary" />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            <p className="text-xs font-medium text-muted-foreground">
               Diselenggarakan oleh
             </p>
             <p className="truncate font-heading text-sm font-extrabold">{group.name}</p>

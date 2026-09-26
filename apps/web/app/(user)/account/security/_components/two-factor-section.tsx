@@ -46,8 +46,8 @@ export function TwoFactorSection({
 
   return (
     <div className="space-y-3">
-      <h2 className="pl-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-        Verifikasi Dua Langkah
+      <h2 className="pl-2 text-sm font-semibold text-muted-foreground">
+        Verifikasi dua langkah
       </h2>
 
       <div className="space-y-4 rounded-4xl bg-muted/40 p-4">

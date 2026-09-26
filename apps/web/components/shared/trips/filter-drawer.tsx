@@ -48,7 +48,7 @@ function RadioChips<T extends string>({
           <label
             htmlFor={`${name}-${id}`}
             className={cn(
-              "cursor-pointer rounded-full border px-4 py-1.5 text-sm font-medium transition-all",
+              "cursor-pointer rounded-xl border px-4 py-1.5 text-sm font-medium transition-all",
               value === id
                 ? "border-primary bg-primary/10 text-primary"
                 : "border-border text-muted-foreground hover:border-primary/40"

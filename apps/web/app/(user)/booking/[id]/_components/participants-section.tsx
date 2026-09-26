@@ -17,7 +17,7 @@ export function ParticipantsSection({ bookingId, participantSummary }: Participa
 
         {/* Info */}
         <div className="flex flex-col gap-0.5">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          <p className="text-xs font-medium text-muted-foreground">
             Peserta
           </p>
           <p className="font-heading text-[15px] font-extrabold tracking-tight text-foreground">

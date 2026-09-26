@@ -100,10 +100,10 @@ export function SplashScreen() {
 
         <div className="relative space-y-3">
           <div className="flex items-end justify-between px-1">
-            <p className="text-sm font-medium uppercase tracking-wide text-white/80">
-              Memuat Pengalaman
+            <p className="text-sm font-medium text-white/80">
+              Memuat pengalaman
             </p>
-            <p className="text-sm font-bold text-primary">{progress}%</p>
+            <p className="text-sm font-bold tabular-nums text-emerald-400">{progress}%</p>
           </div>
 
           <Progress

@@ -47,7 +47,7 @@ export function BookingStatusBadge({ status, className }: BookingStatusBadgeProp
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest",
+        "inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-semibold",
         config.className,
         className
       )}

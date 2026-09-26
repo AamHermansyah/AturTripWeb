@@ -64,10 +64,10 @@ export default function CommunityTripDetailPage() {
         imageUrl={TRIP.heroImageUrl}
         subtitle={`oleh ${GROUP.name}`}
         badge={
-          <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-primary/90 px-3 py-1 backdrop-blur-md">
+          <div className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-white/10 bg-primary/90 px-3 py-1 backdrop-blur-md">
             <UsersThreeIcon weight="fill" className="size-3.5 text-primary-foreground" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
-              Trip Komunitas
+            <span className="text-xs font-semibold text-primary-foreground">
+              Trip komunitas
             </span>
           </div>
         }
@@ -83,14 +83,14 @@ export default function CommunityTripDetailPage() {
         />
 
         <Tabs defaultValue="ringkasan" className="mt-4 w-full">
-          <TabsList className="mb-2 grid h-12 w-full grid-cols-3 rounded-full bg-muted/60 p-1 dark:bg-zinc-900">
-            <TabsTrigger value="ringkasan" className="h-full rounded-full text-xs font-bold">
+          <TabsList className="mb-2 grid h-12 w-full grid-cols-3 rounded-2xl bg-muted/60 p-1 dark:bg-secondary">
+            <TabsTrigger value="ringkasan" className="h-full rounded-xl text-sm">
               Ringkasan
             </TabsTrigger>
-            <TabsTrigger value="linimasa" className="h-full rounded-full text-xs font-bold">
+            <TabsTrigger value="linimasa" className="h-full rounded-xl text-sm">
               Linimasa
             </TabsTrigger>
-            <TabsTrigger value="persiapan" className="h-full rounded-full text-xs font-bold">
+            <TabsTrigger value="persiapan" className="h-full rounded-xl text-sm">
               Persiapan
             </TabsTrigger>
           </TabsList>

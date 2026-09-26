@@ -4,7 +4,7 @@ Status: rancangan integrasi aplikasi web; aturan bisnis final ada di [keputusan 
 
 ## Kondisi kode
 
-`apps/web` memakai Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, dan komponen shadcn/Radix. Route berada di `app/`, komponen fitur di `components/shared/`, komponen UI di `components/ui/`, dan data contoh terutama di `lib/constants/`. Peta saat ini memakai MapLibre. Lihat [current-state.md](current-state.md).
+`apps/web` memakai Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, dan komponen shadcn/Radix. Route berada di `app/`, komponen fitur di `components/shared/`, komponen UI di `components/ui/`, dan data contoh terutama di `lib/constants/`. Peta saat ini memakai MapLibre. Token desain (warna, radius, bayangan) ada di `app/globals.css`; pakai token tema, bukan skala warna Tailwind mentah, kecuali untuk permukaan yang sengaja selalu gelap. Lihat [current-state.md](current-state.md).
 
 ## Pustaka integrasi yang dipilih
 

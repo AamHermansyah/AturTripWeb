@@ -42,7 +42,7 @@ function VerifiedContactRow({
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+        <p className="text-xs font-medium text-muted-foreground">
           {label}
         </p>
         <div className="flex items-center gap-1.5">

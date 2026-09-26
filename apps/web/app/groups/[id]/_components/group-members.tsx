@@ -3,7 +3,7 @@ import type { GroupMember } from "@/lib/constants/group"
 
 // Satu gaya untuk semua peran — pembeda cukup teksnya, bukan warnanya.
 const ROLE_BADGE =
-  "shrink-0 self-start rounded-full border border-border bg-muted px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-muted-foreground"
+  "shrink-0 self-start rounded-md border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground"
 
 export function GroupMembers({ members }: { members: GroupMember[] }) {
   return (

@@ -38,7 +38,7 @@ export default function AccountSecurityPage() {
 
       <SecurityScoreCard checks={checks} />
 
-      <SecuritySection title="Kredensial Masuk">
+      <SecuritySection title="Kredensial masuk">
         <SecurityGroup>
           <ChangePasswordDrawer />
           <ChangeContactDrawer type="email" currentValue={ACCOUNT.email} />
@@ -51,7 +51,7 @@ export default function AccountSecurityPage() {
         onEnabledChange={setTwoFactorEnabled}
       />
 
-      <SecuritySection title="Keamanan Transaksi">
+      <SecuritySection title="Keamanan transaksi">
         <SecurityGroup>
           <TransactionPinDrawer active={pinActive} onActiveChange={setPinActive} />
         </SecurityGroup>
@@ -59,7 +59,7 @@ export default function AccountSecurityPage() {
 
       <ActiveDevices />
 
-      <SecuritySection title="Zona Berbahaya">
+      <SecuritySection title="Zona berbahaya">
         <SecurityGroup>
           <DeleteAccountDialog />
         </SecurityGroup>
