@@ -1,0 +1,130 @@
+# TDD — apps/api
+
+Status: **baseline teknis dan rancangan API**. Pilihan pustaka inti `D-138`–`D-143` sudah disepakati tetapi belum terpasang; penyedia eksternal tetap perlu dipilih. Kebutuhan layanan ada di [prd.md](prd.md), rincian pustaka di [peta teknis](../../../.docs/shared/tech-stack.md), dan pertanyaan bisnis di [decisions.md](../../../.docs/shared/decisions.md).
+
+## 1. Implementasi yang sudah ada
+
+| Bagian | Kondisi kode |
+| --- | --- |
+| API | Express + TypeScript; hanya `GET /health`, CORS, 404, dan error handler. |
+| Paket bersama | `types`, `interfaces`, `schemas`, `utils` tersedia tetapi definisi domain masih minimal. |
+| Data | Belum ada persistence atau endpoint domain untuk `apps/web`/`apps/web-admin`. |
+
+Periksa [current-state.md](current-state.md) dan file kode untuk detail terbaru.
+
+## 2. Arsitektur sasaran dan pilihan pustaka
+
+Konteks awal pernah menyebut PostgreSQL/Prisma, NextAuth, dan Midtrans sebagai referensi. Keputusan saat ini ialah **PostgreSQL + Drizzle**, **Better Auth di API**, dan **Graphile Worker** (`D-138`–`D-140`); ketiganya **belum terpasang**. Pilihan final mitra pembayaran, pengirim OTP WhatsApp/email, dan penyimpanan media masih terbuka. `apps/web-admin` adalah konsumen admin tersendiri, bukan route pada `apps/web`.
+
+```text
+apps/web        ->  apps/api  ->  penyimpanan data
+apps/web-admin  ->            ->  pembayaran, media, notifikasi
+```
+
+Diagram ini menunjukkan kebutuhan integrasi, bukan keputusan bahwa setiap layanan harus dibuat dalam satu aplikasi atau dengan penyedia tertentu.
+
+### Penerapan pilihan pustaka
+
+- Drizzle menyimpan model domain, migrasi, dan transaksi PostgreSQL. Hold slot, bentrok pemandu, kapasitas Sharing, ledger, serta pencairan memerlukan transaksi dan batasan database yang dapat diperiksa; jangan menganggap ORM sendiri mencegah balapan antar checkout. Simpan uang dalam integer satuan terkecil.
+- Better Auth menggunakan adapter Drizzle untuk sesi. Saat dipasang ke Express, ubah konfigurasi API ke ESM dan pasang handler auth sebelum parser body. Nomor HP + sandi wisatawan memakai plugin nomor HP dengan pengiriman OTP **WhatsApp**; pemandu memakai email + sandi dan OTP email pada alur penting. Staf/superadmin harus melewati email + sandi **dan** OTP email pada setiap login, tanpa opsi melewati OTP melalui perangkat tepercaya. Verifikasi bahwa plugin 2FA menahan penerbitan sesi sampai OTP valid; tambahkan pengaman server bila konfigurasinya belum memenuhi `D-26`.
+- Otorisasi pemilik resource, anggota grup, staf, dan superadmin tetap berada pada kebijakan API sendiri. Endpoint auth dan endpoint domain harus menerapkan batas percobaan, audit, dan perlindungan sesi yang sesuai. Penyedia WhatsApp/email tetap dipilih terpisah dari Better Auth.
+- Graphile Worker menjalankan tenggat hold 15 menit, pelunasan DP, pelepasan dana setelah 7 hari, retry notifikasi/refund, dan agregasi analitik harian. Tambahkan job terkait dalam transaksi domain bila perlu; setiap eksekusi membaca ulang status dan tenggat PostgreSQL, memakai idempotency key untuk efek ke mitra, serta mencatat kegagalan untuk rekonsiliasi. Worker tidak menjadi sumber status transaksi.
+- `@atur-trip/schemas` sudah memakai Zod 3. Pakai skema request/response/domain bersama yang sesuai; API tetap memvalidasi pada boundary. Vitest **major 4** menguji aturan domain/API pada PostgreSQL pengujian, termasuk konkurensi dan pengulangan job. Playwright menguji alur penting web–API–admin dengan mitra eksternal tersimulasi (`D-143`).
+
+## 3. Entitas domain kandidat
+
+Nama tabel final ditetapkan saat implementasi. Model domain perlu mencakup akun/sesi/OTP/izin; penyedia, grup, keanggotaan, KTP/swafoto, dan sertifikat; **listing beserta versi dan keputusan review staf**; kegiatan, pin, dan segmen rute; aturan ketersediaan, keberangkatan, tahanan slot, booking, peserta; pembayaran QRIS, refund, ledger hak penyedia, **permintaan dan keputusan pencairan**; ulasan, laporan operasional, sengketa, notifikasi, jejak audit, peristiwa serta agregat analitik (`D-23`, `D-85`–`D-105`, `D-116`–`D-136`). Listing, booking, dan pendapatan grup tetap milik entitas grup. Rincian slot di [availability.md](../../../.docs/shared/availability.md).
+
+Untuk linimasa dan peta, pisahkan `ItineraryEvent`, `MapPin`, dan `RouteSegment` dengan ID stabil. Event menyimpan urutan, **offset dari awal trip**, **durasi perkiraan nonnegatif** (0 menit untuk kejadian sesaat), serta referensi opsional ke **satu pin atau satu segmen**, bukan koordinat tersalin. Tanggal/jam mulai dan selesai diturunkan dari awal slot terpilih dalam zona waktu trip (`D-104`, `D-105`). Pin menyimpan kategori, nama, keterangan, koordinat tepat, dan pilihan visibilitas; beberapa event boleh merujuk pin yang sama. Segmen menyimpan ID pin asal/tujuan, titik belokan, moda, estimasi durasi, dan catatan; jarak perkiraan dihitung dari geometri. Validasi referensi dalam listing yang sama, koordinat, garis yang memiliki dua ujung, serta syarat publikasi linimasa + satu pin titik temu/mulai (`D-85`–`D-93`). Rincian produk ada di [linimasa dan peta](../../../.docs/shared/itinerary-map.md).
+
+Bangun keluaran **publik** dan **peserta booking terkonfirmasi** dengan otorisasi server yang berbeda. Keluaran publik tidak memuat koordinat tepat pin berstatus perkiraan, termasuk pada geometri segmen, metadata, cache, atau respons lain; ujung garis yang berdekatan disamarkan (`D-94`, `D-95`). Simpan versi perubahan peta/linimasa dan notifikasi booking terdampak; perubahan penting tidak mengubah representasi booking sebelum persetujuan atau pilihan refund, sementara jam mulai memakai alur reschedule (`D-97`, `D-98`).
+
+Dashboard pemandu mengagregasi per **entitas pribadi atau grup** yang dipilih dan memeriksa izin sebelum menghitung/mengirim angka (`D-113`). Trip mendatang serta daftar tiga terdekat memakai ID keberangkatan unik agar banyak booking Sharing tidak dihitung berulang. Tugas menghitung status yang menunggu tindakan pemandu, bukan booking otomatis atau usulan yang menunggu wisatawan. Pendapatan berasal dari ledger hak bersih trip selesai menurut waktu selesai booking final dan dibagi status ditahan/siap tarik/sudah dicairkan; pindah status tidak menghapus total historis. Grupkan minggu/bulan dalam zona laporan profil entitas (default WIB), tetapi waktu daftar keberangkatan tetap memakai zona trip (`D-106`–`D-115`). Jangan bocorkan angka keuangan grup kepada pengelola/anggota melalui endpoint langsung. Lihat [dashboard pemandu](../../../.docs/shared/guide-dashboard.md).
+
+Klasifikasikan perubahan penting bila tujuan/titik temu utama, kegiatan inti, moda, durasi, kesulitan, wilayah/medan utama, atau tingkat risiko berubah; untuk rute, bandingkan jarak/durasi rencana terhadap versi booking dan tandai perubahan ≥20% (`D-99`, `D-101`). Simpan versi lama, usulan baru, alasan, pihak terdampak, keputusan, dan waktu keputusan. Jika ditolak atau pemandu tidak dapat menjalankan versi lama saat tidak ada jawaban, refund seluruh pembayaran termasuk biaya layanan (`D-100`, `D-102`). Perubahan kecil menerbitkan notifikasi aplikasi; perubahan penting menerbitkan notifikasi aplikasi dan WhatsApp dengan tautan keputusan yang memeriksa sesi/izin saat dibuka (`D-103`).
+
+`TripListing` memiliki satu tipe Privat atau Sharing. By day Repeat menyimpan durasi tetap dari penyedia; tanggal selesai slot dihitung dari tanggal mulai. Tipe dan durasi tidak dipilih ulang oleh wisatawan saat checkout.
+
+## 4. Autentikasi dan otorisasi
+
+- Rancang kontrak akun/sesi untuk kedua aplikasi web: wisatawan memakai nomor HP + sandi dan menerima OTP melalui WhatsApp; pemandu/staf memakai email + sandi dan menerima OTP melalui email. Wisatawan/pemandu wajib OTP saat verifikasi akun, pemulihan sandi, dan perubahan nomor HP/email; staf/superadmin wajib OTP setiap login (`D-26`). Sertakan login, logout, rotasi/kedaluwarsa sesi, pembatasan percobaan OTP, pemakaian sekali, dan respons 401 saat sesi tidak sah. Penyedia pengiriman WhatsApp belum dipilih.
+- Rancang izin berbasis peran **dan resource**: pemilik booking, pemandu individu, pemilik/pengelola/pemandu anggota grup, staf, dan superadmin. Listing/booking grup tidak berpindah menjadi milik anggota yang mengerjakannya. Respons 403 berlaku bila identitas sah tetapi izin tidak cukup.
+- Endpoint admin tetap memeriksa izin di API walau hanya dipanggil `web-admin`. Staf mempunyai akses operasional nonkeuangan yang sama; fungsi keuangan dan penambahan/pengelolaan staf hanya untuk superadmin. Aktivitas sensitif seperti KYC, moderasi, transaksi, dan sengketa perlu jejak audit.
+- Saat kedua aplikasi memakai API dari browser, konfigurasi CORS harus mengizinkan **origin web dan web-admin yang eksplisit** sesuai lingkungan, termasuk `localhost:3000` dan `localhost:3001` saat pengembangan. CORS bukan pengganti autentikasi/otorisasi; endpoint tetap memeriksa sesi dan izin. Kerangka saat ini baru memakai satu origin default (`current-state.md`).
+- Simpan versi **listing terbit** terpisah dari usulan yang menunggu review. Setiap listing baru perlu persetujuan staf setelah identitas penyedia valid. Perubahan harga/syarat, foto utama, titik temu, kegiatan/rute inti, durasi, kapasitas, atau tingkat kesulitan belum terlihat di katalog sampai disetujui; koreksi kecil tercatat sebagai versi baru. Review staf tidak mengubah snapshot/versi pada booking terkonfirmasi atau menggantikan persetujuan wisatawan. Validasi kapasitas baru terhadap booking/tahanan yang sudah ada (`D-116`, `D-117`, `D-126`).
+- Endpoint moderasi hanya mengubah keputusan/status beserta alasan; staf tidak boleh menulis isi listing atau jadwal booking sebagai pemandu. Menyembunyikan listing atau menghentikan penjualan baru tidak membatalkan booking lama. Laporan operasional dan sengketa keuangan memakai status berbeda; laporan biasa tidak otomatis menahan dana (`D-118`, `D-120`, `D-121`, `D-124`).
+- Antrean dashboard admin disaring menurut izin dan memuat verifikasi, review listing, laporan/sengketa, serta pengecualian refund bagi superadmin. Pembatasan akun sementara oleh staf serta penutupan permanen oleh superadmin menyimpan alasan; sebelum penutupan, cek booking, sengketa, refund, dan saldo tersisa (`D-119`, `D-122`).
+- Pisahkan status verifikasi identitas dari sertifikasi opsional. Terima KTP dan swafoto pemandu individu/pemilik grup untuk pemeriksaan staf, dengan status menunggu/disetujui/ditolak-perbaikan dan jejak keputusan (`D-40`). Sebelum **listing baru terbit**, API memeriksa identitas penyedia **dan keputusan review listing staf** (`D-116`); sebelum slot grup dijual, pemandu yang memimpin harus ditetapkan dan terverifikasi (`D-41`, `D-66`). Sertifikat opsional yang disetujui menghasilkan badge, tanpa menjadi syarat publikasi. Rilis awal tidak memerlukan mesin syarat dokumen berdasarkan kategori atau wilayah (`D-42`).
+- Better Auth sudah dipilih sebagai fondasi sesi (`D-139`); kontrak dan pemeriksaan izin tetap harus jelas sebelum integrasi UI. Integrasi plugin OTP harus dibuktikan terhadap tiap peran.
+
+| Peran grup | Izin utama | Batas |
+| --- | --- | --- |
+| Pemilik | Seluruh izin pengelola, anggota, dan rekening pencairan grup | Satu pemilik aktif per grup; kepemilikan listing/booking tetap pada grup |
+| Pengelola | Listing, slot, pesanan, dan penugasan pemandu untuk grup | Tidak mengubah rekening atau melakukan pencairan |
+| Pemandu anggota | Melihat informasi operasional trip yang ditugaskan | Tidak mengubah listing, pesanan, anggota, atau keuangan grup |
+
+Keanggotaan harus diperiksa terhadap grup pemilik resource pada setiap permintaan. Mencabut keanggotaan tidak mengubah pemilik listing/booking yang sudah ada.
+
+## 5. Aturan teknis untuk fase backend
+
+- Tetapkan kontrak API dan skema validasi request/response yang dipakai konsisten oleh web dan API.
+- Terapkan otorisasi di server untuk wisatawan, penyedia, dan admin; jangan mengandalkan visibilitas tombol UI.
+- Simpan nilai uang sebagai satuan terkecil integer. Setiap trip memiliki identitas zona waktu lokasi kegiatan dari pilihan WIB/WITA/WIT; sistem mengisi dari lokasi dan penyedia bisa mengoreksinya sebelum publikasi. Bentuk aturan berulang dalam waktu lokal trip dan simpan waktu slot absolut untuk perbandingan. Tampilkan tanggal/jam trip dengan zona waktunya secara jelas.
+- Proses reservasi slot secara atomik agar dua pesanan tidak melebihi kapasitas.
+- Dalam transaksi penahanan slot, cek juga bentrok interval pemandu yang sama di semua listing; booking Sharing untuk keberangkatan yang sama tidak membuat bentrok baru. Untuk trip grup, gunakan pemandu anggota yang ditugaskan dan ulangi pemeriksaan saat penugasan berubah (`D-61`).
+- Saat grup mengganti pemandu pada keberangkatan yang sudah dibooking, periksa verifikasi identitas serta seluruh bentrok pengganti secara atomik, simpan riwayat penugasan, dan beri tahu wisatawan (`D-67`). Jika tidak ada pengganti, lakukan reschedule atau pembatalan pemandu dengan refund penuh (`D-53`).
+- Pisahkan aturan pengulangan/custom dari slot keberangkatan yang dihasilkan; simpan zona waktu trip, pengecualian, dan booking yang sudah memakai slot tersebut.
+- Untuk Repeat, simpan hari pekan terpilih, tanggal mulai/akhir aturan, dan pengecualian sebagai waktu lokal trip (`D-63`). Simpan batas booking baru per listing dari 15 menit, 24 jam, 3 hari, atau 7 hari sebelum waktu mulai; cek ulang pada server saat checkout (`D-64`).
+- Untuk By time, simpan tanggal+jam mulai dan selesai sebagai interval dengan zona waktu lokasi trip; validasi durasi maksimal 24 jam. Akhir slot boleh berada pada tanggal berikutnya. Deteksi bentrok memakai seluruh interval, bukan kecocokan tanggal mulai. Tepat 24 jam boleh dipilih sebagai By time atau By day sesuai pengaturan listing.
+- Pisahkan kapasitas **ditahan saat pembayaran** dari kapasitas **terjual**. Tahanan berlangsung 15 menit; masa berlaku instruksi pembayaran gateway diselaraskan dengannya. Keberhasilan pembayaran yang diwajibkan dalam masa tahan mengubah booking menjadi terkonfirmasi otomatis. Kegagalan/kedaluwarsa melepaskan tahanan. API memeriksa tenggat server dan status transaksi yang terverifikasi, bukan hanya waktu pemberitahuan masuk. Pembayaran yang terbukti terjadi setelah kedaluwarsa tidak otomatis mengonfirmasi (`D-20`); dana checkout yang masuk terlambat dikembalikan penuh otomatis atau masuk antrean superadmin bila gagal (`D-55`).
+- Pada listing Privat, satu booking mengunci seluruh slot untuk pihak pemesan. Pada Sharing, tahanan dan booking mengurangi jumlah kursi; beberapa pihak dapat memesan sampai kapasitas habis. Jangan menawarkan kedua tipe pada satu listing.
+- Pemandu dapat mengajukan reschedule setelah booking bila tidak bisa memenuhi jadwal. Bila wisatawan memilih refund atau pemandu membatalkan booking, seluruh pembayaran termasuk biaya layanan kembali (`D-19`, `D-53`).
+- Untuk reschedule atas permintaan wisatawan, booking lama tetap berlaku sampai pemandu menyetujui dan slot baru dialokasikan aman (`D-49`). Saat persetujuan, simpan batas persentase refund menurut jadwal lama. Bila wisatawan kelak membatalkan, hitung persentase dari jadwal baru lalu pakai nilai yang lebih rendah antara hasil baru dan batas tersimpan (`D-50`).
+- Pada booking DP yang dijadwal ulang atas permintaan wisatawan, simpan tenggat pelunasan yang lebih awal antara tenggat lama dan tenggat hasil jadwal baru. Jika tenggat itu sudah berlalu, jadwal baru baru efektif setelah sisa DP dibayar dan diverifikasi melalui platform (`D-51`).
+- Pada booking DP yang dijadwal ulang atas usulan pemandu, hitung ulang tenggat dari jadwal baru. Jika tenggat baru kurang dari 24 jam sejak persetujuan, termasuk sudah lewat, minta sisa pembayaran lunas sebelum jadwal baru diterima; bila tidak, gunakan tenggat baru (`D-52`).
+- Simpan identitas dan versi template pembatalan yang dipilih pada listing sebagai snapshot di booking. Pembatalan wisatawan memakai snapshot itu agar perubahan listing tidak mengubah syarat pesanan lama (`D-30`). Tingkat refund sebelum mulai trip ialah 100%/50%/25% dari **harga trip + add-on pemandu yang telah dibayar**, di luar biaya layanan (`D-45`, `D-46`, `D-79`); pilih tingkat berdasarkan batas tiap template pada `D-47` dan waktu pembatalan server. Tepat pada batas masuk tingkat refund yang lebih tinggi.
+
+| Template | Refund 100% | Refund 50% | Refund 25% |
+| --- | --- | --- | --- |
+| Fleksibel | ≥48 jam sebelum mulai | ≥24 jam dan <48 jam | <24 jam sebelum mulai |
+| Sedang | ≥7 hari sebelum mulai | ≥48 jam dan <7 hari | <48 jam sebelum mulai |
+| Ketat | ≥14 hari sebelum mulai | ≥7 hari dan <14 hari | <7 hari sebelum mulai |
+
+Tabel berlaku untuk pembatalan sebelum waktu mulai trip; no-show wisatawan tidak mendapat refund biasa (`D-48`). Untuk reschedule wisatawan, terapkan juga batas maksimum persentase yang disimpan saat persetujuan (`D-50`).
+- Hitung batas sengketa biasa dari waktu selesai pada booking final + 48 jam. Reschedule mengubah waktu akhir yang menjadi acuan. Pembukaan sengketa yang sah menahan saldo terkait agar tidak berpindah ke siap tarik atau tercair saat masih aktif (`D-31`).
+- Pelunasan DP dilakukan melalui platform; catat jumlah yang sudah dan masih harus dibayar tanpa menyamakan status DP dengan pelunasan penuh. Penyedia memilih tenggat 7 hari, 3 hari, atau 24 jam sebelum waktu mulai trip pada zona waktunya; simpan waktu absolut hasil pilihan sebagai snapshot pada booking (`D-36`). Pada saat checkout, tawarkan DP hanya bila tenggat masih berjarak sedikitnya 24 jam; bila kurang atau sudah lewat, sediakan bayar penuh saja (`D-38`).
+- Pada tenggat pelunasan, booking dengan sisa DP yang belum lunas dibatalkan otomatis (`D-37`). Batalkan instruksi pembayaran sisa yang masih aktif, lepaskan kapasitas secara atomik, dan hitung refund dari snapshot template pembatalan pada booking (`D-54`). Jadikan pemrosesan tenggat dan callback gateway idempotent. Pembayaran pelunasan yang terlambat tidak menghidupkan kembali booking dan dikembalikan penuh secara terpisah; kegagalan refund masuk antrean superadmin (`D-56`).
+- Saat memakai payment gateway, pastikan metode pembayaran yang dipilih mendukung tenggat 15 menit dan kirim **waktu kedaluwarsa absolut yang sama** dengan `hold_expires_at`; jangan memulai hitung mundur baru setelah instruksi gateway dibuat. Verifikasi notifikasi server-to-server, tangani pengiriman ulang secara idempotent, cek status ke gateway jika pemberitahuan terlambat atau tidak sesuai, dan rekonsiliasi transaksi pengecualian.
+- Untuk rilis awal, aktifkan **QRIS saja** pada transaksi checkout dan pelunasan (`D-77`). Simpan komponen harga trip, setiap add-on pemandu, biaya layanan 2% atas jumlah keduanya (ditagih sekali pada checkout/DP pertama), biaya QRIS yang dibayar AturTrip, komisi 10% dari bagian nilai jual yang menjadi hak pemandu setelah refund, serta biaya pencairan yang dibayar AturTrip sebagai komponen ledger terpisah (`D-69`–`D-79`). Snapshot tarif pada booking agar perubahan tarif berikutnya tidak mengubah transaksi lama. Refund penuh akibat pemandu membatalkan atau checkout terlambat mengembalikan seluruh jumlah yang dibayar wisatawan; catat biaya mitra yang tidak pulih sebagai biaya AturTrip (`D-76`). Tarif 10% + 2% tetap hipotesis sampai disahkan untuk produksi.
+- Pertama coba refund asli QRIS bila didukung penerbit, jenis refund, dan umur transaksi. Jika tidak tersedia, minta serta verifikasi kepemilikan rekening/e-wallet wisatawan dan kirim transfer refund melalui mitra (`D-82`). Simpan satu kewajiban refund dengan status, kanal, nominal, tujuan terverifikasi, dan idempotency key; jangan mencoba dua jalur yang bisa sama-sama membayar. Biaya transfer dicatat pada AturTrip, bukan dikurangkan dari hak wisatawan (`D-83`). Kegagalan atau status tidak pasti masuk antrean superadmin, diperiksa terhadap saldo dan laporan mitra sebelum dicoba ulang. Buktikan jalur alternatif serta biaya transfer dalam uji mitra.
+- Terbitkan peristiwa notifikasi transaksi untuk pihak terkait saat status booking, pembayaran, reschedule, refund, sengketa, atau pencairan berubah. Simpan semua notifikasi relevan dalam aplikasi; peristiwa penting pada `D-35` juga dikirim melalui WhatsApp kepada wisatawan atau email kepada pemandu. Kirim hanya kepada penerima yang terdampak, deduplikasi berdasarkan ID peristiwa+penerima+kanal, catat status pengiriman, dan coba ulang kegagalan secara aman. OTP memakai alur serta template terpisah. Chat dan layanan live tracking/SOS berada pada fase setelah rilis pertama (`D-28`, `D-29`).
+
+| Peristiwa penting | WhatsApp wisatawan | Email pemandu/pemilik grup |
+| --- | --- | --- |
+| Booking terkonfirmasi | Ya | Ya |
+| Tenggat DP mendekat/terlewat | Ya | Ya jika terlewat dan memengaruhi booking |
+| Reschedule diajukan atau diputuskan | Jika penerima/terdampak | Jika penerima/terdampak |
+| Pemandu grup pada booking diganti | Ya, sertakan profil publik pengganti | Tidak wajib; grup melihat perubahan dalam aplikasi |
+| Pembatalan atau refund berubah status | Jika terdampak | Jika terdampak |
+| Sengketa dibuka atau selesai | Jika terdampak | Jika terdampak |
+| Saldo siap tarik atau pencairan berubah status | Tidak | Ya, hanya pemilik dana |
+
+Waktu pengingat DP sebelum jatuh tempo masih perlu ditetapkan secara operasional; saat tenggat terlewat, notifikasi pembatalan mengikuti `D-35`. Pesan luar aplikasi memuat ringkasan serta tautan detail, bukan dokumen identitas atau informasi pembayaran sensitif. Template WhatsApp dan persetujuan penerima mengikuti aturan penyedia; lihat [kebijakan WhatsApp Business](https://business.whatsapp.com/policy/preview?lang=id_ID).
+- Lindungi dokumen KYC dan data pribadi; akses serta retensi ditentukan sebelum unggahan produksi.
+- Pisahkan status booking, pembayaran, masa tunggu pendapatan, saldo siap tarik, dan pencairan. Untuk trip yang berhasil terlaksana, hitung kelayakan sebagai **waktu selesai pada booking final + 7 hari** (`D-27`); reschedule memperbarui waktu selesai yang dipakai. Sengketa aktif menahan transisi ke saldo siap tarik dan permintaan pencairan. Setelah keputusan final superadmin, bagian yang menjadi hak pemandu masuk saldo siap tarik hanya saat masa 7 hari juga sudah lewat (`D-59`, `D-60`). Kreditkan saldo siap tarik sekali saja; pemandu individu atau pemilik grup harus meminta pencairan, yang diperiksa lagi terhadap saldo, pemilik, sengketa, dan rekening terverifikasi. Transisi inti booking: slot tersedia → ditahan saat checkout → terkonfirmasi setelah pembayaran berhasil, atau dilepas bila pembayaran gagal/kedaluwarsa.
+- Pada permintaan pencairan, **pesan** seluruh saldo siap tarik entitas pemandu/grup dalam satu operasi atomik agar tidak bisa diminta lagi saat menunggu keputusan; tolak permintaan paralel/duplikat dan terapkan minimum Rp100.000. Pengecualian di bawah minimum hanya untuk penutupan akun yang sah sesudah sengketa dan kewajiban lain selesai (`D-80`). Penolakan atau kegagalan transfer yang sudah direkonsiliasi mengembalikan hak saldo ke status yang tepat; jangan menghapusnya. Biaya payout masuk biaya AturTrip, tidak mengurangi hak pemandu (`D-71`, `D-123`).
+- Setiap permintaan pencairan menunggu keputusan superadmin sebelum instruksi payout dikirim. Validasi ulang rekening terverifikasi, nominal, saldo, dan sengketa pada saat persetujuan; simpan alasan penolakan dan kembalikan dana sah ke status yang tepat. Pisahkan status persetujuan dari status transfer mitra; tangani callback/pengiriman ulang secara idempotent (`D-123`).
+- Hasil verifikasi, review listing, serta pembatasan akun menghasilkan notifikasi dalam aplikasi dan email kepada pemandu yang terdampak. Simpan alasan yang aman dibagikan, langkah berikutnya, dan status pengiriman tanpa menyalin KTP/swafoto ke pesan (`D-125`).
+- Definisikan skema dan versi **peristiwa analitik** untuk kunjungan, pencarian/filter, buka detail, pilih slot, mulai checkout, dan sumber/referral/kampanye dari web. Gunakan pengenal analitik nonpribadi bagi pengunjung belum masuk dan identitas perjalanan checkout untuk menghubungkan tahap yang benar; deduplikasi, pengecualian bot/aktivitas internal, serta retensi data disepakati sebelum produksi (`D-130`, `D-135`). Jangan menyimpan KTP, kontak, atau koordinat peserta di event analitik.
+- Bangun agregat harian WIB dari peristiwa web serta status API/ledger. Pisahkan pencarian tanpa hasil dari hasil tanpa slot, kursi Sharing dari keberangkatan Privat, pembayaran DP dari booking baru, booking dibayar dari trip selesai, dan nilai booking dari dana/pendapatan/kontribusi. Koreksi status terlambat dan refund memperbarui agregat historis secara aman. Simpan versi definisi, sumber, dan waktu pembaruan (`D-127`–`D-136`).
+- Endpoint analitik memfilter periode, provinsi/kota **trip**, kategori, Privat/Sharing, dan individu/grup bila dimensi tersedia. Default 30 hari vs 30 sebelumnya; rentang kustom dibandingkan periode sama panjang sebelumnya. Metrik tanpa dimensi filter harus ditandai, tidak diam-diam diabaikan. Endpoint ekspor CSV mengulang pemeriksaan izin dan filter; staf hanya menerima agregat nonkeuangan, superadmin dapat menerima keuangan. Audit ekspor (`D-129`, `D-131`–`D-134`, `D-136`). Lihat [spesifikasi analitik](../../../.docs/shared/admin-analytics.md).
+- Uji DOKU dan Xendit sebagai shortlist terhadap [gerbang pemilihan mitra](payment-provider-evaluation.md). Rancangan utama menahan dana pada mitra bila fitur serta kontrak memungkinkan; rekening khusus dana trip AturTrip hanya cadangan setelah pemeriksaan modelnya (`D-57`, `D-58`). Jangan menyamakan status saldo siap tarik dalam ledger AturTrip dengan dana yang sudah tiba di rekening pemandu.
+
+## 6. Gerbang implementasi
+
+1. Putuskan aturan produk yang memengaruhi model data dan transaksi ([decisions.md](../../../.docs/shared/decisions.md)).
+2. Finalkan skema domain, kontrak API, otorisasi, dan migrasi database.
+3. Bangun backend per irisan fitur; uji kasus kapasitas, hak akses, dan transisi status.
+4. Hubungkan kedua aplikasi web ke API per alur pengguna; lihat [timeline integrasi](../../../.docs/timelines/integration.md).
+
+Hindari menyimpan kredensial atau dokumen pribadi dalam repo dan data contoh.
