@@ -66,7 +66,7 @@ type GalleryImage = {
   alt: string;
 }
 
-export function ReviewsSection({ tripId }: { tripId: string }) {
+export function ReviewsSection({ tripId, rating = 4.9, reviewCount = 128, allReviewsHref, reviews = MOCK_REVIEWS }: { tripId: string; rating?: number; reviewCount?: number; allReviewsHref?: string; reviews?: ReviewProps[] }) {
   const [selected, setSelected] = useState<GalleryImage | null>(null)
 
   return (
@@ -75,10 +75,10 @@ export function ReviewsSection({ tripId }: { tripId: string }) {
         <h3 className="font-heading text-lg font-extrabold text-foreground">Ulasan & Penilaian</h3>
       </div>
 
-      <ReviewSummary />
+      <ReviewSummary rating={rating} count={reviewCount} />
 
       <div className="space-y-4 pt-4">
-        {MOCK_REVIEWS.slice(0, 3).map((r, i, arr) => (
+        {reviews.slice(0, 3).map((r, i, arr) => (
           <div key={r.id} className="space-y-4">
             <ReviewCard review={r} onClickImage={setSelected} />
             {i !== arr.length - 1 && <Separator />}
@@ -87,11 +87,7 @@ export function ReviewsSection({ tripId }: { tripId: string }) {
       </div>
 
       <div>
-        <Link href={`/trips/${tripId}/review`} className="w-full">
-          <Button size="xs" variant="outline">
-            Lihat semua 128 ulasan
-          </Button>
-        </Link>
+        <Button asChild size="sm" variant="outline"><Link href={allReviewsHref ?? `/trips/${tripId}/review`}>Lihat semua {reviewCount} ulasan contoh</Link></Button>
       </div>
 
       <ImageZoom

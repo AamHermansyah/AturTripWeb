@@ -1,9 +1,12 @@
 import CardHistory from "./_components/card-history"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function HistoryPage() {
   return (
     <div className="px-5 space-y-4">
       <h1 className="font-heading text-lg font-extrabold tracking-tight">Riwayat Perjalanan</h1>
+      <Button asChild variant="outline" className="w-full"><Link href="/booking/preview">Tinjau alur booking contoh</Link></Button>
 
       <div className="space-y-4">
         <CardHistory

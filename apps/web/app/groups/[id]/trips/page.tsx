@@ -1,37 +1,21 @@
 import { HomeHeader } from "@/components/shared/home-header"
-import { JourneyCard } from "@/components/shared/trips/journey-card"
 import { GROUP, GROUP_TRIPS, toJourneyCard } from "@/lib/constants/group"
-import { TripSearch } from "./_components/trip-search"
+import { GroupTripsContent } from "./_components/group-trips-content"
+import { GROUP_QUICK_FILTERS, type GroupQuickFilter } from "@/lib/group-trip-filters"
+import { parseExploreState, type ExploreJourney } from "@/lib/explore-filters"
+import { notFound } from "next/navigation"
 
-export default function GroupTripsPage() {
+export default async function GroupTripsPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const [{ id }, query] = await Promise.all([params, searchParams])
+  if (id !== GROUP.id) notFound()
+  const initialState = parseExploreState(query)
+  const initialQuick = typeof query.quick === "string" && Object.hasOwn(GROUP_QUICK_FILTERS, query.quick) ? query.quick as GroupQuickFilter : "all"
+  const journeys: ExploreJourney[] = GROUP_TRIPS.map(trip => ({ ...toJourneyCard(trip), categoryIds: trip.category === "Berkemah" ? ["camping"] : ["mountains"] }))
   return (
     <div className="relative h-dvh w-full overflow-y-auto pb-6">
       <HomeHeader />
 
-      <div className="space-y-4 px-5">
-        <div>
-          <h1 className="font-heading text-lg font-extrabold tracking-tight">
-            Perjalanan {GROUP.name}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {GROUP.totalJourneys} perjalanan pernah dijalankan komunitas ini. Berikut yang
-            sedang dibuka pendaftarannya.
-          </p>
-        </div>
-
-        <TripSearch />
-
-        <div className="flex flex-col gap-3">
-          {GROUP_TRIPS.map((trip) => (
-            <JourneyCard
-              key={trip.id}
-              journey={toJourneyCard(trip)}
-              href={`/groups/${GROUP.id}/trips/${trip.id}`}
-              className="w-full"
-            />
-          ))}
-        </div>
-      </div>
+      <GroupTripsContent groupId={GROUP.id} groupName={GROUP.name} journeys={journeys} initialState={initialState} initialQuick={initialQuick} />
     </div>
   )
 }

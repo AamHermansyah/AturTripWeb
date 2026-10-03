@@ -1,70 +1,25 @@
-"use client"
+﻿import { AuthForm } from "@/components/shared/auth/auth-form"
+import { parseAuthRole } from "@/lib/auth-preview"
 
-import Link from "next/link"
-import { EnvelopeSimpleIcon } from "@phosphor-icons/react"
-import { Button } from "@/components/ui/button"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group"
-import { PasswordInput } from "@/components/core/password-input"
-import Logo from "@/components/shared/logo"
-import OauthButton from "@/components/shared/oauth-button"
-import { useRouter } from "next/navigation"
-
-export default function LoginPage() {
-  const router = useRouter()
-
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ role?: string; notice?: string }>
+}) {
+  const params = await searchParams
+  const role = parseAuthRole(params.role)
+  const notice =
+    params.notice === "verified"
+      ? "Verifikasi akun contoh selesai"
+      : params.notice === "reset"
+        ? "Kata sandi contoh berhasil diperbarui"
+        : undefined
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-start bg-background px-6 py-10">
-      <Logo />
-
-      <h1 className="font-heading text-center text-2xl font-extrabold text-foreground">
-        Selamat Datang Kembali
-      </h1>
-      <p className="mt-1.5 text-center text-sm text-muted-foreground">
-        Masuk untuk melanjutkan petualanganmu.
-      </p>
-
-      {/* Form */}
-      <div className="mt-8 flex w-full flex-col gap-3">
-        {/* Email */}
-        <InputGroup>
-          <InputGroupAddon>
-            <EnvelopeSimpleIcon />
-          </InputGroupAddon>
-          <InputGroupInput type="email" placeholder="Alamat Email" />
-        </InputGroup>
-
-        {/* Password */}
-        <PasswordInput />
-
-        {/* Forgot password */}
-        <div className="flex justify-end">
-          <Link
-            href="/forgot-password"
-            className="text-xs font-medium text-primary underline-offset-2 hover:underline"
-          >
-            Lupa kata sandi?
-          </Link>
-        </div>
-
-        {/* CTA */}
-        <Button size="lg" onClick={() => router.push('/personalize')}>
-          Masuk
-        </Button>
-      </div>
-
-      <OauthButton />
-
-      {/* Register link */}
-      <p className="mt-8 text-center text-sm text-muted-foreground">
-        Belum punya akun?{" "}
-        <Link href="/register" className="font-semibold text-primary underline-offset-2 hover:underline">
-          Daftar
-        </Link>
-      </p>
-    </div>
+    <AuthForm
+      key={`${role}-${params.notice ?? ""}`}
+      mode="login"
+      initialRole={role}
+      notice={notice}
+    />
   )
 }

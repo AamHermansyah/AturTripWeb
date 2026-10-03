@@ -192,7 +192,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const isControlled = viewport !== undefined && onViewportChange !== undefined;
 
   const onViewportChangeRef = useRef(onViewportChange);
-  onViewportChangeRef.current = onViewportChange;
+  useEffect(() => { onViewportChangeRef.current = onViewportChange; }, [onViewportChange]);
 
   const mapStyles = useMemo(
     () => ({
@@ -394,14 +394,14 @@ function MapMarker({
     onDrag,
     onDragEnd,
   });
-  callbacksRef.current = {
+  useEffect(() => { callbacksRef.current = {
     onClick,
     onMouseEnter,
     onMouseLeave,
     onDragStart,
     onDrag,
     onDragEnd,
-  };
+  }; }, [onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd]);
 
   const marker = useMemo(() => {
     const markerInstance = new MapLibreGL.Marker({
@@ -410,6 +410,12 @@ function MapMarker({
       draggable,
     }).setLngLat([longitude, latitude]);
 
+    return markerInstance;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const markerInstance = marker;
     const handleClick = (e: MouseEvent) => callbacksRef.current.onClick?.(e);
     const handleMouseEnter = (e: MouseEvent) =>
       callbacksRef.current.onMouseEnter?.(e);
@@ -441,10 +447,15 @@ function MapMarker({
     markerInstance.on("drag", handleDrag);
     markerInstance.on("dragend", handleDragEnd);
 
-    return markerInstance;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => {
+      markerInstance.getElement().removeEventListener("click", handleClick);
+      markerInstance.getElement().removeEventListener("mouseenter", handleMouseEnter);
+      markerInstance.getElement().removeEventListener("mouseleave", handleMouseLeave);
+      markerInstance.off("dragstart", handleDragStart);
+      markerInstance.off("drag", handleDrag);
+      markerInstance.off("dragend", handleDragEnd);
+    };
+  }, [marker]);
 
   useEffect(() => {
     if (!map) return;
@@ -458,6 +469,7 @@ function MapMarker({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
+  useEffect(() => {
   if (
     marker.getLngLat().lng !== longitude ||
     marker.getLngLat().lat !== latitude
@@ -486,6 +498,7 @@ function MapMarker({
   if (marker.getPitchAlignment() !== markerOptions.pitchAlignment) {
     marker.setPitchAlignment(markerOptions.pitchAlignment ?? "auto");
   }
+  }, [marker, longitude, latitude, draggable, markerOptions]);
 
   return (
     <MarkerContext.Provider value={{ marker, map }}>
@@ -523,7 +536,7 @@ function PopupCloseButton({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label="Close popup"
+      aria-label="Tutup detail peta"
       className="focus-visible:ring-ring hover:bg-muted text-foreground absolute top-0.5 right-0.5 z-10 inline-flex size-5 cursor-pointer items-center justify-center rounded-sm transition-colors focus:outline-none focus-visible:ring-2"
     >
       <X className="size-3.5" />
@@ -548,7 +561,6 @@ function MarkerPopup({
 }: MarkerPopupProps) {
   const { marker, map } = useMarkerContext();
   const container = useMemo(() => document.createElement("div"), []);
-  const prevPopupOptions = useRef(popupOptions);
 
   const popup = useMemo(() => {
     const popupInstance = new MapLibreGL.Popup({
@@ -575,18 +587,10 @@ function MarkerPopup({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (popup.isOpen()) {
-    const prev = prevPopupOptions.current;
-
-    if (prev.offset !== popupOptions.offset) {
-      popup.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      popup.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
-
-    prevPopupOptions.current = popupOptions;
-  }
+  useEffect(() => {
+    popup.setOffset(popupOptions.offset ?? 16);
+    popup.setMaxWidth(popupOptions.maxWidth ?? "none");
+  }, [popup, popupOptions.offset, popupOptions.maxWidth]);
 
   const handleClose = () => popup.remove();
 
@@ -619,7 +623,6 @@ function MarkerTooltip({
 }: MarkerTooltipProps) {
   const { marker, map } = useMarkerContext();
   const container = useMemo(() => document.createElement("div"), []);
-  const prevTooltipOptions = useRef(popupOptions);
 
   const tooltip = useMemo(() => {
     const tooltipInstance = new MapLibreGL.Popup({
@@ -654,18 +657,10 @@ function MarkerTooltip({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (tooltip.isOpen()) {
-    const prev = prevTooltipOptions.current;
-
-    if (prev.offset !== popupOptions.offset) {
-      tooltip.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      tooltip.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
-
-    prevTooltipOptions.current = popupOptions;
-  }
+  useEffect(() => {
+    tooltip.setOffset(popupOptions.offset ?? 16);
+    tooltip.setMaxWidth(popupOptions.maxWidth ?? "none");
+  }, [tooltip, popupOptions.offset, popupOptions.maxWidth]);
 
   return createPortal(
     <div
@@ -845,10 +840,10 @@ function MapControls({
     >
       {showZoom && (
         <ControlGroup>
-          <ControlButton onClick={handleZoomIn} label="Zoom in">
+          <ControlButton onClick={handleZoomIn} label="Perbesar peta">
             <Plus className="size-4" />
           </ControlButton>
-          <ControlButton onClick={handleZoomOut} label="Zoom out">
+          <ControlButton onClick={handleZoomOut} label="Perkecil peta">
             <Minus className="size-4" />
           </ControlButton>
         </ControlGroup>
@@ -862,7 +857,7 @@ function MapControls({
         <ControlGroup>
           <ControlButton
             onClick={handleLocate}
-            label="Find my location"
+            label="Cari lokasi saya"
             disabled={waitingForLocation}
           >
             {waitingForLocation ? (
@@ -875,7 +870,7 @@ function MapControls({
       )}
       {showFullscreen && (
         <ControlGroup>
-          <ControlButton onClick={handleFullscreen} label="Toggle fullscreen">
+          <ControlButton onClick={handleFullscreen} label="Ubah tampilan layar penuh">
             <Maximize className="size-4" />
           </ControlButton>
         </ControlGroup>
@@ -910,7 +905,7 @@ function CompassButton({ onClick }: { onClick: () => void }) {
   }, [map]);
 
   return (
-    <ControlButton onClick={onClick} label="Reset bearing to north">
+    <ControlButton onClick={onClick} label="Arahkan peta ke utara">
       <svg
         ref={compassRef}
         viewBox="0 0 24 24"
@@ -951,9 +946,8 @@ function MapPopup({
   ...popupOptions
 }: MapPopupProps) {
   const { map } = useMap();
-  const popupOptionsRef = useRef(popupOptions);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
   const container = useMemo(() => document.createElement("div"), []);
 
   const popup = useMemo(() => {
@@ -988,9 +982,7 @@ function MapPopup({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (popup.isOpen()) {
-    const prev = popupOptionsRef.current;
-
+  useEffect(() => {
     if (
       popup.getLngLat().lng !== longitude ||
       popup.getLngLat().lat !== latitude
@@ -998,14 +990,9 @@ function MapPopup({
       popup.setLngLat([longitude, latitude]);
     }
 
-    if (prev.offset !== popupOptions.offset) {
-      popup.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      popup.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
-    popupOptionsRef.current = popupOptions;
-  }
+    popup.setOffset(popupOptions.offset ?? 16);
+    popup.setMaxWidth(popupOptions.maxWidth ?? "none");
+  }, [popup, longitude, latitude, popupOptions.offset, popupOptions.maxWidth]);
 
   const handleClose = () => {
     popup.remove();
@@ -1363,7 +1350,7 @@ function MapArc<T extends MapArcDatum = MapArcDatum>({
   );
 
   const latestRef = useRef({ data, onClick, onHover });
-  latestRef.current = { data, onClick, onHover };
+  useEffect(() => { latestRef.current = { data, onClick, onHover }; }, [data, onClick, onHover]);
 
   // Add source and layers on mount.
   useEffect(() => {

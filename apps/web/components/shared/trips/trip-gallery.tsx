@@ -32,11 +32,13 @@ const MOCK_IMAGES = [
 interface TripGalleryProps {
   images?: { src: string; alt: string }[]
   href: string;
+  caption?: string
 }
 
-export function TripGallery({ images = MOCK_IMAGES, href }: TripGalleryProps) {
+export function TripGallery({ images = MOCK_IMAGES, href, caption }: TripGalleryProps) {
   const [main, second, third, ...rest] = images
-  const hiddenCount = rest.length + 1
+  const hiddenCount = rest.length
+  if (!main) return <p className="text-sm text-muted-foreground">Belum ada foto perjalanan.</p>
 
   return (
     <div className="space-y-3">
@@ -50,47 +52,45 @@ export function TripGallery({ images = MOCK_IMAGES, href }: TripGalleryProps) {
       {/* Mosaic layout */}
       <div className="flex gap-2 h-52">
         {/* Main image — left, takes ~60% width */}
-        <div className="flex-3 rounded-2xl overflow-hidden relative cursor-pointer group">
+        <Link href={href} aria-label="Buka galeri perjalanan" className="flex-3 rounded-2xl overflow-hidden relative cursor-pointer group">
           <img
             src={main.src}
             alt={main.alt}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
-        </div>
+        </Link>
 
         {/* Right column — 2 stacked images */}
-        <div className="flex-2 flex flex-col gap-2">
+        {second && <div className="flex-2 flex flex-col gap-2">
           {/* Second image */}
-          <div className="flex-1 rounded-2xl overflow-hidden relative cursor-pointer group">
+          <Link href={href} aria-label="Buka foto kedua di galeri" className="flex-1 rounded-2xl overflow-hidden relative cursor-pointer group">
             <img
               src={second.src}
               alt={second.alt}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
-          </div>
+          </Link>
 
           {/* Third image + overflow count */}
-          <div className="flex-1 rounded-2xl overflow-hidden relative cursor-pointer group">
+          {third && <Link href={href} aria-label={`Buka galeri, ${images.length} foto`} className="flex-1 rounded-2xl overflow-hidden relative cursor-pointer group">
             <img
               src={third.src}
               alt={third.alt}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             {hiddenCount > 0 && (
-              <Link href={href}>
-                <button className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-0.5 backdrop-blur-[1px] cursor-pointer">
+                <span className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-0.5 backdrop-blur-[1px]">
                   <span className="text-white font-bold text-xl leading-none">+{hiddenCount}</span>
-                  <span className="text-white/80 text-[10px] font-medium">foto lainnya</span>
-                </button>
-              </Link>
+                  <span className="text-white/80 text-[11px] font-medium">foto lainnya</span>
+                </span>
             )}
-          </div>
-        </div>
+          </Link>}
+        </div>}
       </div>
 
       {/* Upload tag */}
       <p className="text-[11px] text-muted-foreground">
-        Foto diunggah langsung oleh guide
+        {caption ?? "Foto contoh dari pemandu"}
       </p>
     </div>
   )

@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { AuthPreviewProvider } from "@/components/shared/auth/auth-preview-provider"
 
 export default function AuthLayout({
   children,
@@ -7,7 +8,7 @@ export default function AuthLayout({
 }>) {
   return (
     <ScrollArea className="h-dvh">
-      {children}
+      <AuthPreviewProvider>{children}</AuthPreviewProvider>
     </ScrollArea>
   )
 }

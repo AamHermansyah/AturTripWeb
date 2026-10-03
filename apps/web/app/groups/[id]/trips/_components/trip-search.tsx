@@ -1,67 +1,18 @@
-'use client'
+"use client"
 
-import { useState } from "react"
-import { MagnifyingGlassIcon, XCircleIcon } from "@phosphor-icons/react"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { Button } from "@/components/ui/button"
+import { useId } from "react"
+import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react"
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { FilterDrawer } from "@/components/shared/trips/filter-drawer"
+import type { TripFilters } from "@/lib/explore-filters"
+import { GROUP_QUICK_FILTERS, type GroupQuickFilter } from "@/lib/group-trip-filters"
 
-const QUICK_FILTERS = ["Semua", "Pendakian", "Berkemah", "Mudah", "Sulit", "Ramah Keluarga"]
-
-export function TripSearch() {
-  const [query, setQuery] = useState("")
-  const [active, setActive] = useState("Semua")
-
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-3">
-        <InputGroup className="h-10 flex-1">
-          <InputGroupAddon>
-            <MagnifyingGlassIcon />
-          </InputGroupAddon>
-          <InputGroupInput
-            type="search"
-            placeholder="Cari trip komunitas ini..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          {query && (
-            <InputGroupAddon align="inline-end">
-              <button
-                type="button"
-                aria-label="Hapus pencarian"
-                onClick={() => setQuery("")}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <XCircleIcon weight="fill" className="size-4" />
-              </button>
-            </InputGroupAddon>
-          )}
-        </InputGroup>
-
-        <FilterDrawer />
-      </div>
-
-      <ScrollArea>
-        <div className="flex w-max items-center gap-2 pb-3">
-          {QUICK_FILTERS.map((label) => (
-            <Button
-              key={label}
-              size="xs"
-              variant={active === label ? "default" : "outline"}
-              onClick={() => setActive(label)}
-            >
-              {label}
-            </Button>
-          ))}
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
-    </div>
-  )
+export function TripSearch({ query, onQueryChange, quick, onQuickChange, filters, onApplyFilters }: {
+  query: string; onQueryChange: (value: string) => void; quick: GroupQuickFilter; onQuickChange: (value: GroupQuickFilter) => void;
+  filters: TripFilters; onApplyFilters: (filters: TripFilters) => void
+}) {
+  const id = useId()
+  return <div className="flex flex-col gap-3"><div className="flex items-end gap-3"><Field className="flex-1"><FieldLabel htmlFor={id} className="sr-only">Cari nama trip atau lokasi grup ini</FieldLabel><InputGroup><InputGroupAddon><MagnifyingGlassIcon /></InputGroupAddon><InputGroupInput id={id} type="search" placeholder="Cari trip atau lokasi grup" value={query} onChange={event => onQueryChange(event.target.value)} />{query && <InputGroupAddon align="inline-end"><InputGroupButton size="icon-sm" aria-label="Hapus pencarian" onClick={() => onQueryChange("")}><XIcon /></InputGroupButton></InputGroupAddon>}</InputGroup></Field><FilterDrawer filters={filters} onApply={onApplyFilters} /></div><ToggleGroup type="single" variant="outline" value={quick} onValueChange={value => { if (value) onQuickChange(value as GroupQuickFilter) }} className="flex flex-wrap justify-start" aria-label="Kategori cepat trip grup">{Object.entries(GROUP_QUICK_FILTERS).map(([value, label]) => <ToggleGroupItem key={value} value={value}>{label}</ToggleGroupItem>)}</ToggleGroup></div>
 }

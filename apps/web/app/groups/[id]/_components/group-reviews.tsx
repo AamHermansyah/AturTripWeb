@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import ImageZoom from "@/components/core/image-zoom"
 import { ReviewCard, type ReviewProps } from "@/components/shared/trips/review-card"
+import Link from "next/link"
 
 type GalleryImage = { src: string; alt: string }
 
@@ -13,9 +14,10 @@ interface GroupReviewsProps {
   rating: number
   totalReviews: number
   reviews: ReviewProps[]
+  href?: string
 }
 
-export function GroupReviews({ rating, totalReviews, reviews }: GroupReviewsProps) {
+export function GroupReviews({ rating, totalReviews, reviews, href = "/groups/1/review" }: GroupReviewsProps) {
   const [selected, setSelected] = useState<GalleryImage | null>(null)
 
   return (
@@ -46,7 +48,7 @@ export function GroupReviews({ rating, totalReviews, reviews }: GroupReviewsProp
             {totalReviews} ulasan
           </p>
           <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
-            Dikumpulkan dari wisatawan yang benar-benar menyelesaikan trip bersama agensi ini.
+            Data ulasan contoh untuk peninjauan mockup, belum terhubung ke API.
           </p>
         </div>
       </div>
@@ -60,9 +62,7 @@ export function GroupReviews({ rating, totalReviews, reviews }: GroupReviewsProp
         ))}
       </div>
 
-      <Button variant="outline" size="xs">
-        Lihat semua {totalReviews} ulasan
-      </Button>
+      <Button asChild variant="outline" size="sm"><Link href={href}>Lihat semua {totalReviews} ulasan contoh</Link></Button>
 
       <ImageZoom image={selected} onClose={() => setSelected(null)} />
     </div>

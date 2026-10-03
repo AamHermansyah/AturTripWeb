@@ -53,4 +53,8 @@ Untuk semua pola **Repeat**, pemandu memilih hari dalam pekan, tanggal mulai dan
 
 ## Kondisi kode sekarang
 
-`apps/web/components/shared/date-availability.tsx` sudah memiliki tampilan `by_days` dan `by_hours` dengan data tanggal contoh. `booking-drawer.tsx` dan halaman reschedule saat ini memakai `by_hours` yang di-hardcode; lima pola konfigurasi penyedia dan sinkronisasi kapasitas belum dibangun. Lihat [kondisi web](../../apps/web/.docs/current-state.md) dan [kondisi API](../../apps/api/.docs/current-state.md).
+Pada 3 Oktober 2026, `/guide-mode/availability` di `apps/web` menyediakan **pratinjau lokal lima pola**, termasuk durasi tepat 24 jam, WIB/WITA/WIT, akhir lintas hari, Repeat dengan hari/rentang/pengecualian, cutoff, satu tipe Privat/Sharing, bentrok seluruh interval, dan penutupan penjualan baru yang mempertahankan booking contoh. Generator Repeat dibatasi 60 hari untuk demonstrasi; itu bukan batas produk.
+
+Drawer/detail trip dan `/booking/checkout` memakai bentuk slot bersama dengan waktu mulai/selesai, zona, kapasitas, dan status contoh. Checkout mensimulasikan masa tahan 15 menit serta konfirmasi/pembayaran terlambat; `/booking/preview` mensimulasikan reschedule dan tenggat DP. **Aturan editor belum mengisi katalog wisatawan, dan kapasitas belum direservasi secara atomik oleh API.**
+
+Komponen lama `date-availability.tsx` dan halaman `/booking/reschedule` masih memakai `by_hours`/tanggal statis. Keduanya belum menggantikan preview baru. Hasil tes domain dan status penerimaan setiap mockup dicatat pada [kondisi web](../../apps/web/.docs/current-state.md) serta [checklist web](../../apps/web/.docs/timeline.md); integrasi ada pada [kondisi API](../../apps/api/.docs/current-state.md).

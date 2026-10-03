@@ -16,10 +16,30 @@ const STRENGTH_CONFIG: Record<
   StrengthLevel,
   { label: string; bars: number; color: string; labelColor: string }
 > = {
-  "weak": { label: "Lemah", bars: 1, color: "bg-destructive", labelColor: "text-destructive" },
-  "fair": { label: "Cukup", bars: 2, color: "bg-warning", labelColor: "text-warning" },
-  "strong": { label: "Kuat", bars: 3, color: "bg-success", labelColor: "text-success" },
-  "very-strong": { label: "Sangat Kuat", bars: 4, color: "bg-success", labelColor: "text-success" },
+  weak: {
+    label: "Lemah",
+    bars: 1,
+    color: "bg-destructive",
+    labelColor: "text-destructive",
+  },
+  fair: {
+    label: "Cukup",
+    bars: 2,
+    color: "bg-warning",
+    labelColor: "text-warning",
+  },
+  strong: {
+    label: "Kuat",
+    bars: 3,
+    color: "bg-success",
+    labelColor: "text-success",
+  },
+  "very-strong": {
+    label: "Sangat Kuat",
+    bars: 4,
+    color: "bg-success",
+    labelColor: "text-success",
+  },
 }
 
 function getStrengthLevel(password: string): StrengthLevel {
@@ -49,12 +69,22 @@ type PasswordInputProps = Omit<React.ComponentProps<"input">, "type"> & {
 }
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ placeholder = "Kata Sandi", showStrength = false, onChange, className, ...props }, ref) => {
+  (
+    {
+      placeholder = "Kata Sandi",
+      showStrength = false,
+      onChange,
+      className,
+      ...props
+    },
+    ref
+  ) => {
     const [show, setShow] = useState(false)
-    const [value, setValue] = useState("")
+    const [internalValue, setInternalValue] = useState("")
+    const value = typeof props.value === "string" ? props.value : internalValue
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value)
+      setInternalValue(e.target.value)
       onChange?.(e)
     }
 
@@ -80,8 +110,11 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           <InputGroupAddon align="inline-end">
             <InputGroupButton
               size="icon-xs"
+              type="button"
               onClick={() => setShow((v) => !v)}
-              aria-label={show ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
+              aria-label={
+                show ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"
+              }
             >
               {show ? <EyeSlashIcon /> : <EyeIcon />}
             </InputGroupButton>
@@ -91,7 +124,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         {showStrength && hasInput && (
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">Kekuatan kata sandi</span>
+              <span className="text-xs text-muted-foreground">
+                Kekuatan kata sandi
+              </span>
               <span className={cn("text-xs font-semibold", config.labelColor)}>
                 {config.label}
               </span>
@@ -111,7 +146,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
             {hints.length > 0 && (
               <p className="text-xs text-muted-foreground">
-                Harus mengandung {hints.join(", ")}.
+                Untuk memperkuat kata sandi, tambahkan {hints.join(", ")}.
               </p>
             )}
           </div>

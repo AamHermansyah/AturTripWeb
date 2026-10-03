@@ -1,100 +1,29 @@
-import Link from "next/link"
-import { JourneyCard, type Journey } from "@/components/shared/trips/journey-card"
+﻿"use client"
+
+import { JourneyCard } from "@/components/shared/trips/journey-card"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Button } from "@/components/ui/button"
+import { EXPLORE_JOURNEYS } from "@/lib/constants/explore-journeys"
 
-const JOURNEYS: Journey[] = [
-  {
-    id: "1",
-    title: "Pendakian Gunung Rinjani dan Danau Segara Anak",
-    category: "Petualangan Alam",
-    location: "Lombok, NTB",
-    rating: 4.9,
-    reviews: 124,
-    price: 1750000,
-    duration: { type: "day", value: 3 },
-    type: "Private",
-    level: "Sulit",
-    packageType: "per person",
-    isWishlist: false,
-    isFamilyFriendly: false,
-    isVerified: true,
-    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
-  },
-  {
-    id: "2",
-    title: "Arung Jeram Citarik",
-    category: "Olahraga Air",
-    location: "Sukabumi, Jabar",
-    rating: 4.8,
-    reviews: 89,
-    price: 450000,
-    duration: { type: "hour", value: 4 },
-    type: "Shared",
-    level: "Menengah",
-    packageType: "per group",
-    minPersons: 4,
-    maxPersons: 6,
-    isWishlist: true,
-    isFamilyFriendly: true,
-    isVerified: true,
-    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
-  },
-  {
-    id: "3",
-    title: "Trekking Bukit Penanggungan",
-    category: "Pendakian",
-    location: "Mojokerto, Jatim",
-    rating: 4.7,
-    reviews: 56,
-    price: 320000,
-    duration: { type: "day", value: 2 },
-    type: "Private",
-    level: "Menengah",
-    packageType: "per person",
-    isWishlist: false,
-    isFamilyFriendly: false,
-    isVerified: false,
-    imageUrl: "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80&w=400",
-  },
-  {
-    id: "4",
-    title: "Wisata Kota Tua Batavia",
-    category: "Tur Budaya",
-    location: "Jakarta Barat",
-    rating: 4.6,
-    reviews: 210,
-    price: 150000,
-    duration: { type: "hour", value: 5 },
-    type: "Shared",
-    level: "Mudah",
-    packageType: "per group",
-    minPersons: 10,
-    maxPersons: 15,
-    isWishlist: false,
-    isFamilyFriendly: true,
-    isVerified: true,
-    imageUrl: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400",
-  },
-]
-
-export function FeaturedJourneys() {
+export function FeaturedJourneys({ onViewAll }: { onViewAll: () => void }) {
   return (
-    <div>
+    <section>
       <div className="mb-3 flex items-center justify-between px-5">
-        <h2 className="font-heading text-lg font-extrabold text-foreground">Perjalanan Unggulan</h2>
-        <Link href="/explore/journeys" className="text-sm font-semibold text-primary">
-          Lihat Semua
-        </Link>
+        <h2 className="font-heading text-lg font-extrabold">
+          Perjalanan unggulan
+        </h2>
+        <Button variant="link" onClick={onViewAll}>
+          Lihat semua
+        </Button>
       </div>
       <ScrollArea>
-        <div className="flex gap-3 w-max px-5 pb-4">
-          {JOURNEYS.map((journey) => (
+        <div className="flex w-max gap-3 px-5 pb-4">
+          {EXPLORE_JOURNEYS.map((journey) => (
             <JourneyCard key={journey.id} journey={journey} />
           ))}
         </div>
-
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </div>
+    </section>
   )
 }

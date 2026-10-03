@@ -87,10 +87,11 @@ export function GalleryView({ images = GALLERY_IMAGES, caption }: GalleryViewPro
         columnClassName="flex flex-col gap-2"
       >
         {images.map((image, i) => (
-          <div
+          <button type="button"
             key={i}
             onClick={() => setSelected(image)}
-            className="group relative w-full overflow-hidden rounded-2xl focus:outline-none"
+            aria-label={`Perbesar ${image.alt}`}
+            className="group relative w-full overflow-hidden rounded-2xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             <img
               src={image.src}
@@ -98,7 +99,7 @@ export function GalleryView({ images = GALLERY_IMAGES, caption }: GalleryViewPro
               className="h-auto w-full object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-50"
             />
             <MagnifyingGlassPlusIcon className="absolute left-[50%] top-[50%] size-6 -translate-x-[50%] -translate-y-[50%] text-white opacity-0 drop-shadow-lg transition-opacity duration-200 group-hover:opacity-100" />
-          </div>
+          </button>
         ))}
       </Masonry>
 

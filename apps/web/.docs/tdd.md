@@ -6,6 +6,18 @@ Status: rancangan integrasi aplikasi web; aturan bisnis final ada di [keputusan 
 
 `apps/web` memakai Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, dan komponen shadcn/Radix. Route berada di `app/`, komponen fitur di `components/shared/`, komponen UI di `components/ui/`, dan data contoh terutama di `lib/constants/`. Peta saat ini memakai MapLibre. Token desain (warna, radius, bayangan) ada di `app/globals.css`; pakai token tema, bukan skala warna Tailwind mentah, kecuali untuk permukaan yang sengaja selalu gelap. Lihat [current-state.md](current-state.md).
 
+## Arsitektur preview lokal — 3 Oktober 2026
+
+- `lib/server/trip-preview.ts` dan `booking-preview-input.ts` adalah modul `server-only`: metadata/slot sintetis dipilih dan query booking divalidasi sebelum komponen klien dirender. `visiblePlan()` memproyeksikan field publik dengan daftar izin; pin perkiraan dan geometri terkait disamarkan di server, bukan sekadar disembunyikan di peta.
+- `lib/trip-plan.ts`, `plan-editor.ts`, `availability-preview.ts`, `booking-preview.ts`, dan `booking-lifecycle-preview.ts` berisi fungsi domain murni untuk waktu/geometri, referensi editor, slot, harga, serta simulasi kebijakan booking. Modul ini bukan sumber kebenaran transaksi produksi.
+- Editor, checkout, dan detail booking preview memakai state React sementara. URL hanya memuat pilihan nonpribadi seperti ID trip/slot, jumlah peserta, add-on, dan mode pembayaran. Identitas peserta, sandi/OTP, serta tujuan refund tidak masuk URL atau penyimpanan browser.
+- `/booking/preview` membentuk booking sintetis baru dari query, bukan mengambil hasil transaksi checkout. Route booking lama masih statis. Akses halaman editor bukan pemeriksaan peran; API tetap harus mengizinkan setiap akses data/mutasi saat integrasi.
+- Tes sementara memakai Node `--experimental-strip-types --test` melalui `test:auth-preview`, `test:explore`, dan `test:trip-preview` (51 tes domain). Pilihan Vitest/Playwright untuk integrasi tetap berlaku; keduanya belum ditambahkan sebagai dependensi. Build/typecheck dan respons HTTP/HTML tidak menggantikan tinjauan visual/interaksi mobile.
+- `listing-preview.ts` memvalidasi draf/jadwal/harga dan klasifikasi review staf contoh. Wizard menyimpan versi aktif/pengajuan terpisah, tetapi tidak membuat snapshot booking API. KYC hanya metadata berkas lokal; identitas terverifikasi pada wizard tetap pilihan simulasi terpisah.
+- `SavedPreviewProvider` menyimpan referensi trip nonpribadi selama navigasi root; tidak memakai localStorage/sesi autentikasi. Inbox notifikasi memakai fixture lokal dan status dibaca sementara, tanpa pengiriman kanal atau sinkronisasi transaksi.
+
+Panduan skenario yang dapat ditinjau pemilik produk ada di [review-mockup.md](review-mockup.md).
+
 ## Pustaka integrasi yang dipilih
 
 Pilihan berikut belum berarti fitur atau dependensinya terpasang. Peta status lintas aplikasi ada di [tech-stack.md](../../../.docs/shared/tech-stack.md).

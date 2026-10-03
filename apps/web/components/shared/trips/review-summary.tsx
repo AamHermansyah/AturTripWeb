@@ -1,17 +1,16 @@
 import { StarIcon } from "@phosphor-icons/react/dist/ssr"
 
-export function ReviewSummary() {
+export function ReviewSummary({ rating = 4.9, count = 128 }: { rating?: number; count?: number }) {
   return (
     <div className="flex flex-col items-center">
       <div className="text-center mb-6">
-        <h2 className="text-6xl font-black font-heading tracking-tighter mb-2">4.9</h2>
+        <h2 className="text-6xl font-black font-heading tracking-tighter mb-2">{rating.toLocaleString("id-ID", { minimumFractionDigits: 1 })}</h2>
         <div className="flex items-center justify-center gap-1.5 mb-2">
-          {[1,2,3,4].map(i => (
-            <StarIcon key={i} weight="fill" className="size-6 text-success" />
+          {[1,2,3,4,5].map(i => (
+            <StarIcon key={i} weight={rating >= i - 0.5 ? "fill" : "regular"} className="size-6 text-success" />
           ))}
-          <StarIcon weight="regular" className="size-6 text-success" />
         </div>
-        <p className="text-[13px] font-semibold text-muted-foreground">Berdasarkan 128 ulasan</p>
+        <p className="text-[13px] font-semibold text-muted-foreground">{count} ulasan contoh · belum terhubung ke API</p>
       </div>
 
       <div className="w-full bg-success/5 border border-success/10 rounded-[1.5rem] p-5 space-y-3">

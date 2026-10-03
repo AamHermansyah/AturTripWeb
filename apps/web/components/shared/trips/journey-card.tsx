@@ -1,7 +1,7 @@
-import { BabyIcon, CalendarBlankIcon, HeartIcon, LineVerticalIcon, MapPinAreaIcon, MapPinIcon, MapPinSimpleIcon, SealCheckIcon, StarIcon, StepsIcon, UserIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
+import { BabyIcon, CalendarBlankIcon, MapPinAreaIcon, MapPinIcon, SealCheckIcon, StarIcon, StepsIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
 import { Badge } from "@/components/ui/badge"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Button } from "@/components/ui/button"
+import { SaveTripButton } from "./save-trip-button"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -58,7 +58,6 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
     packageType,
     minPersons,
     maxPersons,
-    isWishlist,
     isFamilyFriendly,
     isVerified,
     imageUrl,
@@ -84,9 +83,7 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
             </AspectRatio>
           </Link>
 
-          <Button variant="outline" size="icon" className="absolute top-2 right-2 text-rose-500 bg-white size-7 border-none hover:bg-rose-500 hover:text-white">
-            <HeartIcon weight={isWishlist ? "fill" : "bold"} />
-          </Button>
+          <SaveTripButton trip={{ href: detailHref, journey }} compact className="absolute top-2 right-2 size-8" />
 
           <Badge className="absolute bottom-2 left-2 text-white bg-black/80 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm gap-1">
             <StarIcon weight="fill" className="text-warning" />

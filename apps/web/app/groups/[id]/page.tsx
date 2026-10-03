@@ -25,6 +25,7 @@ import { GroupCredentials } from "./_components/group-credentials"
 import { GroupMembers } from "./_components/group-members"
 import { GroupJourneys } from "./_components/group-journeys"
 import { GroupReviews } from "./_components/group-reviews"
+import { notFound } from "next/navigation"
 
 const STATS: TripStatItem[] = [
   { icon: CheckCircleIcon, label: "Trip Selesai", value: `${GROUP.completedTrips}` },
@@ -39,7 +40,9 @@ const STATS: TripStatItem[] = [
   { icon: CalendarCheckIcon, label: "Sejak", value: GROUP.establishedYear },
 ]
 
-export default function GroupDetailPage() {
+export default async function GroupDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  if (id !== GROUP.id) notFound()
   return (
     <div className="relative h-dvh w-full overflow-y-auto pb-6">
       <GroupHero
@@ -54,6 +57,7 @@ export default function GroupDetailPage() {
       />
 
       <div className="space-y-6 px-5 pt-5">
+        <p className="text-xs leading-relaxed text-muted-foreground">Profil, sertifikasi, statistik, dan ulasan grup pada halaman ini memakai data contoh.</p>
         <TripStats stats={STATS} />
 
         <div className="flex items-center gap-2">

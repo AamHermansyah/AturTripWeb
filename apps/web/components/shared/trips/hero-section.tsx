@@ -2,8 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { MapPinIcon, ShareNetworkIcon, HeartIcon, ArrowLeftIcon } from "@phosphor-icons/react"
-import { useRouter } from "next/navigation"
+import { MapPinIcon, ArrowLeftIcon } from "@phosphor-icons/react"
+import Link from "next/link"
+import { SaveTripButton } from "./save-trip-button"
+import { ShareTripButton } from "./share-trip-button"
+import type { SavedTripPreview } from "./saved-preview-provider"
 
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
@@ -17,6 +20,8 @@ interface HeroSectionProps {
   badge?: React.ReactNode
   /** Baris kecil di bawah judul, mis. "oleh Nusantara Trekkers". */
   subtitle?: string
+  savedTrip?: SavedTripPreview
+  backHref?: string
 }
 
 export function HeroSection({
@@ -26,9 +31,9 @@ export function HeroSection({
   imageUrl = DEFAULT_IMAGE,
   badge,
   subtitle,
+  savedTrip,
+  backHref = "/explore",
 }: HeroSectionProps) {
-  const router = useRouter()
-
   return (
     <div className="relative h-65 w-full">
       <img
@@ -48,18 +53,14 @@ export function HeroSection({
             variant="outline"
             size="icon-sm"
             className="text-white border-none bg-black/40 hover:bg-black/60 hover:text-white"
-            onClick={() => router.back()}
+            asChild
+            aria-label="Kembali"
           >
-            <ArrowLeftIcon weight="bold" />
+            <Link href={backHref}><ArrowLeftIcon weight="bold" /></Link>
           </Button>
         )}
         <div className="flex items-center gap-3">
-          <Button variant="outline" size="icon-sm" className="text-white border-none bg-black/40 hover:bg-black/60 hover:text-white">
-            <ShareNetworkIcon weight="bold" />
-          </Button>
-          <Button variant="outline" size="icon-sm" className="text-rose-500 border-none bg-white/40 hover:bg-white/60 hover:text-rose-500">
-            <HeartIcon weight="fill" />
-          </Button>
+          {savedTrip && <><ShareTripButton href={savedTrip.href} title={title} /><SaveTripButton trip={savedTrip} compact /></>}
         </div>
       </div>
 

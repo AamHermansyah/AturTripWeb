@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useState } from "react"
 import { SecurityScoreCard } from "./_components/security-score-card"
@@ -17,6 +17,8 @@ const ACCOUNT = {
 }
 
 export default function AccountSecurityPage() {
+  const [email, setEmail] = useState(ACCOUNT.email)
+  const [phone, setPhone] = useState(ACCOUNT.phone)
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false)
   const [pinActive, setPinActive] = useState(false)
 
@@ -28,9 +30,11 @@ export default function AccountSecurityPage() {
   ]
 
   return (
-    <div className="px-5 space-y-6">
+    <div className="space-y-6 px-5">
       <div>
-        <h1 className="font-heading text-lg font-extrabold tracking-tight">Keamanan Akun</h1>
+        <h1 className="font-heading text-lg font-extrabold tracking-tight">
+          Keamanan Akun
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Kelola kata sandi, verifikasi, dan perangkat yang terhubung ke akunmu.
         </p>
@@ -41,8 +45,16 @@ export default function AccountSecurityPage() {
       <SecuritySection title="Kredensial masuk">
         <SecurityGroup>
           <ChangePasswordDrawer />
-          <ChangeContactDrawer type="email" currentValue={ACCOUNT.email} />
-          <ChangeContactDrawer type="phone" currentValue={ACCOUNT.phone} />
+          <ChangeContactDrawer
+            type="email"
+            currentValue={email}
+            onValueChange={setEmail}
+          />
+          <ChangeContactDrawer
+            type="phone"
+            currentValue={phone}
+            onValueChange={setPhone}
+          />
         </SecurityGroup>
       </SecuritySection>
 
@@ -53,7 +65,10 @@ export default function AccountSecurityPage() {
 
       <SecuritySection title="Keamanan transaksi">
         <SecurityGroup>
-          <TransactionPinDrawer active={pinActive} onActiveChange={setPinActive} />
+          <TransactionPinDrawer
+            active={pinActive}
+            onActiveChange={setPinActive}
+          />
         </SecurityGroup>
       </SecuritySection>
 

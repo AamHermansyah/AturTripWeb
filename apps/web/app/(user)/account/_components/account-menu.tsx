@@ -7,45 +7,32 @@ import {
   MoonIcon,
   ArrowsLeftRightIcon,
   LockKeyIcon,
-  HeadsetIcon,
-  FileTextIcon,
   SignOutIcon,
   CaretRightIcon,
-  WalletIcon,
   IdentificationCardIcon
 } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 import { Button } from "@/components/ui/button"
+
+const subscribeMounted = () => () => {}
+const clientMounted = () => true
+const serverMounted = () => false
 
 export default function AccountMenu() {
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(subscribeMounted, clientMounted, serverMounted)
 
   const isDark = mounted && (theme === 'dark' || resolvedTheme === 'dark')
 
-  const toggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark')
-  }
-
   const PreferenceItems = [
     { label: "Riwayat Perjalanan", icon: ClockCounterClockwiseIcon, href: "/booking" },
-    { label: "Pindah ke Akun Guide", icon: ArrowsLeftRightIcon, href: "/guide-mode" },
+    { label: "Mode pemandu contoh", icon: ArrowsLeftRightIcon, href: "/guide-mode" },
   ]
 
   const SecurityItems = [
     { label: "Keamanan Akun", icon: LockKeyIcon, href: "/account/security" },
-    { label: "Verifikasi KYC", icon: IdentificationCardIcon, href: "/account/kyc" },
-    { label: "Pengaturan Penarikan", icon: WalletIcon, href: "/account/withdrawal" },
-  ]
-
-  const OtherItems = [
-    { label: "Kontak Kami", icon: HeadsetIcon, href: "/contact" },
-    { label: "Kebijakan dan Ketentuan", icon: FileTextIcon, href: "/terms" },
+    { label: "Verifikasi pemandu", icon: IdentificationCardIcon, href: "/account/kyc" },
   ]
 
   const renderGroup = (items: typeof SecurityItems) => (
@@ -79,16 +66,16 @@ export default function AccountMenu() {
 
           {/* Dark Mode Toggle */}
           <div
-            onClick={toggleTheme}
-            className="flex items-center gap-4 p-2 rounded-xl hover:bg-background/70 active:bg-background/80 transition-colors group cursor-pointer"
+            className="flex items-center gap-4 p-2 rounded-xl hover:bg-background/70 active:bg-background/80 transition-colors group"
           >
             <div className="size-9 rounded-full bg-background flex items-center justify-center shrink-0 shadow-xs text-primary group-hover:border group-hover:scale-110 transition-transform">
               <MoonIcon weight="fill" className="size-4" />
             </div>
-            <span className="flex-1 font-bold text-[15px]">Mode Gelap</span>
-            <div className="mr-2" onClick={(e) => e.stopPropagation()}>
+            <label htmlFor="account-dark-mode" className="flex-1 font-bold text-[15px]">Mode gelap</label>
+            <div className="mr-2">
               {mounted && (
                 <Switch
+                  id="account-dark-mode"
                   checked={isDark}
                   onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
                 />
@@ -105,7 +92,7 @@ export default function AccountMenu() {
 
       <div className="space-y-3">
         <h4 className="text-sm font-semibold text-muted-foreground pl-2">Lainnya</h4>
-        {renderGroup(OtherItems)}
+        <div className="rounded-4xl border border-dashed p-4"><p className="text-sm text-muted-foreground">Penarikan, kontak, dan ketentuan belum tersedia pada pratinjau ini.</p></div>
       </div>
 
       <Link href="/login">

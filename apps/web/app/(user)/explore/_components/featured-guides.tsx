@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { GuideCard, type Guide } from "@/components/shared/guides/guide-card"
 
@@ -54,9 +53,6 @@ export function FeaturedGuides() {
     <div>
       <div className="mb-3 flex items-center justify-between px-5">
         <h2 className="font-heading text-lg font-extrabold text-foreground">Temui Para Profesional</h2>
-        <Link href="/explore/guides" className="text-sm font-semibold text-primary">
-          Lihat Semua
-        </Link>
       </div>
       <ScrollArea>
         <div className="flex gap-3 px-5 pb-4 w-max">

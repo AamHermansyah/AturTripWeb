@@ -1,9 +1,9 @@
-import { StarIcon, SealCheckIcon, MapPinIcon, MapTrifoldIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
-import { Badge } from "@/components/ui/badge"
+import { StarIcon, SealCheckIcon, MapPinIcon, MapTrifoldIcon } from "@phosphor-icons/react/dist/ssr"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Link from "next/link"
+import { GROUP, GROUP_MEMBERS, GROUP_TRIPS } from "@/lib/constants/group"
 
 interface GuideGroup {
   id: string
@@ -20,64 +20,13 @@ interface GuideGroup {
   imageUrl: string
 }
 
-const GUIDE_GROUPS: GuideGroup[] = [
-  {
-    id: "1",
-    name: "Nusantara Trekkers",
-    description: "Spesialis pendakian ketinggian & jalur vulkanik Jawa–Bali.",
-    category: "Petualangan",
-    customTags: ["Pendakian", "Camping", "Gunung"],
-    guideCount: 12,
-    location: "Malang, Jatim",
-    totalJourneys: 45,
-    rating: 4.9,
-    reviews: 128,
-    isVerified: true,
-    imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150",
-  },
-  {
-    id: "2",
-    name: "Arus Liar Co.",
-    description: "Instruktur kayak dan arung jeram bersertifikat internasional.",
-    category: "Olahraga Air",
-    customTags: ["Arung Jeram", "Kayak", "Sungai"],
-    guideCount: 4,
-    location: "Sukabumi, Jabar",
-    totalJourneys: 24,
-    rating: 4.7,
-    reviews: 89,
-    isVerified: true,
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
-  },
-  {
-    id: "3",
-    name: "Kota Tua Explorers",
-    description: "Pemandu bersejarah untuk wisata budaya kota-kota tua Indonesia.",
-    category: "Tur Budaya",
-    customTags: ["Sejarah", "Museum", "Wisata Kota"],
-    guideCount: 3,
-    location: "Jakarta Barat",
-    totalJourneys: 18,
-    rating: 4.6,
-    reviews: 56,
-    isVerified: false,
-    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150",
-  },
-  {
-    id: "4",
-    name: "Kota Tua Explorers",
-    description: "Pemandu bersejarah untuk wisata budaya kota-kota tua Indonesia.",
-    category: "Tur Budaya",
-    customTags: ["Sejarah", "Museum", "Wisata Kota"],
-    guideCount: 1,
-    location: "Jakarta Barat",
-    totalJourneys: 18,
-    rating: 4.6,
-    reviews: 56,
-    isVerified: false,
-    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150",
-  },
-]
+const GUIDE_GROUPS: GuideGroup[] = [{
+  id: GROUP.id, name: GROUP.name, description: GROUP.description,
+  category: GROUP.category, customTags: ["Pendakian", "Berkemah", "Gunung"], guideCount: GROUP_MEMBERS.length,
+  location: GROUP.location, totalJourneys: GROUP_TRIPS.length,
+  rating: GROUP.rating, reviews: GROUP.reviews, isVerified: GROUP.isVerified,
+  imageUrl: GROUP.logoUrl,
+}]
 
 export function GuideGroups() {
   return (
@@ -121,21 +70,21 @@ export function GuideGroups() {
                           group.guideCount < 4 && i == 2 && 'translate-x-[55%]'
                         )}
                       >
-                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Guide" className="w-full h-full object-cover text-xs" />
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Pemandu contoh" className="w-full h-full object-cover text-xs" />
                       </div>
                     ))}
 
                     {group.guideCount > 4 ? (
                       <div className="relative w-6 h-6 rounded-full bg-primary border border-background flex items-center justify-center">
-                        <span className="text-[9px] font-extrabold text-primary-foreground">
-                          +{group.guideCount - 4}
+                        <span className="text-[11px] font-extrabold text-primary-foreground">
+                          +{group.guideCount - 3}
                         </span>
                       </div>
                     ) : (
                       // Jika data pas 4, tampilkan satu lingkaran lagi (opsional, tergantung logika data Anda)
                       group.guideCount === 4 && (
                         <div className="relative w-6 h-6 rounded-full bg-muted border border-background overflow-hidden">
-                          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Guide" className="w-full h-full object-cover text-xs" />
+                          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100" alt="Pemandu contoh" className="w-full h-full object-cover text-xs" />
                         </div>
                       )
                     )}
@@ -157,7 +106,7 @@ export function GuideGroups() {
                     </div>
                     <div className="flex items-center gap-1">
                       <MapTrifoldIcon weight="fill" className="text-muted-foreground" />
-                      <span>{group.totalJourneys} Perjalanan</span>
+                      <span>{group.totalJourneys} trip contoh</span>
                     </div>
                   </div>
 
@@ -175,7 +124,7 @@ export function GuideGroups() {
               </div>
               <Separator className="my-2" />
               {/* Custom Tags */}
-              <div className="flex items-center gap-1.5 flex-wrap text-[10px]">
+              <div className="flex items-center gap-1.5 flex-wrap text-[11px]">
                 {group.customTags.map((tag) => (
                   <span key={tag} className="text-muted-foreground font-semibold px-2 py-0.5 rounded-md border border-border bg-background shadow-xs">
                     #{tag}

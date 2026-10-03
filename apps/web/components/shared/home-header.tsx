@@ -3,14 +3,14 @@
 import { Button } from "@/components/ui/button"
 import Logo from "@/components/shared/logo"
 import { BellIcon, CaretLeftIcon } from "@phosphor-icons/react/dist/ssr"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 const MAIN_PATHS = ["/", "/explore", "/my-trips", "/saved", "/conversations", "/account"]
 
 export function HomeHeader() {
   const pathname = usePathname()
-  const router = useRouter()
+  const parentPath = pathname.slice(0, pathname.lastIndexOf("/")) || "/explore"
 
   const isMainScreen = MAIN_PATHS.includes(pathname)
 
@@ -38,10 +38,10 @@ export function HomeHeader() {
             variant="ghost"
             size="icon"
             aria-label="Kembali"
-            onClick={() => router.back()}
+            asChild
             className="hover:bg-transparent dark:hover:bg-transparent w-max px-0 pr-1"
           >
-            <CaretLeftIcon weight="bold" className="size-4" />
+            <Link href={parentPath}><CaretLeftIcon weight="bold" className="size-4" /></Link>
           </Button>
           <Logo className="size-10 mb-0" />
         </>

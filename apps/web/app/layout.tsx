@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SplashScreen } from "@/components/splash-screen"
 import { Toaster } from "@/components/ui/sonner"
+import { SavedPreviewProvider } from "@/components/shared/trips/saved-preview-provider"
 import { cn } from "@/lib/utils";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -42,11 +43,13 @@ export default function RootLayout({
     >
       <body className="bg-secondary">
         <ThemeProvider>
+          <SavedPreviewProvider>
           <SplashScreen />
           <div className="max-w-sm mx-auto bg-background h-dvh overflow-y-hidden">
             {children}
           </div>
           <Toaster position="top-center" richColors closeButton />
+          </SavedPreviewProvider>
         </ThemeProvider>
       </body>
     </html>

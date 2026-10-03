@@ -1,137 +1,158 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { SlidersHorizontalIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Badge } from "@/components/ui/badge"
+import { FieldGroup, FieldLegend, FieldSet } from "@/components/ui/field"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { cn } from "@/lib/utils"
 import {
   JOURNEY_TYPE_OPTIONS,
   DURATION_OPTIONS,
   PRICE_OPTIONS,
   RATING_OPTIONS,
-  type JourneyType,
-  type Duration,
-  type Rating,
-  type PriceRange,
 } from "@/lib/constants/filter"
+import {
+  countTripFilters,
+  DEFAULT_TRIP_FILTERS,
+  type TripFilters,
+} from "@/lib/explore-filters"
 
-function RadioChips<T extends string>({
-  name,
+function FilterOptions<T extends string>({
+  label,
   options,
   value,
   onChange,
 }: {
-  name: string
+  label: string
   options: { id: T; label: string }[]
   value: T
-  onChange: (v: T) => void
+  onChange: (value: T) => void
 }) {
   return (
-    <RadioGroup
-      value={value}
-      onValueChange={(v) => onChange(v as T)}
-      className="flex flex-wrap gap-2"
-    >
-      {options.map(({ id, label }) => (
-        <div key={id}>
-          <RadioGroupItem value={id} id={`${name}-${id}`} className="sr-only" />
-          <label
-            htmlFor={`${name}-${id}`}
-            className={cn(
-              "cursor-pointer rounded-xl border px-4 py-1.5 text-sm font-medium transition-all",
-              value === id
-                ? "border-primary bg-primary/10 text-primary"
-                : "border-border text-muted-foreground hover:border-primary/40"
-            )}
-          >
-            {label}
-          </label>
-        </div>
-      ))}
-    </RadioGroup>
+    <FieldSet>
+      <FieldLegend variant="label">{label}</FieldLegend>
+      <ToggleGroup
+        type="single"
+        variant="outline"
+        value={value}
+        onValueChange={(value) => {
+          if (value) onChange(value as T)
+        }}
+        aria-label={label}
+        className="w-full flex-wrap justify-start"
+      >
+        {options.map((option) => (
+          <ToggleGroupItem key={option.id} value={option.id}>
+            {option.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+    </FieldSet>
   )
 }
 
-function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-3">
-      <p className="text-sm font-bold text-foreground">{title}</p>
-      {children}
-    </div>
+export function FilterDrawer({
+  filters,
+  onApply,
+}: {
+  filters?: TripFilters
+  onApply?: (filters: TripFilters) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [applied, setApplied] = useState<TripFilters>(DEFAULT_TRIP_FILTERS)
+  const [draft, setDraft] = useState<TripFilters>(
+    filters ?? DEFAULT_TRIP_FILTERS
   )
-}
+  const activeCount = countTripFilters(filters ?? applied)
 
-const DEFAULT_FILTERS = {
-  type: "all" as JourneyType,
-  duration: "1" as Duration,
-  rating: "4.0" as Rating,
-  price: "all" as PriceRange,
-}
-
-export function FilterDrawer() {
-  const [type, setType] = useState<JourneyType>(DEFAULT_FILTERS.type)
-  const [duration, setDuration] = useState<Duration>(DEFAULT_FILTERS.duration)
-  const [rating, setRating] = useState<Rating>(DEFAULT_FILTERS.rating)
-  const [price, setPrice] = useState<PriceRange>(DEFAULT_FILTERS.price)
-
-  const handleReset = () => {
-    setType(DEFAULT_FILTERS.type)
-    setDuration(DEFAULT_FILTERS.duration)
-    setRating(DEFAULT_FILTERS.rating)
-    setPrice(DEFAULT_FILTERS.price)
+  function changeOpen(nextOpen: boolean) {
+    if (nextOpen) setDraft({ ...(filters ?? applied) })
+    setOpen(nextOpen)
   }
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={changeOpen}>
       <DrawerTrigger asChild>
-        <button
-          aria-label="Filter"
-          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm transition-opacity active:opacity-80"
+        <Button
+          size="icon"
+          aria-label={`Filter perjalanan${activeCount ? `, ${activeCount} aktif` : ""}`}
+          className="relative shrink-0"
         >
-          <SlidersHorizontalIcon weight="bold" />
-        </button>
+          <SlidersHorizontalIcon data-icon="inline-start" weight="bold" />
+          {activeCount > 0 && (
+            <Badge variant="secondary" className="absolute -top-2 -right-2">
+              {activeCount}
+            </Badge>
+          )}
+        </Button>
       </DrawerTrigger>
-
       <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle className="text-lg font-extrabold">Filter Perjalanan</DrawerTitle>
+        <DrawerHeader>
+          <DrawerTitle>Filter perjalanan</DrawerTitle>
+          <DrawerDescription>
+            Pilih kriteria, lalu terapkan untuk memperbarui hasil.
+          </DrawerDescription>
         </DrawerHeader>
-
-        <div className="flex flex-col gap-6 overflow-y-auto px-4 pb-2">
-          <FilterSection title="Tipe Perjalanan">
-            <RadioChips name="type" options={JOURNEY_TYPE_OPTIONS} value={type} onChange={setType} />
-          </FilterSection>
-
-          <FilterSection title="Durasi">
-            <RadioChips name="duration" options={DURATION_OPTIONS} value={duration} onChange={setDuration} />
-          </FilterSection>
-
-          <FilterSection title="Rating Minimum">
-            <RadioChips name="rating" options={RATING_OPTIONS} value={rating} onChange={setRating} />
-          </FilterSection>
-
-          <FilterSection title="Maksimum Harga">
-            <RadioChips name="price" options={PRICE_OPTIONS} value={price} onChange={setPrice} />
-          </FilterSection>
+        <div className="overflow-y-auto px-4 pb-2">
+          <FieldGroup className="gap-6">
+            <FilterOptions
+              label="Tipe perjalanan"
+              options={JOURNEY_TYPE_OPTIONS}
+              value={draft.type}
+              onChange={(type) => setDraft({ ...draft, type })}
+            />
+            <FilterOptions
+              label="Durasi"
+              options={DURATION_OPTIONS}
+              value={draft.duration}
+              onChange={(duration) => setDraft({ ...draft, duration })}
+            />
+            <FilterOptions
+              label="Rating minimum"
+              options={RATING_OPTIONS}
+              value={draft.rating}
+              onChange={(rating) => setDraft({ ...draft, rating })}
+            />
+            <FilterOptions
+              label="Harga"
+              options={PRICE_OPTIONS}
+              value={draft.price}
+              onChange={(price) => setDraft({ ...draft, price })}
+            />
+          </FieldGroup>
         </div>
-
-        <DrawerFooter className="flex-row gap-2">
-          <Button variant="outline" className="flex-1" onClick={handleReset}>
-            Reset
+        <DrawerFooter>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setDraft({ ...DEFAULT_TRIP_FILTERS })}
+            >
+              Reset
+            </Button>
+            <Button
+              className="flex-1"
+              onClick={() => {
+                setApplied({ ...draft })
+                onApply?.({ ...draft })
+                setOpen(false)
+              }}
+            >
+              Terapkan filter
+            </Button>
+          </div>
+          <Button variant="ghost" onClick={() => setOpen(false)}>
+            Batal
           </Button>
-          <DrawerClose asChild>
-            <Button className="flex-1">Terapkan Filter</Button>
-          </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

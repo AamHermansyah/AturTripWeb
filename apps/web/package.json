@@ -8,7 +8,10 @@
     "build": "next build",
     "start": "next start --port 3000",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:auth-preview": "node --experimental-strip-types --test lib/auth-preview.test.mjs",
+    "test:explore": "node --experimental-strip-types --test lib/explore-filters.test.mjs",
+    "test:trip-preview": "node --experimental-strip-types --test lib/trip-plan.test.mjs lib/booking-preview.test.mjs lib/booking-lifecycle-preview.test.mjs lib/plan-editor.test.mjs lib/availability-preview.test.mjs lib/listing-preview.test.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
