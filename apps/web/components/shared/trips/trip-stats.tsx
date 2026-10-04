@@ -14,26 +14,21 @@ interface TripStatsProps {
 
 export function TripStats({ stats }: TripStatsProps) {
   return (
-    <div className="bg-card rounded-4xl shadow-sm border border-border/80 overflow-hidden">
-      <div className="grid grid-cols-2">
+    <div className="border-y border-border/80 py-4">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-5">
         {stats.map((stat, i) => {
-          const isEvenTotal = stats.length % 2 === 0
-          const itemsInLastRow = isEvenTotal ? 2 : 1
-          const isLastRow = i >= stats.length - itemsInLastRow
-          const isEvenCols = i % 2 === 0
-          
           return (
             <div 
               key={i} 
-              className={`p-4 sm:p-5 transition-colors ${!isLastRow ? 'border-b border-border/80' : ''} ${isEvenCols ? 'border-r border-border/80' : ''}`}
+              className="min-w-0"
             >
               <div className="flex items-center gap-3">
-                <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <stat.icon weight={stat.iconWeight || "fill"} className="size-5 text-primary" />
+                <div className="shrink-0">
+                  <stat.icon weight={stat.iconWeight || "regular"} className="size-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-xs font-medium text-muted-foreground leading-none mb-1.5">{stat.label}</p>
-                  <p className="text-[14px] font-extrabold text-foreground leading-none">{stat.value}</p>
+                  <p className="text-sm font-semibold leading-snug">{stat.value}</p>
                 </div>
               </div>
             </div>

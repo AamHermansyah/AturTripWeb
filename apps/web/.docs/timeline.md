@@ -4,6 +4,8 @@ Status: **berjalan**. `[x] UI awal` berarti route/tampilan memang ada dalam kode
 
 ## Fondasi desain
 
+- [ ] Revisi UI mobile 4 Oktober 2026 memakai `design-taste-frontend` dan tiga konsep `imagegen-frontend-mobile`: autentikasi, Explore/kartu, detail trip/grup, checkout/booking, Simpan, notifikasi, serta hub/editor/wizard/KYC. Build, lint, 64 tes domain, dan audit 60 URL lulus; menunggu penerimaan tampilan baru dan audit visual browser. Rincian [mobile-ui-review.md](mobile-ui-review.md).
+
 - [x] Redesign fondasi + komponen `apps/web` (Plus Jakarta Sans, palet jade + netral hangat, radius berjenjang, state tekan/fokus, skeleton loading) diterima pemilik produk tanpa perbaikan pada 26 September 2026.
 - [x] Tahap 2: level halaman memakai bentuk komponen yang sama (tanpa tab/tombol pil yang dipaksa) dan label kecil yang terbaca; diterima pemilik produk pada 26 September 2026.
 

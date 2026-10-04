@@ -1,6 +1,5 @@
 import { BabyIcon, CalendarBlankIcon, MapPinAreaIcon, MapPinIcon, SealCheckIcon, StarIcon, StepsIcon, UsersIcon } from "@phosphor-icons/react/dist/ssr"
-import { Badge } from "@/components/ui/badge"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import Image from "next/image"
 import { SaveTripButton } from "./save-trip-button"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
@@ -33,7 +32,7 @@ export interface Journey {
 
 const JOURNEY_TYPE_LABEL: Record<Journey["type"], string> = {
   Private: "Privat",
-  Shared: "Bersama",
+  Shared: "Sharing",
 }
 
 interface JourneyCardProps {
@@ -70,83 +69,67 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
   return (
     <div
       className={cn(
-        "w-60 p-3 pb-1 shrink-0 overflow-hidden rounded-4xl border border-border bg-card shadow-md cursor-pointer hover:bg-secondary transition",
+        "group/journey w-64 min-w-0 shrink-0",
         className
       )}
     >
       <div className="flex flex-col h-full">
-        {/* Image placeholder */}
-        <div className="relative">
-          <Link href={detailHref}>
-            <AspectRatio ratio={16 / 9} className="w-full bg-success/30 rounded-3xl overflow-hidden">
-              {imageUrl && <img src={imageUrl} alt={title} className="w-full h-full object-cover text-xs" />}
-            </AspectRatio>
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+          <Link href={detailHref} className="block h-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring">
+              {imageUrl && <Image src={imageUrl} alt={title} fill sizes="(max-width: 430px) 90vw, 390px" unoptimized className="object-cover transition-transform duration-300 motion-safe:group-hover/journey:scale-[1.025]" />}
           </Link>
 
-          <SaveTripButton trip={{ href: detailHref, journey }} compact className="absolute top-2 right-2 size-8" />
-
-          <Badge className="absolute bottom-2 left-2 text-white bg-black/80 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm gap-1">
-            <StarIcon weight="fill" className="text-warning" />
-            <span className="font-semibold">{rating}</span>
-            <span>({reviews})</span>
-            {isVerified && <SealCheckIcon weight="fill" className="text-blue-500 text-[14px]" />}
-          </Badge>
-
-          {radius && (
-            <Badge className="absolute top-2 left-2 text-primary-foreground bg-primary px-2 py-0.5 text-[10px] font-semibold gap-1">
-              <MapPinAreaIcon weight="fill" />
-              <span className="font-semibold">{radius}km</span>
-            </Badge>
-          )}
+          <SaveTripButton trip={{ href: detailHref, journey }} compact className="absolute top-3 right-3 size-9" />
         </div>
 
-        {/* Info */}
-        <div className="flex-1 flex flex-col justify-between py-2">
+        <div className="flex flex-1 flex-col justify-between pt-3 pb-2">
           <div>
-            <h4 className="text-xs font-semibold text-primary">
-              {category}
-            </h4>
+            <div className="mb-1.5 flex items-center justify-between gap-2 text-xs"><span className="font-medium text-primary">{category}</span><span className="inline-flex shrink-0 items-center gap-1"><StarIcon weight="fill" className="size-3.5 text-primary" /><span className="font-semibold">{rating}</span><span className="text-muted-foreground">({reviews})</span></span></div>
             <Link href={detailHref}>
-              <p className="line-clamp-2 font-heading text-[15px] font-semibold text-foreground leading-5 hover:text-primary transition">
+              <h3 className="line-clamp-2 min-h-11 font-heading text-base font-semibold leading-snug transition-colors hover:text-primary">
                 {title}
-              </p>
+              </h3>
             </Link>
             <div className="flex flex-wrap gap-x-2 text-muted-foreground">
-              <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
-                <MapPinIcon weight="fill" />
+              <div className="mt-2 flex w-full min-w-0 items-center gap-1 text-xs leading-5">
+                <MapPinIcon className="shrink-0" />
                 <span className="truncate">{location}</span>
               </div>
-              <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
-                <CalendarBlankIcon weight="fill" />
+              <div className="mt-1 flex items-center gap-1 text-xs leading-5">
+                <CalendarBlankIcon />
                 <span className="truncate">{duration.value} {duration.type === "day" ? "Hari" : "Jam"}</span>
               </div>
               {packageType === "per group" && (
-                <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
-                  <UsersIcon weight="fill" />
+                <div className="mt-1 flex items-center gap-1 text-xs leading-5">
+                  <UsersIcon />
                   <span className="truncate">
                     {minPersons}-{maxPersons} org
                   </span>
                 </div>
               )}
-              <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
-                <StepsIcon weight="fill" />
+              <div className="mt-1 flex items-center gap-1 text-xs leading-5">
+                <StepsIcon />
                 <span className="truncate">{level}</span>
               </div>
               {isFamilyFriendly && (
-                <div className="mt-1 font-heading flex items-center gap-1 text-[13px] leading-4">
-                  <BabyIcon weight="fill" />
+                <div className="mt-1 flex items-center gap-1 text-xs leading-5">
+                  <BabyIcon />
                   <span className="truncate">Ramah Keluarga</span>
                 </div>
               )}
+              {radius && <span className="mt-1 inline-flex items-center gap-1 text-xs leading-5"><MapPinAreaIcon />{radius} km</span>}
             </div>
             {guides && guides.length > 0 && (
               <div className="mt-2 flex items-center gap-1.5">
                 <div className="flex items-center">
                   {guides.slice(0, 3).map((guide, i) => (
-                    <img
+                    <Image
                       key={guide.id}
                       src={guide.imageUrl}
                       alt={guide.name}
+                      width={20}
+                      height={20}
+                      unoptimized
                       className={cn(
                         "size-5 rounded-full border border-background object-cover",
                         i > 0 && "-ml-2"
@@ -160,18 +143,13 @@ export function JourneyCard({ journey, href, className }: JourneyCardProps) {
               </div>
             )}
           </div>
-          <div className="mt-2 w-full flex items-center justify-between gap-2">
-            <Badge
-              variant={type === "Private" ? "default" : "info-fill"}
-              className="text-xs"
-            >
-              {JOURNEY_TYPE_LABEL[type]}
-            </Badge>
-            <div className="mt-2 text-right">
-              <p className="text-sm font-extrabold text-primary leading-1">
+          <div className="mt-3 flex w-full items-end justify-between gap-2 border-t border-border/70 pt-3">
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">{JOURNEY_TYPE_LABEL[type]}{isVerified && <SealCheckIcon weight="fill" className="size-4 text-primary" aria-label="Pemandu contoh terverifikasi" />}</span>
+            <div className="text-right">
+              <p className="text-base font-bold leading-6">
                 Rp {price.toLocaleString("id-ID")}
               </p>
-              <span className="text-xs text-muted-foreground leading-0">
+              <span className="text-xs leading-5 text-muted-foreground">
                 {packageType === "per person" ? "per orang" : "per grup"}
               </span>
             </div>

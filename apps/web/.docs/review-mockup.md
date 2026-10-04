@@ -1,5 +1,11 @@
 # Panduan review mockup — 3 Oktober 2026
 
+Tambahan 4 Oktober: [revisi UI mobile dan gambar konsep](mobile-ui-review.md), [perubahan trip terpesan](http://localhost:3000/guide-mode/changes), [jawaban wisatawan](http://localhost:3000/booking/changes), dan [usulan jadwal pemandu](http://localhost:3000/booking/guide-reschedule). Tampilan baru dan kedua alur baru masih menunggu penerimaan. Pemeriksaan terkini: 64 tes domain, TypeScript, lint, build, serta 60 URL HTTP/SSR lulus; bukan pemeriksaan visual/klik browser.
+
+Untuk perubahan trip: pilih salah satu dari enam kasus, kirim sebagai pemandu, lalu ganti tampilan wisatawan untuk setuju/tolak/belum menjawab. Ulangi untuk melihat pemandu mempertahankan versi lama atau membatalkan penuh. Peta/linimasa tiap versi dapat diperiksa terpisah; versi usulan tidak otomatis mengganti booking selama menunggu.
+
+Untuk reschedule pemandu: gunakan slot 13 Oktober untuk mencoba tenggat baru yang lebih dekat, atau 31 Oktober untuk jadwal lebih jauh. Kontrol simulasi menguji tepat/kurang dari 24 jam, tenggat lewat, serta kapasitas penuh. Pelunasan berhasil belum menerapkan jadwal sampai wisatawan menyetujuinya. Refund penuh mencakup pembayaran pertama, biaya layanan, dan pelunasan bila sudah diterima; pembayaran terlambat dipisahkan.
+
 Jalankan web dengan `pnpm --filter @atur-trip/web dev`, lalu buka tautan di bawah. Semua data, geometri, QRIS, dan status transaksi adalah contoh. State editor/checkout/booking dihapus saat muat ulang; tidak ada akun, reservasi kapasitas, penerbitan listing, atau transfer dana API. Pada Windows dengan pembatasan skrip PowerShell, gunakan `pnpm.cmd`.
 
 ## Status penerimaan
@@ -55,6 +61,6 @@ Booking preview adalah contoh baru dari URL; tidak membawa peserta atau hasil pe
 - [Simpan](http://localhost:3000/saved): isi daftar contoh atau gunakan ikon hati di kartu/detail; cari dan hapus satu/semua. Navigasi antarrute mempertahankan state; muat ulang mengosongkannya.
 - [Notifikasi](http://localhost:3000/notifications): ganti peran/kategori, buka detail, tandai dibaca/belum dibaca, dan uji kosong. Kanal hanya contoh belum dikirim.
 
-Audit navigasi dan titik masuk/kembali tercatat di [navigation-audit.md](navigation-audit.md): 57 URL/target server-rendered tanpa error. Klik browser masih belum diuji.
+Audit navigasi dan titik masuk/kembali tercatat di [navigation-audit.md](navigation-audit.md): 60 URL/target server-rendered tanpa error. Klik browser masih belum diuji.
 
-Typecheck, build, serta 51 tes domain lulus. Respons HTTP/HTML memverifikasi metadata, konteks trip/grup, filter, penjagaan input checkout, dan proyeksi publik. Browser tidak tersedia pada sesi agen: interaksi klik/drag, tampilan mobile, jaringan peta, dan aksesibilitas visual masih perlu ditinjau di browser pengguna. Ini tidak mengubah penerimaan eksplisit yang sudah diberikan.
+Typecheck, build, serta 64 tes domain lulus. Respons HTTP/HTML memverifikasi metadata, konteks trip/grup, filter, penjagaan input checkout, dan proyeksi publik. Browser tidak tersedia pada sesi agen: interaksi klik/drag, tampilan mobile, jaringan peta, dan aksesibilitas visual masih perlu ditinjau di browser pengguna. Ini tidak mengubah penerimaan eksplisit yang sudah diberikan.

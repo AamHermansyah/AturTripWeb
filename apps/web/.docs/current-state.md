@@ -4,7 +4,13 @@ Terakhir ditinjau untuk mockup akun, Explore, detail trip/grup, galeri/ulasan, c
 
 ## Status umum
 
-AturTrip berada pada fase **prototipe UI/UX dengan data contoh**. Ada 40 route `page.tsx` di `apps/web/app`, termasuk redirect `/` dan halaman percakapan yang masih berupa kerangka. Jumlah halaman tidak sama dengan jumlah fitur siap pakai.
+AturTrip berada pada fase **prototipe UI/UX dengan data contoh**. Ada 43 route `page.tsx` di `apps/web/app`, termasuk redirect `/` dan halaman percakapan yang masih berupa kerangka. Jumlah halaman tidak sama dengan jumlah fitur siap pakai.
+
+Revisi 4 Oktober 2026: UI mobile dirapikan menurut [audit desain](mobile-ui-review.md). Tiga gambar konsep tersedia; implementasi memakai bagian yang lebih datar, foto/kartu yang lebih jelas, navigasi kembali tunggal, form/editor yang lebih ringkas, dan safe area action bar. Tampilan baru masih menunggu penerimaan eksplisit. Build/lint/TypeScript lulus; 64 tes domain dan audit HTTP/SSR 60 URL lulus. Browser visual dan Lighthouse belum tersedia.
+
+Tiga route baru: `/guide-mode/changes` (draf pemandu), `/booking/changes` (contoh usulan penting menunggu wisatawan), dan `/booking/guide-reschedule` (usulan jadwal dari pemandu). Perbandingan versi memakai metrik garis tepat yang dihitung di server, tetapi hanya peta publik tersamar dikirim ke browser. Enam kasus: koreksi kecil, waktu rute +20%, rute memutar ≥20%, risiko/medan, titik temu, dan kegiatan inti/moda. Diam mempertahankan versi lama; setuju menerapkan usulan; tolak atau pemandu membatalkan memberi simulasi refund seluruh pembayaran termasuk biaya layanan.
+
+Reschedule pemandu memeriksa batas tepat 24 jam terhadap tenggat DP baru, meminta pelunasan bila terlalu dekat/lewat, memeriksa ulang kapasitas saat persetujuan, dan memisahkan refund pelunasan terlambat. Satu contoh booking dibuat ulang tiap halaman; state lintas halaman tidak tersinkronisasi. Versi/kapasitas/snapshot/kanal/pembayaran/refund belum berasal dari API. Kedua fitur baru belum mendapat penerimaan pemilik produk.
 
 | Area                | Yang sudah tampak di kode                                                                                                                   | Batas saat ini                                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |

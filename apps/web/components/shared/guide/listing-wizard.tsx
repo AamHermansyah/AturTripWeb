@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react"
 import Link from "next/link"
+import { PreviewNotice } from "@/components/shared/preview-notice"
 import Image from "next/image"
 import { ArrowUpIcon, TrashIcon, PlusIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
@@ -83,12 +84,12 @@ export function ListingWizard({ initialPlan }: { initialPlan: TripPlan }) {
     else { setActive(snapshot); setStatus("approved"); setMessage("Koreksi kecil diterapkan pada versi aktif contoh. Snapshot booking lama tidak berubah.") }
   }
   const infoFields: { key: "title" | "location" | "description" | "preparation" | "included"; label: string; multiline?: boolean }[] = [{ key: "title", label: "Nama trip" }, { key: "location", label: "Lokasi kegiatan" }, { key: "description", label: "Deskripsi", multiline: true }, { key: "preparation", label: "Persiapan dan risiko", multiline: true }, { key: "included", label: "Fasilitas termasuk / tidak termasuk", multiline: true }]
-  return <main className="flex flex-col gap-5 px-5 py-6 pb-12">
+  return <main className="flex flex-col gap-7 px-5 py-6 pb-12">
     <div ref={topRef} aria-hidden="true" />
     <Button asChild variant="ghost" className="w-fit"><Link href="/guide-mode">Kembali ke mode pemandu</Link></Button>
-    <div className="flex flex-col gap-2"><Badge variant={status === "pending" || status === "revision" ? "warning" : "secondary"} className="w-fit">{STATUS_LABELS[status]}</Badge><h1 className="font-heading text-2xl font-extrabold">Buat listing trip</h1><p className="text-sm text-muted-foreground">Satu draf, dari informasi hingga pengajuan review.</p></div>
-    <Alert><AlertDescription>Seluruh perubahan hanya sementara di halaman ini. Foto tidak diunggah; muat ulang menghapus draf. Persetujuan identitas dan staf di bawah adalah simulasi, bukan penerbitan listing.</AlertDescription></Alert>
-    <nav className="flex flex-wrap gap-2" aria-label="Langkah listing">{STEPS.map((label, index) => <Button key={label} size="sm" variant={step === index ? "default" : "outline"} aria-current={step === index ? "step" : undefined} disabled={locked && index !== 4} onClick={() => goStep(index)}>{index + 1}. {label}</Button>)}</nav>
+    <div className="flex flex-col gap-2"><Badge variant={status === "pending" || status === "revision" ? "warning" : "secondary"} className="w-fit">{STATUS_LABELS[status]}</Badge><h1 className="font-heading text-[1.75rem] font-bold leading-[1.2]">Buat listing trip</h1><p className="text-sm text-muted-foreground">Satu draf, dari informasi hingga pengajuan review.</p></div>
+    <PreviewNotice>Seluruh perubahan hanya sementara di halaman ini. Foto tidak diunggah; muat ulang menghapus draf. Persetujuan identitas dan staf di bawah adalah simulasi, bukan penerbitan listing.</PreviewNotice>
+    <nav className="grid grid-cols-5 gap-1 border-b border-border pb-4" aria-label="Langkah listing">{STEPS.map((label, index) => <Button key={label} size="sm" className="min-h-11 px-1 text-xs" variant={step === index ? "default" : "outline"} aria-current={step === index ? "step" : undefined} disabled={locked && index !== 4} onClick={() => goStep(index)}>{label}</Button>)}</nav>
     {(step === 1 || step === 2) && <p className="text-xs leading-relaxed text-muted-foreground">Gunakan tombol “Gunakan ... dan lanjutkan” untuk menerapkan perubahan editor ke draf listing. Berpindah langkah sebelum menerapkan mengembalikan editor ke rencana/jadwal terakhir yang diterapkan.</p>}
     {active && <Card size="sm"><CardHeader><CardTitle className="text-sm">Versi aktif contoh</CardTitle></CardHeader><CardContent className="text-sm"><p>{active.info.title} · {currency(active.pricing.price)} · {active.availability.capacity} orang</p><p className="mt-2 text-xs text-muted-foreground">Usulan tidak mengganti versi ini sampai disetujui. Syarat booking lama tetap memakai snapshot; persetujuan peserta atas perubahan penting adalah alur terpisah.</p></CardContent></Card>}
     {step === 0 && <section className="flex flex-col gap-5"><h2 className="font-heading text-lg font-extrabold">Informasi dan foto</h2><FieldGroup>

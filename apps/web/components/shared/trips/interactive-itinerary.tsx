@@ -50,13 +50,13 @@ export function InteractiveItinerary({ plan, slot, zone }: { plan: VisiblePlan; 
         </CardContent>
       </Card>}
       <div className="flex items-center justify-between gap-3"><h2 className="font-heading text-lg font-extrabold">Linimasa kegiatan</h2><Badge variant="secondary">{zone}</Badge></div>
-      <ol className="flex flex-col gap-3">
+      <ol className="flex flex-col gap-1">
         {plan.activities.map((activity, index) => {
           const times = activityTimes(activity, slot, zone)
           const active = selection?.kind === "activity" ? selection.id === activity.id : related.some(item => item.id === activity.id)
           return <li key={activity.id}>
-            <button type="button" aria-pressed={active} onClick={() => setSelection({ kind: "activity", id: activity.id })} className={cn("flex w-full gap-3 rounded-3xl border p-4 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none", active ? "border-primary bg-primary/10" : "border-border bg-card hover:bg-muted/40")}>
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
+            <button type="button" aria-pressed={active} onClick={() => setSelection({ kind: "activity", id: activity.id })} className={cn("flex w-full gap-3 rounded-xl border-l-2 px-3 py-4 text-left transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none", active ? "border-primary bg-primary/5" : "border-border bg-transparent hover:bg-secondary/60")}>
+              <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-primary">{index + 1}</span>
               <span className="flex min-w-0 flex-1 flex-col gap-2">
                 <span className="text-xs font-semibold text-primary">{times.start.full}{activity.durationMinutes > 0 && <span className="block text-muted-foreground">hingga {times.end.full}</span>}</span>
                 <span className="font-heading text-sm font-bold">{activity.title}</span>

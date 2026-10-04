@@ -14,8 +14,11 @@ export function HomeHeader() {
 
   const isMainScreen = MAIN_PATHS.includes(pathname)
 
+  // Alur ini memiliki navigasi kembali di dalam halamannya sendiri.
+  if (["/booking/checkout", "/booking/preview", "/booking/changes", "/booking/guide-reschedule", "/account/kyc"].includes(pathname)) return null
+
   return (
-    <header className="sticky top-0 bg-background/90 backdrop-blur-md flex items-center justify-between px-5 py-2 z-50">
+    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b border-border/50 bg-background/95 px-5 backdrop-blur-md">
       {isMainScreen ? (
         <>
           <Logo className="size-10 mb-0" />

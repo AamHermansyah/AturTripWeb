@@ -1,8 +1,3 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { GuideHub } from "@/components/shared/guide/guide-hub"
 
-export default function GuideModePage() {
-  return <main className="flex flex-col gap-5 px-5 py-6 pb-12"><Button asChild variant="ghost" className="w-fit"><Link href="/account">Kembali ke akun</Link></Button><Badge variant="secondary" className="w-fit">Mode pemandu contoh</Badge><h1 className="font-heading text-2xl font-extrabold">Susun perjalananmu</h1><p className="text-sm leading-relaxed text-muted-foreground">Tinjau rencana kegiatan dan ketersediaan sebelum listing diajukan untuk review. Halaman ini memakai data sintetis dan belum terhubung ke akun pemandu.</p><Card><CardHeader><CardTitle>Buat listing trip</CardTitle><CardDescription>Informasi, foto, rencana, jadwal, harga, dan syarat dalam satu draf bertahap.</CardDescription></CardHeader><CardContent><Button asChild className="w-full"><Link href="/guide-mode/listing">Mulai listing contoh</Link></Button></CardContent></Card><Card><CardHeader><CardTitle>Rencana kegiatan dan peta</CardTitle><CardDescription>Pin lokasi, segmen, titik belokan, dan linimasa yang saling terhubung.</CardDescription></CardHeader><CardContent><Button asChild variant="outline" className="w-full"><Link href="/guide-mode/itinerary">Buka editor rencana</Link></Button></CardContent></Card><Card><CardHeader><CardTitle>Jadwal keberangkatan</CardTitle><CardDescription>Lima pola ketersediaan, zona waktu, kapasitas, dan pengecualian tanggal.</CardDescription></CardHeader><CardContent><Button asChild variant="outline" className="w-full"><Link href="/guide-mode/availability">Atur ketersediaan</Link></Button></CardContent></Card></main>
-}
+export default function GuideModePage() { return <GuideHub /> }

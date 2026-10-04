@@ -1,30 +1,44 @@
 {
-  "date": "2026-10-03",
+  "date": "2026-10-04",
   "method": "HTTP and server-rendered links; no browser interaction",
   "seeds": [
-    "/login",
-    "/login?role=guide",
-    "/register",
-    "/register?role=guide",
-    "/forgot-password",
-    "/forgot-password?role=guide",
-    "/verify",
-    "/new-password",
-    "/explore",
-    "/saved",
     "/account",
     "/account/kyc",
-    "/guide-mode",
-    "/guide-mode/listing",
-    "/guide-mode/itinerary",
-    "/guide-mode/availability",
-    "/notifications",
     "/booking",
-    "/booking/preview",
+    "/booking/changes",
     "/booking/checkout?trip=1&slot=evening&participants=2&payment=dp&addons=photo",
+    "/booking/guide-reschedule",
+    "/booking/preview",
+    "/explore",
+    "/forgot-password",
+    "/forgot-password?role=guide",
     "/groups/1",
-    "/groups/1/trips",
     "/groups/1/review",
+    "/groups/1/trips",
+    "/groups/1/trips/1",
+    "/groups/1/trips/1/gallery",
+    "/groups/1/trips/1/review",
+    "/groups/1/trips/2",
+    "/groups/1/trips/2/gallery",
+    "/groups/1/trips/2/review",
+    "/groups/1/trips/3",
+    "/groups/1/trips/3/gallery",
+    "/groups/1/trips/3/review",
+    "/groups/1/trips/4",
+    "/groups/1/trips/4/gallery",
+    "/groups/1/trips/4/review",
+    "/guide-mode",
+    "/guide-mode/availability",
+    "/guide-mode/changes",
+    "/guide-mode/itinerary",
+    "/guide-mode/listing",
+    "/login",
+    "/login?role=guide",
+    "/new-password",
+    "/notifications",
+    "/register",
+    "/register?role=guide",
+    "/saved",
     "/trips/1",
     "/trips/1/gallery",
     "/trips/1/review",
@@ -37,510 +51,637 @@
     "/trips/4",
     "/trips/4/gallery",
     "/trips/4/review",
-    "/groups/1/trips/1",
-    "/groups/1/trips/1/gallery",
-    "/groups/1/trips/1/review",
-    "/groups/1/trips/2",
-    "/groups/1/trips/2/gallery",
-    "/groups/1/trips/2/review",
-    "/groups/1/trips/3",
-    "/groups/1/trips/3/gallery",
-    "/groups/1/trips/3/review",
-    "/groups/1/trips/4",
-    "/groups/1/trips/4/gallery",
-    "/groups/1/trips/4/review"
+    "/verify"
   ],
-  "checked": {
-    "/login": {
+  "checked": 60,
+  "errorCount": 0,
+  "results": [
+    {
+      "path": "/account",
       "status": 200,
-      "error": null,
       "links": [
-        "/forgot-password?role=traveler",
-        "/register?role=traveler"
-      ]
-    },
-    "/login?role=guide": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/forgot-password?role=guide",
-        "/register?role=guide"
-      ]
-    },
-    "/register": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/login?role=traveler"
-      ]
-    },
-    "/register?role=guide": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/login?role=guide"
-      ]
-    },
-    "/forgot-password": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/login?role=traveler"
-      ]
-    },
-    "/forgot-password?role=guide": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/login?role=guide"
-      ]
-    },
-    "/verify": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/forgot-password?role=traveler"
-      ]
-    },
-    "/new-password": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/forgot-password?role=traveler"
-      ]
-    },
-    "/explore": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/notifications",
-        "/my-trips",
-        "/saved",
-        "/explore",
-        "/conversations",
         "/account",
+        "/account/kyc",
+        "/account/security",
+        "/booking",
+        "/conversations",
+        "/explore",
+        "/guide-mode",
+        "/login",
+        "/my-trips",
+        "/profile",
+        "/saved"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/account/kyc",
+      "status": 200,
+      "links": [
+        "/account"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/account/security",
+      "status": 200,
+      "links": [
+        "/account"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking",
+      "status": 200,
+      "links": [
+        "/booking/1",
+        "/booking/1/refund",
+        "/booking/preview",
+        "/explore"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking/1",
+      "status": 200,
+      "links": [
+        "/booking",
+        "/booking/1/reschedule",
+        "/booking/bk-001/input",
+        "/trips/1"
+      ],
+      "h1Count": 0,
+      "errors": []
+    },
+    {
+      "path": "/booking/1/refund",
+      "status": 200,
+      "links": [
+        "/booking/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking/changes",
+      "status": 200,
+      "links": [
+        "/booking/guide-reschedule",
+        "/booking/preview"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking/checkout?trip=1&slot=evening&participants=2&payment=dp&addons=photo",
+      "status": 200,
+      "links": [
+        "/trips/1?slot=evening"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking/guide-reschedule",
+      "status": 200,
+      "links": [
+        "/booking/preview",
+        "/guide-mode"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/booking/preview",
+      "status": 200,
+      "links": [
+        "/booking/changes",
+        "/booking/guide-reschedule",
+        "/trips/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/conversations",
+      "status": 200,
+      "links": [
+        "/account",
+        "/conversations",
+        "/explore",
+        "/my-trips",
+        "/saved"
+      ],
+      "h1Count": 0,
+      "errors": []
+    },
+    {
+      "path": "/explore",
+      "status": 200,
+      "links": [
+        "/account",
+        "/conversations",
+        "/explore",
+        "/groups/1",
+        "/my-trips",
+        "/notifications",
+        "/register?role=guide",
+        "/saved",
         "/trips/1",
         "/trips/2",
         "/trips/3",
-        "/trips/4",
-        "/groups/1",
-        "/register?role=guide"
-      ]
-    },
-    "/saved": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/my-trips",
-        "/saved",
-        "/explore",
-        "/conversations",
-        "/account"
-      ]
-    },
-    "/account": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/my-trips",
-        "/saved",
-        "/explore",
-        "/conversations",
-        "/account",
-        "/profile",
-        "/booking",
-        "/guide-mode",
-        "/account/security",
-        "/account/kyc",
-        "/login"
-      ]
-    },
-    "/account/kyc": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/account"
-      ]
-    },
-    "/guide-mode": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/account",
-        "/guide-mode/listing",
-        "/guide-mode/itinerary",
-        "/guide-mode/availability"
-      ]
-    },
-    "/guide-mode/listing": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/guide-mode"
-      ]
-    },
-    "/guide-mode/itinerary": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/guide-mode"
-      ]
-    },
-    "/guide-mode/availability": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/guide-mode"
-      ]
-    },
-    "/notifications": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore"
-      ]
-    },
-    "/booking": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore",
-        "/booking/preview",
-        "/booking/1",
-        "/booking/1/refund"
-      ]
-    },
-    "/booking/preview": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/booking",
-        "/trips/1"
-      ]
-    },
-    "/booking/checkout?trip=1&slot=evening&participants=2&payment=dp&addons=photo": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/booking",
-        "/trips/1?slot=evening"
-      ]
-    },
-    "/groups/1": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/conversations",
-        "/groups/1/trips",
-        "/groups/1/trips/1",
-        "/groups/1/trips/2",
-        "/groups/1/trips/3",
-        "/groups/1/trips/4",
-        "/groups/1/review"
-      ]
-    },
-    "/groups/1/trips": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1",
-        "/groups/1/trips/1",
-        "/groups/1/trips/2",
-        "/groups/1/trips/3",
-        "/groups/1/trips/4"
-      ]
-    },
-    "/groups/1/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1"
-      ]
-    },
-    "/trips/1": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore",
-        "/trips/1/gallery",
-        "/trips/1/review",
-        "/conversations"
-      ]
-    },
-    "/trips/1/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/1"
-      ]
-    },
-    "/trips/1/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/1"
-      ]
-    },
-    "/trips/2": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore",
-        "/trips/2/gallery",
-        "/trips/2/review",
-        "/conversations"
-      ]
-    },
-    "/trips/2/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/2"
-      ]
-    },
-    "/trips/2/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/2"
-      ]
-    },
-    "/trips/3": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore",
-        "/trips/3/gallery",
-        "/trips/3/review",
-        "/conversations"
-      ]
-    },
-    "/trips/3/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/3"
-      ]
-    },
-    "/trips/3/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/trips/3"
-      ]
-    },
-    "/trips/4": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/explore",
-        "/trips/4/gallery",
-        "/trips/4/review",
-        "/conversations"
-      ]
-    },
-    "/trips/4/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
         "/trips/4"
-      ]
+      ],
+      "h1Count": 1,
+      "errors": []
     },
-    "/trips/4/review": {
+    {
+      "path": "/forgot-password",
       "status": 200,
-      "error": null,
-      "links": [
-        "/trips/4"
-      ]
-    },
-    "/groups/1/trips/1": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips",
-        "/groups/1",
-        "/groups/1/trips/1/gallery",
-        "/groups/1/trips/1/review",
-        "/conversations"
-      ]
-    },
-    "/groups/1/trips/1/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/1"
-      ]
-    },
-    "/groups/1/trips/1/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/1"
-      ]
-    },
-    "/groups/1/trips/2": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips",
-        "/groups/1",
-        "/groups/1/trips/2/gallery",
-        "/groups/1/trips/2/review",
-        "/conversations"
-      ]
-    },
-    "/groups/1/trips/2/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/2"
-      ]
-    },
-    "/groups/1/trips/2/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/2"
-      ]
-    },
-    "/groups/1/trips/3": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips",
-        "/groups/1",
-        "/groups/1/trips/3/gallery",
-        "/groups/1/trips/3/review",
-        "/conversations"
-      ]
-    },
-    "/groups/1/trips/3/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/3"
-      ]
-    },
-    "/groups/1/trips/3/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/3"
-      ]
-    },
-    "/groups/1/trips/4": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips",
-        "/groups/1",
-        "/groups/1/trips/4/gallery",
-        "/groups/1/trips/4/review",
-        "/conversations"
-      ]
-    },
-    "/groups/1/trips/4/gallery": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/4"
-      ]
-    },
-    "/groups/1/trips/4/review": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/groups/1/trips/4"
-      ]
-    },
-    "/account/security": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/account"
-      ]
-    },
-    "/booking/1": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/booking",
-        "/trips/1",
-        "/booking/bk-001/input",
-        "/booking/1/reschedule"
-      ]
-    },
-    "/booking/1/refund": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/booking/1"
-      ]
-    },
-    "/conversations": {
-      "status": 200,
-      "error": null,
-      "links": [
-        "/my-trips",
-        "/saved",
-        "/explore",
-        "/conversations",
-        "/account"
-      ]
-    },
-    "/forgot-password?role=traveler": {
-      "status": 200,
-      "error": null,
       "links": [
         "/login?role=traveler"
-      ]
+      ],
+      "h1Count": 1,
+      "errors": []
     },
-    "/login?role=traveler": {
+    {
+      "path": "/forgot-password?role=guide",
       "status": 200,
-      "error": null,
+      "links": [
+        "/login?role=guide"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/forgot-password?role=traveler",
+      "status": 200,
+      "links": [
+        "/login?role=traveler"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1",
+      "status": 200,
+      "links": [
+        "/conversations",
+        "/groups/1/review",
+        "/groups/1/trips",
+        "/groups/1/trips/1",
+        "/groups/1/trips/2",
+        "/groups/1/trips/3",
+        "/groups/1/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/review",
+      "status": 200,
+      "links": [
+        "/groups/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips",
+      "status": 200,
+      "links": [
+        "/groups/1",
+        "/groups/1/trips/1",
+        "/groups/1/trips/2",
+        "/groups/1/trips/3",
+        "/groups/1/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/1",
+      "status": 200,
+      "links": [
+        "/groups/1",
+        "/groups/1/trips",
+        "/groups/1/trips/1/gallery",
+        "/groups/1/trips/1/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/1/gallery",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/1/review",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/2",
+      "status": 200,
+      "links": [
+        "/groups/1",
+        "/groups/1/trips",
+        "/groups/1/trips/2/gallery",
+        "/groups/1/trips/2/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/2/gallery",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/2"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/2/review",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/2"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/3",
+      "status": 200,
+      "links": [
+        "/groups/1",
+        "/groups/1/trips",
+        "/groups/1/trips/3/gallery",
+        "/groups/1/trips/3/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/3/gallery",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/3"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/3/review",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/3"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/4",
+      "status": 200,
+      "links": [
+        "/groups/1",
+        "/groups/1/trips",
+        "/groups/1/trips/4/gallery",
+        "/groups/1/trips/4/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/4/gallery",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/groups/1/trips/4/review",
+      "status": 200,
+      "links": [
+        "/groups/1/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/guide-mode",
+      "status": 200,
+      "links": [
+        "/account",
+        "/booking/guide-reschedule",
+        "/guide-mode/availability",
+        "/guide-mode/changes",
+        "/guide-mode/itinerary",
+        "/guide-mode/listing"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/guide-mode/availability",
+      "status": 200,
+      "links": [
+        "/guide-mode"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/guide-mode/changes",
+      "status": 200,
+      "links": [
+        "/booking/guide-reschedule",
+        "/guide-mode"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/guide-mode/itinerary",
+      "status": 200,
+      "links": [
+        "/guide-mode"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/guide-mode/listing",
+      "status": 200,
+      "links": [
+        "/guide-mode"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/login",
+      "status": 200,
       "links": [
         "/forgot-password?role=traveler",
         "/register?role=traveler"
-      ]
+      ],
+      "h1Count": 1,
+      "errors": []
     },
-    "/my-trips": {
+    {
+      "path": "/login?role=guide",
       "status": 200,
-      "error": null,
       "links": [
-        "/my-trips",
-        "/saved",
-        "/explore",
-        "/conversations",
+        "/forgot-password?role=guide",
+        "/register?role=guide"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/login?role=traveler",
+      "status": 200,
+      "links": [
+        "/forgot-password?role=traveler",
+        "/register?role=traveler"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/my-trips",
+      "status": 200,
+      "links": [
         "/account",
-        "/my-trips/1"
-      ]
-    },
-    "/profile": {
-      "status": 200,
-      "error": null,
-      "links": [
+        "/conversations",
         "/explore",
-        "/profile/1",
-        "/account/security"
-      ]
+        "/my-trips",
+        "/my-trips/1",
+        "/saved"
+      ],
+      "h1Count": 0,
+      "errors": []
     },
-    "/register?role=traveler": {
+    {
+      "path": "/new-password",
       "status": 200,
-      "error": null,
+      "links": [
+        "/forgot-password?role=traveler"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/notifications",
+      "status": 200,
+      "links": [
+        "/explore"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/profile",
+      "status": 200,
+      "links": [
+        "/account/security",
+        "/explore",
+        "/profile/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/register",
+      "status": 200,
       "links": [
         "/login?role=traveler"
-      ]
+      ],
+      "h1Count": 1,
+      "errors": []
     },
-    "/trips/1?slot=evening": {
+    {
+      "path": "/register?role=guide",
       "status": 200,
-      "error": null,
+      "links": [
+        "/login?role=guide"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/register?role=traveler",
+      "status": 200,
+      "links": [
+        "/login?role=traveler"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/saved",
+      "status": 200,
+      "links": [
+        "/account",
+        "/conversations",
+        "/explore",
+        "/my-trips",
+        "/saved"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/1",
+      "status": 200,
       "links": [
         "/explore",
         "/trips/1/gallery",
-        "/trips/1/review",
-        "/conversations"
-      ]
+        "/trips/1/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/1/gallery",
+      "status": 200,
+      "links": [
+        "/trips/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/1/review",
+      "status": 200,
+      "links": [
+        "/trips/1"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/1?slot=evening",
+      "status": 200,
+      "links": [
+        "/explore",
+        "/trips/1/gallery",
+        "/trips/1/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/2",
+      "status": 200,
+      "links": [
+        "/explore",
+        "/trips/2/gallery",
+        "/trips/2/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/2/gallery",
+      "status": 200,
+      "links": [
+        "/trips/2"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/2/review",
+      "status": 200,
+      "links": [
+        "/trips/2"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/3",
+      "status": 200,
+      "links": [
+        "/explore",
+        "/trips/3/gallery",
+        "/trips/3/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/3/gallery",
+      "status": 200,
+      "links": [
+        "/trips/3"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/3/review",
+      "status": 200,
+      "links": [
+        "/trips/3"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/4",
+      "status": 200,
+      "links": [
+        "/explore",
+        "/trips/4/gallery",
+        "/trips/4/review"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/4/gallery",
+      "status": 200,
+      "links": [
+        "/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/trips/4/review",
+      "status": 200,
+      "links": [
+        "/trips/4"
+      ],
+      "h1Count": 1,
+      "errors": []
+    },
+    {
+      "path": "/verify",
+      "status": 200,
+      "links": [
+        "/forgot-password?role=traveler"
+      ],
+      "h1Count": 1,
+      "errors": []
     }
-  },
-  "errors": {}
+  ]
 }

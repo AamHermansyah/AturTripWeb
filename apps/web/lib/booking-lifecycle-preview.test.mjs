@@ -1,12 +1,23 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { cancellationAmount, canOpenDispute, disputeDeadline, settlementOutcome, travelerReschedule } from "./booking-lifecycle-preview.ts"
+import { cancellationAmount, canOpenDispute, disputeDeadline, guideReschedule, settlementOutcome, travelerReschedule } from "./booking-lifecycle-preview.ts"
 
 const oldStart = Date.parse("2026-10-17T12:00:00Z")
 const old = { id: "old", startsAt: new Date(oldStart).toISOString(), durationMinutes: 360, capacity: 10, remaining: 10, status: "available" }
 const next = { ...old, id: "new", startsAt: "2026-10-24T12:00:00Z" }
 const trip = { cancellation: "moderate", dpDeadlineHours: 72 }
 const oldDeadline = oldStart - 72 * 3600000
+
+test("guide proposals use the new DP deadline and exactly 24 hours still allows later settlement", () => {
+  const newDeadline = Date.parse(next.startsAt) - 72 * 3600000
+  assert.equal(guideReschedule(trip, next, newDeadline - 24 * 3600000, true).requiresSettlement, false)
+  assert.equal(guideReschedule(trip, next, newDeadline - 24 * 3600000 + 1, true).requiresSettlement, true)
+  assert.equal(guideReschedule(trip, next, newDeadline, true).requiresSettlement, true)
+  assert.equal(guideReschedule(trip, next, newDeadline + 1, true).requiresSettlement, true)
+  assert.equal(guideReschedule(trip, next, newDeadline + 1, false).requiresSettlement, false)
+  assert.equal(guideReschedule(trip, next, oldStart - 200 * 3600000, true).nextDeadline, newDeadline)
+  assert.ok(newDeadline > oldDeadline)
+})
 
 test("voluntary and automatic DP cancellation refund only the paid trip and add-ons, never the service fee", () => {
   for (const by of ["traveler", "dp"]) {

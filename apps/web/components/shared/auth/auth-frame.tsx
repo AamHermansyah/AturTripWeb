@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import Logo from "@/components/shared/logo"
-import { Badge } from "@/components/ui/badge"
+import { PageHeading } from "@/components/shared/page-heading"
+import { PreviewNotice } from "@/components/shared/preview-notice"
 
 export function AuthFrame({
   title,
@@ -12,19 +13,11 @@ export function AuthFrame({
   children: ReactNode
 }) {
   return (
-    <main className="flex min-h-dvh flex-col items-center px-6 py-8">
-      <Logo />
-      <Badge variant="secondary">Pratinjau akun</Badge>
-      <h1 className="mt-4 text-center font-heading text-2xl font-extrabold">
-        {title}
-      </h1>
-      <p className="mt-2 text-center text-sm leading-relaxed text-muted-foreground">
-        {description}
-      </p>
-      <div className="mt-6 flex w-full flex-col gap-5">{children}</div>
-      <p className="mt-6 text-center text-xs leading-relaxed text-muted-foreground">
-        Mode contoh. Akun belum disimpan dan pesan verifikasi belum dikirim.
-      </p>
+    <main className="flex min-h-dvh flex-col px-6 py-8">
+      <Logo className="mb-10 size-12" />
+      <PageHeading title={title} description={description} />
+      <div className="mt-8 flex w-full flex-col gap-6">{children}</div>
+      <div className="mt-8"><PreviewNotice>Akun belum disimpan dan pesan verifikasi belum dikirim. Gunakan data contoh untuk meninjau alur.</PreviewNotice></div>
     </main>
   )
 }

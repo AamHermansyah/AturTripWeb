@@ -52,6 +52,8 @@ Kategori pin awal: mulai/titik temu, tujuan, pos, istirahat, air, fasilitas, tem
 
 ## Bukti penyelesaian lintas aplikasi
 
+Catatan mockup web 4 Oktober 2026: `/guide-mode/changes` dan `/booking/changes` membandingkan enam usulan sintetis dengan versi booking awal. Klasifikasi menguji batas jarak/waktu rute ≥20%, termasuk penurunan; urutan daftar inti/moda saja tidak dianggap perubahan substansi. Metrik garis tepat dihitung server, sedangkan geometri yang dikirim tetap keluaran publik tersamar. Persetujuan/penolakan/diam/refund hanya state satu halaman dan belum diterima pemilik produk. Tidak menggantikan snapshot, izin peserta, keputusan klasifikasi, atau pengiriman notifikasi API.
+
 - `apps/web`: editor pin/segmen/kegiatan dan detail trip interaktif berfungsi pada ponsel; tampilan publik serta peserta berbeda sesuai pilihan visibilitas.
 - `apps/api`: satu sumber data untuk kegiatan, pin, dan segmen; validasi relasi, urutan, koordinat, publikasi minimum, kepemilikan listing, serta keluaran publik yang tidak membocorkan koordinat tepat.
 - Integrasi: buat contoh A–B + C mandiri + kegiatan tanpa pin, terbitkan, tampilkan pada detail trip publik, lalu verifikasi tampilan peserta terkonfirmasi dan notifikasi perubahan pada booking yang sudah ada.

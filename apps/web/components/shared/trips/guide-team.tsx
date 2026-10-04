@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { SealCheckIcon, UsersThreeIcon, CaretRightIcon } from "@phosphor-icons/react/dist/ssr"
 
 /** Peran seseorang pada satu trip — berbeda dari peran di komunitas. */
@@ -24,7 +25,7 @@ export interface TripTeamMember {
 
 // Satu gaya untuk semua peran — pembeda cukup teksnya, bukan warnanya.
 const ROLE_BADGE =
-  "shrink-0 self-start rounded-md border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground"
+  "shrink-0 self-start rounded-md border border-border bg-secondary px-2 py-1 text-xs font-semibold text-muted-foreground"
 
 interface GuideTeamProps {
   members: TripTeamMember[]
@@ -45,7 +46,7 @@ export function GuideTeam({ members, description, group }: GuideTeamProps) {
   return (
     <div className="space-y-3">
       <div>
-        <h2 className="font-heading text-lg font-extrabold tracking-tight">
+        <h2 className="font-heading text-lg font-bold tracking-tight">
           Tim Pemandu ({members.length})
         </h2>
         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
@@ -71,15 +72,15 @@ export function GuideTeam({ members, description, group }: GuideTeamProps) {
         </Link>
       )}
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col divide-y divide-border/70">
         {members.map(({ id, name, tripRole, memberRole, specialty, verified, imageUrl }) => (
           <div
             key={id}
-            className="flex items-center gap-3 rounded-3xl border border-border/80 bg-card p-3 shadow-xs"
+            className="flex flex-wrap items-center gap-3 py-4"
           >
             <div className="relative size-12 shrink-0">
               <div className="size-12 overflow-hidden rounded-full bg-muted">
-                <img src={imageUrl} alt={name} className="h-full w-full object-cover" />
+                <Image src={imageUrl} alt={name} width={48} height={48} unoptimized className="h-full w-full object-cover" />
               </div>
               {verified && (
                 <div className="absolute -bottom-0.5 -right-0.5 flex size-4.5 items-center justify-center rounded-full bg-info ring-2 ring-card">

@@ -15,22 +15,23 @@ export function CategoryFilter({
 }) {
   return (
     <ScrollArea>
-      <div className="w-max px-5 pb-4">
+      <div className="w-max px-5 pb-1">
         <ToggleGroup
           type="single"
-          variant="outline"
+          variant="default"
+          className="gap-4 border-b border-border"
           value={active}
           onValueChange={(value) =>
             onChange((value || "all") as ExploreCategory)
           }
           aria-label="Kategori perjalanan"
         >
-          <ToggleGroupItem value="all">
+          <ToggleGroupItem value="all" className="min-h-12 rounded-none border-b-2 border-transparent px-1 data-[state=on]:border-primary data-[state=on]:bg-transparent data-[state=on]:text-primary">
             <SquaresFourIcon data-icon="inline-start" />
             Semua
           </ToggleGroupItem>
           {EXPLORE_CATEGORIES.map(({ id, label, icon: Icon }) => (
-            <ToggleGroupItem key={id} value={id}>
+            <ToggleGroupItem key={id} value={id} className="min-h-12 rounded-none border-b-2 border-transparent px-1 data-[state=on]:border-primary data-[state=on]:bg-transparent data-[state=on]:text-primary">
               <Icon
                 data-icon="inline-start"
                 weight={active === id ? "fill" : "regular"}

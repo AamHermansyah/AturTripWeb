@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react"
 import Link from "next/link"
+import { PreviewNotice } from "@/components/shared/preview-notice"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -48,10 +49,10 @@ export function IdentityPreview() {
     { kind: "selfie" as const, label: "Swafoto", value: selfie, description: "Foto wajah yang jelas untuk tinjauan staf. Tidak ditampilkan pada profil publik.", accept: "image/jpeg,image/png,image/webp" },
     { kind: "certificate" as const, label: "Sertifikat (opsional)", value: certificate, description: "Sertifikat bukan syarat minimum identitas. Badge hanya muncul setelah sertifikat disetujui.", accept: "image/jpeg,image/png,image/webp,application/pdf" },
   ]
-  return <main className="flex flex-col gap-5 px-5 py-6 pb-24">
+  return <main className="flex flex-col gap-7 px-5 py-6 pb-24">
     <Button asChild variant="ghost" className="w-fit"><Link href="/account">Kembali ke akun</Link></Button><Badge variant={status === "pending" || status === "revision" ? "warning" : status === "verified" ? "success" : "secondary"} className="w-fit">{STATUS[status]}</Badge>
-    <div><h1 className="font-heading text-2xl font-extrabold">Verifikasi pemandu</h1><p className="mt-2 text-sm leading-relaxed text-muted-foreground">KTP dan swafoto ditinjau staf sebelum penyedia dapat menjual trip.</p></div>
-    <Alert><AlertTitle>Pratinjau verifikasi</AlertTitle><AlertDescription>Berkas tidak diunggah atau disimpan. Halaman ini hanya membaca nama/ukuran berkas; isinya tidak dibaca. Gunakan berkas contoh untuk meninjau alur. Muat ulang menghapus semua pilihan dan status.</AlertDescription></Alert>
+    <div><h1 className="font-heading text-[1.75rem] font-bold leading-[1.2]">Verifikasi pemandu</h1><p className="mt-2 text-sm leading-relaxed text-muted-foreground">KTP dan swafoto ditinjau staf sebelum penyedia dapat menjual trip.</p></div>
+    <PreviewNotice>Berkas tidak diunggah atau disimpan. Halaman ini hanya membaca nama/ukuran berkas; isinya tidak dibaca. Gunakan berkas contoh untuk meninjau alur. Muat ulang menghapus semua pilihan dan status.</PreviewNotice>
     <FieldGroup><Field><FieldLabel htmlFor={`${id}-role`}>Peran contoh</FieldLabel><Select value={role} disabled={locked} onValueChange={setRole}><SelectTrigger id={`${id}-role`} className="w-full"><SelectValue /></SelectTrigger><SelectContent><SelectGroup><SelectItem value="individual">Pemandu individu</SelectItem><SelectItem value="owner">Pemilik grup</SelectItem><SelectItem value="member">Pemandu anggota grup</SelectItem></SelectGroup></SelectContent></Select><FieldDescription>{role === "member" ? "Pemandu yang memimpin harus ditetapkan dan terverifikasi sebelum slot grup dijual." : role === "owner" ? "Pemilik grup perlu terverifikasi. Pemandu anggota yang memimpin juga wajib memenuhi syarat." : "Identitas disetujui belum berarti setiap listing baru dapat langsung terbit."}</FieldDescription></Field>
       <Field><FieldLabel htmlFor={`${id}-name`}>Nama sesuai identitas</FieldLabel><Input id={`${id}-name`} maxLength={120} autoComplete="name" disabled={locked} value={name} onChange={event => setName(event.target.value)} /></Field>
       {fields.map(field => <Field key={field.kind}><FieldLabel htmlFor={`${id}-${field.kind}`}>{field.label}</FieldLabel><Input id={`${id}-${field.kind}`} type="file" accept={field.accept} disabled={locked} onChange={event => { choose(event.target.files?.[0], field.kind); event.target.value = "" }} /><FieldDescription>{field.description} Batas contoh 10 MB.</FieldDescription>{field.value && <div className="flex min-w-0 items-center gap-2 rounded-xl border p-3"><p className="min-w-0 flex-1 truncate text-xs">{field.value.name} · {field.value.example ? "berkas contoh" : `${Math.ceil(field.value.size / 1024)} KB`}</p><Button size="sm" variant="ghost" disabled={locked} onClick={() => { if (field.kind === "ktp") setKtp(null); else if (field.kind === "selfie") setSelfie(null); else { setCertificate(null); setCertificateStatus("none") } }}>Hapus</Button></div>}</Field>)}

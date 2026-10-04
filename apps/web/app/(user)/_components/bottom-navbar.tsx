@@ -22,8 +22,8 @@ export function BottomNavbar({ children }: IProps) {
         <div className={cn(isVisible ? "pb-30" : "pb-5")} />
       </div>
       {isVisible && (
-        <div className="fixed bottom-0 left-1/2 z-50 w-full max-w-84 -translate-x-1/2 px-4 pb-5">
-          <nav aria-label="Navigasi utama" className="flex items-center justify-center rounded-4xl border border-border bg-card/90 px-2 py-2 shadow-lg backdrop-blur-md">
+        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-sm -translate-x-1/2">
+          <nav aria-label="Navigasi utama" className="flex items-center justify-center border-t border-border bg-card px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href
 
@@ -33,7 +33,7 @@ export function BottomNavbar({ children }: IProps) {
                   href={href}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "group flex flex-1 flex-col items-center gap-1 rounded-xl p-1 transition-[color,scale] duration-200 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-95",
+                    "group flex min-h-12 flex-1 flex-col items-center gap-1 rounded-xl p-1 transition-[color,scale] duration-200 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-95",
                     isActive ? "text-primary" : "text-muted-foreground"
                   )}
                 >
@@ -51,7 +51,7 @@ export function BottomNavbar({ children }: IProps) {
                   </div>
                   <span
                     className={cn(
-                      "text-[11px] leading-none",
+                      "text-xs leading-none",
                       isActive ? "font-bold" : "font-medium"
                     )}
                   >

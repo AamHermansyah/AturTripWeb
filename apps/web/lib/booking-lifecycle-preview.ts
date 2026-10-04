@@ -17,6 +17,11 @@ export function travelerReschedule(trip: BookingPreview, oldSlot: DepartureSlot,
   }
 }
 
+export function guideReschedule(trip: BookingPreview, newSlot: DepartureSlot, acceptedAt: number, hasRemaining: boolean) {
+  const nextDeadline = dpDeadline(newSlot, trip)
+  return { nextDeadline, requiresSettlement: hasRemaining && nextDeadline - acceptedAt < 24 * 3600000 }
+}
+
 export function disputeDeadline(slot: DepartureSlot): number {
   return Date.parse(slot.startsAt) + slot.durationMinutes * 60000 + 48 * 3600000
 }

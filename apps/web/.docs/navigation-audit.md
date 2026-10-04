@@ -1,5 +1,7 @@
 # Audit navigasi mockup — 3 Oktober 2026
 
+Audit ulang 4 Oktober 2026 pada server build produksi: **60 URL unik tanpa error**, termasuk tiga route perubahan/reschedule baru. Titik masuk: hub pemandu → perubahan/usulan jadwal; detail booking contoh → kedua alur. Tiap alur memiliki navigasi kembali dan kontrol peran pada state contoh yang sama. Header kembali ganda pada checkout, detail booking, perubahan, reschedule, dan KYC dihilangkan. Safe area bawah navbar/action bar diperhitungkan dalam CSS. Skrip [audit-navigation.py](../scripts/audit-navigation.py) memeriksa status HTTP, payload tidak ditemukan/error SSR, tautan internal, serta sentinel koordinat privat pada keluaran publik perubahan trip. Audit masih tidak menjalankan klik, keyboard, atau menilai layout browser.
+
 Permintaan pemilik produk: semua halaman baru memiliki navigasi yang baik sebelum commit/push. Audit memulai dari 47 URL, mengambil seluruh tautan internal hasil HTML server, dan memeriksa **57 URL unik tanpa error**. Target dianggap gagal bila HTTP 404, payload `notFound`, atau error server render muncul meski status HTTP 200.
 
 | Jalur | Titik masuk | Kembali/lanjut |

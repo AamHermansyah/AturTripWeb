@@ -70,11 +70,12 @@ export function ExploreContent({
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="px-5 pt-5">
-        <h1 className="font-heading text-3xl leading-tight font-extrabold">
+    <div className="flex flex-col gap-7">
+      <div className="px-5 pt-6">
+        <h1 className="max-w-80 font-heading text-[1.75rem] font-bold leading-[1.2] tracking-tight">
           Temukan petualangan <span className="text-primary">berikutmu!</span>
         </h1>
+        <p className="mt-3 text-sm text-muted-foreground">Perjalanan bersama pemandu lokal.</p>
       </div>
       <div>
         <ExploreSearch
@@ -153,7 +154,7 @@ export function ExploreContent({
           </p>
         </section>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-9">
           <FeaturedJourneys
             onViewAll={() => update({ ...state, viewAll: true })}
           />

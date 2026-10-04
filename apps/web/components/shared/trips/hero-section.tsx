@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { MapPinIcon, ArrowLeftIcon } from "@phosphor-icons/react"
 import Link from "next/link"
+import Image from "next/image"
 import { SaveTripButton } from "./save-trip-button"
 import { ShareTripButton } from "./share-trip-button"
 import type { SavedTripPreview } from "./saved-preview-provider"
@@ -35,24 +36,18 @@ export function HeroSection({
   backHref = "/explore",
 }: HeroSectionProps) {
   return (
-    <div className="relative h-65 w-full">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
-
-      {/* Action Buttons Top Right */}
+    <header>
+      <div className="relative aspect-[16/11] w-full overflow-hidden bg-muted">
+      <Image src={imageUrl} alt={title} fill sizes="(max-width: 430px) 100vw, 430px" priority unoptimized className="object-cover" />
       <div className={cn(
-        'absolute top-0 inset-x-0 px-5 py-2 pt-4 flex items-center gap-3 z-10',
+        'absolute top-0 inset-x-0 px-5 pt-[max(1rem,env(safe-area-inset-top))] flex items-center gap-3',
         backButton ? 'justify-between' : 'justify-end'
       )}>
         {backButton && (
           <Button
             variant="outline"
-            size="icon-sm"
-            className="text-white border-none bg-black/40 hover:bg-black/60 hover:text-white"
+            size="icon"
+            className="border-white/40 bg-zinc-950/65 text-white hover:bg-zinc-950/80 hover:text-white"
             asChild
             aria-label="Kembali"
           >
@@ -64,25 +59,23 @@ export function HeroSection({
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-0 w-full px-5 flex flex-col gap-2 z-10">
-        <div className="flex flex-wrap items-center gap-2">
-          {badge}
-          <div className="inline-flex items-center gap-1.5 bg-zinc-800/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg w-fit text-white">
-            <MapPinIcon weight="fill" className="size-4 text-zinc-300" />
-            <span className="text-xs font-semibold text-zinc-200">
+      </div>
+      <div className="flex flex-col gap-3 px-5 pt-6">
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <MapPinIcon className="size-4 shrink-0 text-primary" />
+            <span>
               {location}
             </span>
           </div>
-        </div>
-
-        <h1 className="font-heading text-white text-2xl font-bold leading-[1.2] tracking-tight">
+        <h1 className="font-heading text-[1.75rem] font-bold leading-[1.2] tracking-tight">
           {title}
         </h1>
 
         {subtitle && (
-          <p className="text-xs font-medium text-zinc-300">{subtitle}</p>
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
         )}
+        {badge && <div className="flex">{badge}</div>}
       </div>
-    </div>
+    </header>
   )
 }

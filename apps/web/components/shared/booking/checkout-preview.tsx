@@ -4,7 +4,6 @@ import { useEffect, useId, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { ArrowLeftIcon, CheckCircleIcon, QrCodeIcon, ClockIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Field, FieldGroup, FieldLabel, FieldDescription } from "@/components/ui/field"
@@ -17,6 +16,8 @@ import { CancellationTerms } from "./cancellation-terms"
 import { currency, CHECKOUT_HOLD_MS, dpAvailable, dpDeadline, holdSeconds, paymentOutcome, previewPrice, validatePreviewBooking, type BookingPreview, type PreviewPaymentStatus } from "@/lib/booking-preview"
 import { tripMoment, type DepartureSlot } from "@/lib/trip-plan"
 import { normalizeIdentity } from "@/lib/auth-preview"
+import { PageHeading } from "@/components/shared/page-heading"
+import { PreviewNotice } from "@/components/shared/preview-notice"
 
 export function CheckoutPreview({ booking, slot, participants, addonIds, initialPayment, detailHref }: {
   booking: BookingPreview; slot: DepartureSlot; participants: number; addonIds: string[]; initialPayment: "full" | "dp"; detailHref: string
@@ -61,13 +62,13 @@ export function CheckoutPreview({ booking, slot, participants, addonIds, initial
   }
   function restart() { setHoldUntil(null); setStatus("pending"); setError(null); setAgreed(false); setNow(Date.now()) }
 
-  return <main className="flex flex-col gap-5 px-5 py-6 pb-28">
+  return <main className="flex flex-col gap-7 px-5 py-6 pb-12">
     <Button asChild variant="ghost" className="w-fit"><Link href={`${detailHref}?slot=${slot.id}`}><ArrowLeftIcon data-icon="inline-start" />Kembali ke trip</Link></Button>
-    <div className="flex flex-col gap-2"><Badge variant="secondary" className="w-fit">Pratinjau pemesanan</Badge><h1 className="font-heading text-2xl font-extrabold">{holdUntil === null ? "Data peserta" : displayedStatus === "pending" ? "Pembayaran QRIS" : "Hasil pemesanan"}</h1><p className="text-sm text-muted-foreground">{booking.title} · {participants} orang · {booking.listingType}</p></div>
-    <Alert><AlertDescription>Seluruh alur di halaman ini adalah simulasi. Data peserta hanya berada di halaman ini dan hilang saat dimuat ulang. Gunakan data contoh untuk review.</AlertDescription></Alert>
+    <PageHeading title={holdUntil === null ? "Data peserta" : displayedStatus === "pending" ? "Pembayaran QRIS" : "Hasil pemesanan"} description={<>{booking.title}<span className="mt-1 block">{participants} peserta · {booking.listingType}</span></>} />
+    <PreviewNotice>Seluruh alur di halaman ini adalah simulasi. Data peserta hanya berada di halaman ini dan hilang saat dimuat ulang. Gunakan data contoh untuk review.</PreviewNotice>
     <Card size="sm"><CardHeader><CardTitle>Jadwal pilihan</CardTitle><CardDescription>Tipe {booking.listingType} ditetapkan penyedia.</CardDescription></CardHeader><CardContent><dl className="flex flex-col gap-3 text-sm"><div><dt className="text-muted-foreground">Mulai</dt><dd className="font-semibold">{tripMoment(start, booking.zone).full}</dd></div><div><dt className="text-muted-foreground">Selesai</dt><dd className="font-semibold">{tripMoment(start + slot.durationMinutes * 60000, booking.zone).full}</dd></div></dl></CardContent></Card>
     {holdUntil === null ? <form onSubmit={beginPayment} className="flex flex-col gap-5">
-      <FieldGroup>{people.map((person, index) => <Card key={index} size="sm"><CardHeader><CardTitle>Peserta ke-{index + 1}</CardTitle></CardHeader><CardContent><FieldGroup><Field><FieldLabel htmlFor={`${id}-name-${index}`}>Nama lengkap</FieldLabel><Input id={`${id}-name-${index}`} value={person.name} maxLength={100} required autoComplete="off" onChange={event => setPeople(current => current.map((item, i) => i === index ? { ...item, name: event.target.value } : item))} /></Field><Field><FieldLabel htmlFor={`${id}-phone-${index}`}>Nomor HP</FieldLabel><Input id={`${id}-phone-${index}`} type="tel" inputMode="tel" value={person.phone} required maxLength={20} autoComplete="off" placeholder="Contoh: 081234567890" onChange={event => setPeople(current => current.map((item, i) => i === index ? { ...item, phone: event.target.value } : item))} /></Field></FieldGroup></CardContent></Card>)}
+      <FieldGroup>{people.map((person, index) => <Card key={index} variant="plain" size="sm"><CardHeader><CardTitle>Peserta ke-{index + 1}</CardTitle></CardHeader><CardContent><FieldGroup><Field><FieldLabel htmlFor={`${id}-name-${index}`}>Nama lengkap</FieldLabel><Input id={`${id}-name-${index}`} value={person.name} maxLength={100} required autoComplete="off" onChange={event => setPeople(current => current.map((item, i) => i === index ? { ...item, name: event.target.value } : item))} /></Field><Field><FieldLabel htmlFor={`${id}-phone-${index}`}>Nomor HP</FieldLabel><Input id={`${id}-phone-${index}`} type="tel" inputMode="tel" value={person.phone} required maxLength={20} autoComplete="off" placeholder="Contoh: 081234567890" onChange={event => setPeople(current => current.map((item, i) => i === index ? { ...item, phone: event.target.value } : item))} /></Field></FieldGroup></CardContent></Card>)}
         <Field><FieldLabel htmlFor={`${id}-notes`}>Catatan untuk pemandu (opsional)</FieldLabel><Textarea id={`${id}-notes`} value={notes} onChange={event => setNotes(event.target.value)} maxLength={500} placeholder="Kebutuhan atau informasi untuk persiapan perjalanan" /></Field>
         <Field><FieldLabel>Opsi pembayaran</FieldLabel><RadioGroup value={effectivePayment} onValueChange={value => setPayment(value as "full" | "dp")}><Field orientation="horizontal"><RadioGroupItem id={`${id}-full`} value="full" /><FieldLabel htmlFor={`${id}-full`}>Bayar penuh</FieldLabel></Field>{canDp && <Field orientation="horizontal"><RadioGroupItem id={`${id}-dp`} value="dp" /><FieldLabel htmlFor={`${id}-dp`}>DP {Math.round((booking.dpRate ?? 0) * 100)}%</FieldLabel></Field>}</RadioGroup><FieldDescription>{canDp ? "Seluruh biaya layanan dibayar pada DP pertama." : "DP tidak tersedia. Waktu menuju tenggat pelunasan harus sedikitnya 24 jam."}</FieldDescription></Field>
       </FieldGroup>
